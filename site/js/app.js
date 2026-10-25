@@ -17,7 +17,7 @@ function moduleCard(module) {
   return `<a class="module-card" href="#/modules/${module.id}">
     <div class="card-top"><span class="module-code">${module.code}</span><span class="card-arrow">↗</span></div>
     <h3>${module.title}</h3><p class="topic-label">Module topics</p>
-    <ul class="course-topics">${(module.curriculumTopics || module.topics).map(topic => `<li>${topic}</li>`).join('')}</ul>
+    <ul class="course-topics">${module.topics.map(topic => `<li>${topic}</li>`).join('')}</ul>
     <div class="card-bottom"><span class="${available ? 'available' : ''}">${available ? `${count(available, 'demonstration')} available` : 'Demonstrations coming soon'}</span><span>Open module →</span></div>
   </a>`;
 }
