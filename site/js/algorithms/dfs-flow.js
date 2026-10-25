@@ -5,7 +5,8 @@ export const nodes = {
     "y": 65,
     "w": 110,
     "h": 38,
-    "label": "PARAM\ncurrent"
+    "label": "PARAM\ncurrent",
+    "role": "parameter"
   },
   "BOUNDS": {
     "type": "decision",
@@ -13,7 +14,8 @@ export const nodes = {
     "y": 130,
     "w": 125,
     "h": 58,
-    "label": "current in\nbounds?"
+    "label": "current in\nbounds?",
+    "role": "decision"
   },
   "WALL": {
     "type": "decision",
@@ -21,7 +23,8 @@ export const nodes = {
     "y": 220,
     "w": 125,
     "h": 58,
-    "label": "current is\nwall?"
+    "label": "current is\nwall?",
+    "role": "decision"
   },
   "VISITED": {
     "type": "decision",
@@ -29,7 +32,8 @@ export const nodes = {
     "y": 310,
     "w": 125,
     "h": 58,
-    "label": "current is\nvisited?"
+    "label": "current is\nvisited?",
+    "role": "decision"
   },
   "EXIT": {
     "type": "decision",
@@ -37,7 +41,8 @@ export const nodes = {
     "y": 400,
     "w": 125,
     "h": 58,
-    "label": "current is\nexit?"
+    "label": "current is\nexit?",
+    "role": "decision"
   },
   "MARK": {
     "type": "process",
@@ -45,7 +50,8 @@ export const nodes = {
     "y": 480,
     "w": 200,
     "h": 50,
-    "label": "mark current as visited\nrow = current[0]\ncol = current[1]"
+    "label": "mark current as visited\nrow = current[0]\ncol = current[1]",
+    "role": "process"
   },
   "UP": {
     "type": "subroutine",
@@ -53,7 +59,8 @@ export const nodes = {
     "y": 550,
     "w": 195,
     "h": 40,
-    "label": "check_up =\nsolve(row - 1, col)"
+    "label": "check_up =\nsolve(row - 1, col)",
+    "role": "predefined"
   },
   "CHECK_UP": {
     "type": "decision",
@@ -61,7 +68,8 @@ export const nodes = {
     "y": 625,
     "w": 125,
     "h": 62,
-    "label": "check_up is\nTrue?"
+    "label": "check_up is\nTrue?",
+    "role": "decision"
   },
   "DOWN": {
     "type": "subroutine",
@@ -69,7 +77,8 @@ export const nodes = {
     "y": 625,
     "w": 195,
     "h": 40,
-    "label": "check_down =\nsolve(row + 1, col)"
+    "label": "check_down =\nsolve(row + 1, col)",
+    "role": "predefined"
   },
   "CHECK_DOWN": {
     "type": "decision",
@@ -77,7 +86,8 @@ export const nodes = {
     "y": 545,
     "w": 125,
     "h": 62,
-    "label": "check_down\nis True?"
+    "label": "check_down\nis True?",
+    "role": "decision"
   },
   "RIGHT": {
     "type": "subroutine",
@@ -85,7 +95,8 @@ export const nodes = {
     "y": 455,
     "w": 195,
     "h": 40,
-    "label": "check_right =\nsolve(row, col + 1)"
+    "label": "check_right =\nsolve(row, col + 1)",
+    "role": "predefined"
   },
   "CHECK_RIGHT": {
     "type": "decision",
@@ -93,7 +104,8 @@ export const nodes = {
     "y": 375,
     "w": 125,
     "h": 62,
-    "label": "check_right\nis True?"
+    "label": "check_right\nis True?",
+    "role": "decision"
   },
   "LEFT": {
     "type": "subroutine",
@@ -101,7 +113,8 @@ export const nodes = {
     "y": 285,
     "w": 195,
     "h": 40,
-    "label": "check_left =\nsolve(row, col - 1)"
+    "label": "check_left =\nsolve(row, col - 1)",
+    "role": "predefined"
   },
   "CHECK_LEFT": {
     "type": "decision",
@@ -109,7 +122,8 @@ export const nodes = {
     "y": 205,
     "w": 125,
     "h": 62,
-    "label": "check_left\nis True?"
+    "label": "check_left\nis True?",
+    "role": "decision"
   },
   "FALSE_BOUNDS": {
     "type": "io",
@@ -117,7 +131,8 @@ export const nodes = {
     "y": 130,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nFalse"
+    "label": "RETURN\nFalse",
+    "role": "return"
   },
   "FALSE_WALL": {
     "type": "io",
@@ -125,7 +140,8 @@ export const nodes = {
     "y": 220,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nFalse"
+    "label": "RETURN\nFalse",
+    "role": "return"
   },
   "FALSE_VISITED": {
     "type": "io",
@@ -133,7 +149,8 @@ export const nodes = {
     "y": 310,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nFalse"
+    "label": "RETURN\nFalse",
+    "role": "return"
   },
   "TRUE_EXIT": {
     "type": "io",
@@ -141,7 +158,8 @@ export const nodes = {
     "y": 400,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nTrue"
+    "label": "RETURN\nTrue",
+    "role": "return"
   },
   "TRUE_UP": {
     "type": "io",
@@ -149,7 +167,8 @@ export const nodes = {
     "y": 625,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nTrue"
+    "label": "RETURN\nTrue",
+    "role": "return"
   },
   "TRUE_DOWN": {
     "type": "io",
@@ -157,7 +176,8 @@ export const nodes = {
     "y": 545,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nTrue"
+    "label": "RETURN\nTrue",
+    "role": "return"
   },
   "TRUE_RIGHT": {
     "type": "io",
@@ -165,7 +185,8 @@ export const nodes = {
     "y": 375,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nTrue"
+    "label": "RETURN\nTrue",
+    "role": "return"
   },
   "TRUE_LEFT": {
     "type": "io",
@@ -173,7 +194,8 @@ export const nodes = {
     "y": 205,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nTrue"
+    "label": "RETURN\nTrue",
+    "role": "return"
   },
   "FALSE_END": {
     "type": "io",
@@ -181,6 +203,7 @@ export const nodes = {
     "y": 115,
     "w": 100,
     "h": 38,
-    "label": "RETURN\nFalse"
+    "label": "RETURN\nFalse",
+    "role": "return"
   }
 };

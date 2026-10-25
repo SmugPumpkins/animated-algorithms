@@ -44,7 +44,11 @@ Relative asset URLs and hash-based navigation support project subdirectories and
 
 Each demonstration module exports `mount(root)`. It renders into the supplied element and returns a cleanup function to remove listeners and cancel animation work when navigating away. The generic home and module pages are generated from the registry. Keep algorithm logic independent of the DOM, as in `dfs-engine.js`, so it can be tested directly.
 
-SVG keeps diagrams sharp at any display size. There are no runtime packages or external fonts. Colours and layout are in `site/styles.css` for the next design iteration.
+SVG keeps diagrams sharp at any display size. There are no runtime packages. Tourney, Aldrich, Turret Road, and Tilt Neon load from Google Fonts, with system fallbacks. Code and terminal text use Consolas.
+
+## Styling and flowchart conventions
+
+Follow the [design system](docs/design-system.md) for all current and future demonstrations. It documents the retro neon theme, font roles, required flowchart colours, and active-instruction styling. Shared theme files are `site/neon.css` and `site/flowcharts.css`; every flowchart node must declare its semantic role independently of its shape.
 
 ## Verify
 
