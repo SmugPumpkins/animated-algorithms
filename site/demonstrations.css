@@ -90,7 +90,7 @@
   #demonstration:fullscreen .visual-grid { height: auto; min-height: 0; padding: 12px; }
   #demonstration:fullscreen .teaching-notes { display: none; }
   #demonstration:fullscreen .workspace-bar { padding: 8px 16px; }
-  #demonstration:fullscreen .explanation { height: 48px; min-height: 48px; padding: 8px 16px; }
+  #demonstration:fullscreen .explanation { height: 76px; min-height: 76px; padding: 8px 16px; }
   #demonstration:fullscreen .transport { min-height: 0; padding: 10px 16px; }
   #demonstration:fullscreen .keyboard-hint { display: none; }
   #demonstration:fullscreen .timeline { margin-bottom: 8px; }

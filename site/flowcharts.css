@@ -47,7 +47,10 @@
   stroke: var(--node-color);
   stroke-width: 3.5;
   stroke-dasharray: 7 3;
-  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--node-color) 65%, transparent));
+  filter:
+    drop-shadow(0 0 3px var(--node-color))
+    drop-shadow(0 0 10px color-mix(in srgb, var(--node-color) 85%, transparent))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--node-color) 50%, transparent));
 }
 
 .flow-node.active > path { stroke: var(--node-color); stroke-width: 2; }
@@ -56,6 +59,8 @@
 .flow-edges > path { stroke: #8884a9; }
 .flowchart marker path { fill: #aaa5c7; }
 .flowchart .edge-label { fill: #bcb7d5; }
+.learning-flow .flowchart text { font-size: 16px; }
+.learning-flow .flowchart .edge-label { font-size: 14px; }
 
 .flow-legend {
   display: flex;

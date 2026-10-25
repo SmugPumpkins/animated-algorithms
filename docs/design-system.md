@@ -18,6 +18,16 @@ Retro neon: deep midnight surfaces, crisp geometric headings, cyan and pink acce
 
 Font families are defined once as `--font-heading`, `--font-body`, `--font-ui`, `--font-accent`, and `--font-code` in `site/neon.css`. Reuse those variables rather than adding font names in each demonstration. The four web fonts load through Google Fonts with `display=swap`; system fallbacks keep the interface usable when offline or when font requests are blocked. Consolas uses Liberation Mono and Courier New as fallbacks on devices where it is unavailable.
 
+Use a minimum of **16px for body paragraphs, course topic lists, demo explanations and teaching notes**, with 1.6–1.8 line height. Introductory copy can be 18px. Small controls and technical annotations may be smaller; do not shrink paragraphs to make a layout fit. Reserve a stable, sufficiently tall explanation region in fullscreen mode.
+
+The website logo uses `site/favicon.svg` directly so the header and browser icon stay consistent.
+
+## Course content
+
+Keep module cards concise and factual: course code, title, principal program-of-studies topics, and the number of available demonstrations. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
+
+The home-page learning flowchart applies across computer science courses: understand a problem, plan, build and test, debug as needed, and explain the solution. Use the shared semantic palette for this chart as well.
+
 ## Required flowchart colours
 
 Colour communicates the **instruction's role**, independent of its shape, execution state, or Boolean result. This is a project-wide convention for every new flowchart.
@@ -46,7 +56,7 @@ Render a node with `class="flow-node"`, its algorithm-specific `data-node`, and 
 
 ### Active instruction
 
-Toggle the `active` class. Retain the node's semantic hue and use a thicker, dashed border, brighter fill, white text and a static glow to indicate the current instruction. Never replace every active node's colour with a single highlight colour. Borders and text remain legible without the glow. Do not rely on colour alone: keep standard flowchart shapes, readable labels, and the current-instruction explanation.
+Toggle the `active` class. Retain the node's semantic hue and use a thicker, dashed border, brighter fill, white text and a strong layered static glow to indicate the current instruction. The shared glow combines a tight 3px core with 10px and 22px halos. Never replace every active node's colour with a single highlight colour. Borders and text remain legible without the glow. Do not rely on colour alone: keep standard flowchart shapes, readable labels, and the current-instruction explanation.
 
 Use `flowLegend(roles)` from `site/js/flowchart-theme.js` for a consistent colour key. Include the roles present in that diagram. There is no need to add Start, End, or Output nodes to algorithms that do not use them.
 
