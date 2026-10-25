@@ -26,7 +26,7 @@ The website logo uses `site/favicon.svg` directly so the header and browser icon
 
 Keep module cards concise and factual: course code, title, principal program-of-studies topics, and the number of available demonstrations. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
 
-The home-page learning flowchart applies across computer science courses: understand a problem, plan, build and test, debug as needed, and explain the solution. Use the shared semantic palette for this chart as well.
+The home-page flowchart is Plan → Program → Debug → Repeat?, with a Yes branch back to Plan and a No branch to Take a break. Keep it concise and independent of any particular syllabus. Use the shared semantic palette for this chart as well.
 
 ## Required flowchart colours
 

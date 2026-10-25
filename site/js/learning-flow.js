@@ -8,29 +8,25 @@ export function learningFlow() {
         : `<rect x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="${shape === 'terminator' ? h/2 : 5}"/>`;
     return `<g class="flow-node" data-role="${role}">${geometry}<text x="${x}" y="${y-(lines.length-1)*8+5}">${lines.map((line,i)=>`<tspan x="${x}" dy="${i ? 16 : 0}">${line}</tspan>`).join('')}</text></g>`;
   };
-  return `<figure class="learning-flow"><svg class="flowchart" viewBox="0 0 560 565" role="img" aria-labelledby="learning-title learning-description">
-    <title id="learning-title">Learning computer science</title>
-    <desc id="learning-description">Pick a problem, read and ask questions, plan a solution, build and test it. If it fails a test, debug and try again. If it passes, explain why it works and level up.</desc>
+  return `<figure class="learning-flow"><svg class="flowchart" viewBox="0 0 560 520" role="img" aria-labelledby="learning-title learning-description">
+    <title id="learning-title">Plan, program, debug, repeat</title>
+    <desc id="learning-description">Start, plan, program, and debug. Repeat? Yes loops back to plan. No leads to taking a break.</desc>
     <defs><marker id="learning-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
     <g class="flow-edges">
-      <path d="M240 50 V80" marker-end="url(#learning-arrow)"/>
-      <path d="M240 120 V149" marker-end="url(#learning-arrow)"/>
-      <path d="M240 195 V225" marker-end="url(#learning-arrow)"/>
-      <path d="M240 271 V295" marker-end="url(#learning-arrow)"/>
-      <path d="M240 385 V424" marker-end="url(#learning-arrow)"/>
-      <path d="M240 468 V503" marker-end="url(#learning-arrow)"/>
-      <path d="M340 340 H465 V271" marker-end="url(#learning-arrow)"/>
-      <path d="M465 225 V205 H365 V248 H350" marker-end="url(#learning-arrow)"/>
-      <text class="edge-label" x="260" y="409">Yes</text>
-      <text class="edge-label" x="404" y="331">No</text>
+      <path d="M235 48 V81" marker-end="url(#learning-arrow)"/>
+      <path d="M235 127 V157" marker-end="url(#learning-arrow)"/>
+      <path d="M235 203 V233" marker-end="url(#learning-arrow)"/>
+      <path d="M235 279 V317" marker-end="url(#learning-arrow)"/>
+      <path d="M235 403 V440" marker-end="url(#learning-arrow)"/>
+      <path d="M330 360 H470 V104 H345" marker-end="url(#learning-arrow)"/>
+      <text class="edge-label" x="398" y="348">Yes</text>
+      <text class="edge-label" x="260" y="426">No</text>
     </g>
-    ${box('start',240,30,180,40,['Pick a problem.'],'terminator')}
-    ${box('parameter',240,100,220,40,['Read. Ask questions.'],'io')}
-    ${box('process',240,172,220,46,['Plan a solution.'])}
-    ${box('process',240,248,220,46,['Build it. Test it.'])}
-    ${box('decision',240,340,200,90,['Passes every','test case?'],'decision')}
-    ${box('process',465,248,160,46,['Debug.','Again.'])}
-    ${box('output',240,446,220,44,['Explain why it works.'],'io')}
-    ${box('end',240,523,180,40,['Level up.'],'terminator')}
-  </svg><figcaption>The debugging loop is part of the syllabus.</figcaption></figure>`;
+    ${box('start',235,28,180,40,['Start'],'terminator')}
+    ${box('process',235,104,220,46,['Plan'])}
+    ${box('process',235,180,220,46,['Program'])}
+    ${box('process',235,256,220,46,['Debug'])}
+    ${box('decision',235,360,190,86,['Repeat?'],'decision')}
+    ${box('end',235,462,220,44,['Take a break.'],'terminator')}
+  </svg></figure>`;
 }
