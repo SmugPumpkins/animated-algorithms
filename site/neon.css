@@ -290,7 +290,9 @@ h2 { letter-spacing: .2px; }
 .course-topics,
 .module-intro > p:not(.eyebrow),
 .demo-heading p:not(.eyebrow),
-.teaching-notes > div {
+.teaching-notes > div,
+.curriculum-source,
+.learning-flow figcaption {
   font-size: var(--font-reading-size);
   line-height: 1.7;
 }
