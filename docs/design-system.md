@@ -24,6 +24,8 @@ The website logo uses `site/favicon.svg` directly so the header and browser icon
 
 ## Course content
 
+Organize the library as classes → CTS modules → demonstrations. `courses` and `modules` in `site/js/catalog.js` are the source of truth for membership and ordering. Render home sections and class pages from those registries; do not assume there will always be two classes or five modules per class. Keep class titles as supplied by the teacher. Preserve stable module/demo URLs, use class-aware breadcrumbs, and show an honest empty state for modules without demonstrations.
+
 Keep module cards concise and factual: course code, title, principal program-of-studies topics, and the number of available demonstrations. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
 
 The home-page flowchart is Plan → Program → Debug → Repeat?, with a Yes branch back to Plan and a No branch to Take a break. Keep it concise and independent of any particular syllabus. Use the shared semantic palette for this chart as well.

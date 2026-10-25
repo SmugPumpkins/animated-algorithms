@@ -1,6 +1,13 @@
 # Animated Algorithms
 
-A classroom library of interactive CTS Computer Science demonstrations. Start with **CSE 3310 - Recursive Algorithms 1**, then explore depth-first search through a maze with a synchronized flowchart and call stack.
+A classroom library of interactive CTS Computer Science demonstrations, organized into two classes:
+
+| Class | Modules |
+| --- | --- |
+| Computer Science Foundations | CSE 1110, CSE 1120, CSE 1240, CSE 2110, CSE 2120 |
+| Computer Science Certifications | CSE 2130, CSE 3110, CSE 3120, CSE 3130, CSE 3310 |
+
+All modules have a topic overview and their own page. CSE 3310 currently includes the depth-first-search maze, with a synchronized flowchart and call stack. Modules without animations show a clear empty state until demonstrations are added.
 
 ## Run locally
 
@@ -40,7 +47,9 @@ Relative asset URLs and hash-based navigation support project subdirectories and
 
 ## Add modules and demonstrations
 
-`site/js/catalog.js` is the module registry. Add a module with its CTS code, title, topics, and demonstrations, or add another demonstration to an existing module. Each demonstration supplies an ID, description, tags, and a `load` function importing its JavaScript module.
+`site/js/catalog.js` contains two registries: `courses` defines classes and their ordered `moduleIds`; `modules` defines CTS module details and demonstrations. Add a module to `modules` and reference its ID from a class. Add another class by extending `courses`; the home sections, class pages, counts and breadcrumbs update automatically. A module may be referenced by more than one class. Stable module URLs preserve existing links when class membership changes.
+
+Class pages use `#/courses/<class-id>`, module pages use `#/modules/<module-id>`, and demonstration links use `#/demo/<module-id>/<demo-id>`. Each demonstration supplies an ID, description, tags, and a `load` function importing its JavaScript module. Empty demonstration arrays are supported without placeholder links.
 
 Each demonstration module exports `mount(root)`. It renders into the supplied element and returns a cleanup function to remove listeners and cancel animation work when navigating away. The generic home and module pages are generated from the registry. Keep algorithm logic independent of the DOM, as in `dfs-engine.js`, so it can be tested directly.
 
@@ -56,4 +65,4 @@ Follow the [design system](docs/design-system.md) for all current and future dem
 node --test
 ```
 
-Tests cover the solution path, backtracking, base cases, independent snapshots, flowchart instruction coverage, playback timing, looping, and scrubbing. The original reference diagram remains in `recursion/solve.png`.
+Tests cover catalog references, unique URLs, module discoverability, demonstration imports, the solution path, backtracking, base cases, independent snapshots, flowchart instruction coverage, playback timing, looping, and scrubbing. The original reference diagram remains in `recursion/solve.png`.

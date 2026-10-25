@@ -1,45 +1,92 @@
-import { modules } from './catalog.js';
+import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js';
 import { learningFlow } from './learning-flow.js';
+
 const main = document.querySelector('main');
 let cleanup = () => {}, routeVersion = 0;
+const count = (value, noun, plural = `${noun}s`) => `${value} ${value === 1 ? noun : plural}`;
+const demoCount = items => items.reduce((total, module) => total + module.demonstrations.length, 0);
+const curriculumSource = `<p class="curriculum-source">Module topics: <a href="https://education.alberta.ca/media/159479/cse_pos.pdf" target="_blank" rel="noopener">Alberta Computing Science program of studies ↗</a></p>`;
+const thumbnail = `<div class="maze-preview" aria-hidden="true">${Array.from({length: 35}, (_,i) => `<i class="${[8,9,10,15,17,22,23,24,25,26].includes(i) ? 'trail' : ''}">${i === 8 ? '●' : i === 26 ? '↗' : ''}</i>`).join('')}</div>`;
+
 document.querySelector('.skip-link').addEventListener('click', event => {
   event.preventDefault(); main.focus(); main.scrollIntoView();
 });
 
-const thumbnail = `<div class="maze-preview" aria-hidden="true">${Array.from({length: 35}, (_,i) => `<i class="${[8,9,10,15,17,22,23,24,25,26].includes(i) ? 'trail' : ''}">${i === 8 ? '●' : i === 26 ? '↗' : ''}</i>`).join('')}</div>`;
-const crumb = (module, demo = false) => `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Modules</a><span>/</span>${demo ? `<a href="#/modules/${module.id}">${module.code}</a><span>/</span><span>Depth-first search</span>` : `<span>${module.code}</span>`}</nav>`;
+function moduleCard(module) {
+  const available = module.demonstrations.length;
+  return `<a class="module-card" href="#/modules/${module.id}">
+    <div class="card-top"><span class="module-code">${module.code}</span><span class="card-arrow">↗</span></div>
+    <h3>${module.title}</h3><p class="topic-label">Module topics</p>
+    <ul class="course-topics">${(module.curriculumTopics || module.topics).map(topic => `<li>${topic}</li>`).join('')}</ul>
+    <div class="card-bottom"><span class="${available ? 'available' : ''}">${available ? `${count(available, 'demonstration')} available` : 'Demonstrations coming soon'}</span><span>Open module →</span></div>
+  </a>`;
+}
+
+function courseSection(course, standalone = false) {
+  const items = getCourseModules(course);
+  return `<section class="course-section" aria-labelledby="${course.id}-heading">
+    <div class="section-heading"><div><h2 id="${course.id}-heading">${standalone ? 'Modules' : `<a href="#/courses/${course.id}">${course.title}</a>`}</h2>
+      ${standalone ? '' : `<p class="class-description">${course.description}</p>`}</div>
+      <div class="class-summary"><span class="count">${count(items.length, 'module')} · ${count(demoCount(items), 'demonstration')}</span>${standalone ? '' : `<a class="class-link" href="#/courses/${course.id}">View class →</a>`}</div>
+    </div><div class="module-grid">${items.map(moduleCard).join('')}</div>
+  </section>`;
+}
+
+function breadcrumb(module, demo = null) {
+  const course = getCourseForModule(module.id);
+  return `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Classes</a>${course ? `<span>/</span><a href="#/courses/${course.id}">${course.title}</a>` : ''}<span>/</span>${demo ? `<a href="#/modules/${module.id}">${module.code}</a><span>/</span><span>${demo.title}</span>` : `<span>${module.code}</span>`}</nav>`;
+}
+
+function demonstrationCard(module, demo, index) {
+  return `<a class="demo-card" href="#/demo/${module.id}/${demo.id}">
+    <div class="demo-art">${thumbnail}<span class="demo-number">${String(index + 1).padStart(2, '0')}</span></div>
+    <div class="demo-card-body"><h3>${demo.title} <span>↗</span></h3><p>${demo.description}</p>
+      <div class="tags">${demo.tags.map(tag => `<span>${tag}</span>`).join('')}</div>
+      <div class="card-bottom">Open demonstration <span>→</span></div>
+    </div>
+  </a>`;
+}
 
 async function render() {
   const version = ++routeVersion;
   cleanup(); cleanup = () => {};
   const parts = location.hash.slice(1).split('/').filter(Boolean);
-  const module = modules.find(m => m.id === parts[1]);
-  window.scrollTo(0,0);
+  const module = modules.find(module => module.id === parts[1]);
+  const course = courses.find(course => course.id === parts[1]);
+  window.scrollTo(0, 0);
+
   if (parts.length === 0) {
-    document.title = 'Animated Algorithms · Module library';
+    document.title = 'Animated Algorithms · Course library';
     main.innerHTML = `<section class="hero learning-hero">
       <div class="hero-content"><p class="eyebrow"><span class="status-dot"></span> CTS COMPUTER SCIENCE</p>
-      <h1>Computer science.<br><span>Step by step.</span></h1>
-      <p class="hero-copy">Explore interactive demonstrations by course module. Step through the logic, inspect the data, and see what happens next.</p></div>
-      ${learningFlow()}
+        <h1>Computer science.<br><span>Step by step.</span></h1>
+        <p class="hero-copy">Explore interactive demonstrations by class and module. Step through the logic, inspect the data, and see what happens next.</p>
+      </div>${learningFlow()}
     </section>
-    <section class="library" aria-labelledby="modules-heading">
-      <div class="section-heading"><h2 id="modules-heading">Course modules</h2><span class="count">${modules.length} module · ${modules.reduce((n,m)=>n+m.demonstrations.length,0)} demonstration</span></div>
-      <div class="module-grid">${modules.map(m=>`<a class="module-card" href="#/modules/${m.id}">
-        <div class="card-top"><span class="module-code">${m.code}</span><span class="card-arrow">↗</span></div>
-        <h3>${m.title}</h3><p class="topic-label">Course topics</p>
-        <ul class="course-topics">${(m.curriculumTopics || m.topics).map(t=>`<li>${t}</li>`).join('')}</ul>
-        <div class="card-bottom"><span>${m.demonstrations.length} demonstration available</span><span>Open module →</span></div>
-      </a>`).join('')}</div>
-      <p class="curriculum-source">Course topics: <a href="https://education.alberta.ca/media/159479/cse_pos.pdf" target="_blank" rel="noopener">Alberta Computing Science program of studies ↗</a></p>
+    <section class="library" aria-labelledby="classes-heading">
+      <div class="section-heading"><h2 id="classes-heading">Classes & modules</h2><span class="count">${count(courses.length, 'class', 'classes')} · ${count(modules.length, 'module')} · ${count(demoCount(modules), 'demonstration')}</span></div>
+      <nav class="class-navigation" aria-label="Browse by class">${courses.map(course => `<a href="#/courses/${course.id}">${course.title} <span>→</span></a>`).join('')}</nav>
+      ${courses.map(course => courseSection(course)).join('')}
+      ${curriculumSource}
     </section>`;
+  } else if (parts[0] === 'courses' && course && parts.length === 2) {
+    document.title = `${course.title} · Animated Algorithms`;
+    main.innerHTML = `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Classes</a><span>/</span><span>${course.title}</span></nav>
+      <section class="module-intro class-intro"><p class="eyebrow">CTS COMPUTER SCIENCE</p><h1>${course.title}</h1><p>${course.description}</p>
+        <span class="count">${count(course.moduleIds.length, 'module')} · ${count(demoCount(getCourseModules(course)), 'demonstration')}</span>
+      </section><div class="library">${courseSection(course, true)}${curriculumSource}</div>`;
   } else if (parts[0] === 'modules' && module && parts.length === 2) {
     document.title = `${module.code} · Animated Algorithms`;
-    main.innerHTML = `${crumb(module)}<section class="module-intro"><p class="eyebrow">${module.code} · CTS COMPUTER SCIENCE</p><h1>${module.title}</h1><p>${module.description}</p><div class="tags">${module.topics.map(t=>`<span>${t}</span>`).join('')}</div></section><section class="course-overview"><h2>Course topics</h2><ul class="course-topics">${(module.curriculumTopics || module.topics).map(t=>`<li>${t}</li>`).join('')}</ul>${module.curriculumUrl ? `<a class="curriculum-source" href="${module.curriculumUrl}" target="_blank" rel="noopener">View the program of studies ↗</a>` : ''}</section><section class="library"><div class="section-heading"><h2>Interactive demonstrations</h2><span class="count">${module.demonstrations.length} demonstration</span></div><div class="demo-grid">${module.demonstrations.map((d,i)=>`<a class="demo-card" href="#/demo/${module.id}/${d.id}"><div class="demo-art">${thumbnail}<span class="demo-number">0${i+1}</span></div><div class="demo-card-body"><p class="eyebrow">EXPLORE & BACKTRACK</p><h3>${d.title} <span>↗</span></h3><p>${d.description}</p><div class="tags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div><div class="card-bottom">Open demonstration <span>→</span></div></div></a>`).join('')}</div></section>`;
-  } else if (parts[0] === 'demo' && module && parts.length === 3 && module.demonstrations.some(d => d.id === parts[2])) {
-    const demo = module.demonstrations.find(d => d.id === parts[2]);
+    main.innerHTML = `${breadcrumb(module)}
+      <section class="module-intro"><p class="eyebrow">${module.code} · CTS COMPUTER SCIENCE</p><h1>${module.title}</h1><p>${module.description}</p><div class="tags">${module.topics.map(topic => `<span>${topic}</span>`).join('')}</div></section>
+      <section class="course-overview"><h2>Module topics</h2><ul class="course-topics">${(module.curriculumTopics || module.topics).map(topic => `<li>${topic}</li>`).join('')}</ul>${module.curriculumUrl ? `<a class="curriculum-source" href="${module.curriculumUrl}" target="_blank" rel="noopener">View the program of studies ↗</a>` : ''}</section>
+      <section class="library"><div class="section-heading"><h2>Interactive demonstrations</h2><span class="count">${count(module.demonstrations.length, 'demonstration')}</span></div>
+        ${module.demonstrations.length ? `<div class="demo-grid">${module.demonstrations.map((demo, index) => demonstrationCard(module, demo, index)).join('')}</div>` : `<div class="empty-state"><h3>No demonstrations yet</h3><p>Interactive demonstrations will appear here as they are added.</p></div>`}
+      </section>`;
+  } else if (parts[0] === 'demo' && module && parts.length === 3 && module.demonstrations.some(demo => demo.id === parts[2])) {
+    const demo = module.demonstrations.find(demo => demo.id === parts[2]);
     document.title = `${demo.title} · ${module.code}`;
-    main.innerHTML = `${crumb(module,true)}<div id="demonstration"><p>Loading demonstration…</p></div>`;
+    main.innerHTML = `${breadcrumb(module, demo)}<div id="demonstration"><p>Loading demonstration…</p></div>`;
     try {
       const implementation = await demo.load();
       if (version !== routeVersion) return;
@@ -51,8 +98,9 @@ async function render() {
     }
   } else {
     document.title = 'Page not found · Animated Algorithms';
-    main.innerHTML = '<section class="module-intro"><h1>That page isn’t in the library.</h1><p><a href="#/">Return to modules →</a></p></section>';
+    main.innerHTML = '<section class="module-intro"><h1>That page isn’t in the library.</h1><p><a href="#/">Return to classes →</a></p></section>';
   }
 }
+
 window.addEventListener('hashchange', render);
 render();
