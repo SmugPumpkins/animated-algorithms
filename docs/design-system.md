@@ -18,7 +18,7 @@ Retro neon: deep midnight surfaces, crisp geometric headings, cyan and pink acce
 
 Font families are defined once as `--font-heading`, `--font-body`, `--font-ui`, `--font-accent`, and `--font-code` in `site/neon.css`. Reuse those variables rather than adding font names in each demonstration. The four web fonts load through Google Fonts with `display=swap`; system fallbacks keep the interface usable when offline or when font requests are blocked. Consolas uses Liberation Mono and Courier New as fallbacks on devices where it is unavailable.
 
-Use a minimum of **16px for body paragraphs, course topic lists, demo explanations and teaching notes**, with 1.6–1.8 line height. Introductory copy can be 18px. Small controls and technical annotations may be smaller; do not shrink paragraphs to make a layout fit. Reserve a stable, sufficiently tall explanation region in fullscreen mode.
+Use a minimum of **16pt (approximately 21.33 CSS pixels)** for reading text, including body paragraphs, course descriptions, topic lists, and teaching notes. Reuse `--font-reading-size`, including on mobile, with about 1.7 line height. This minimum is in points, not pixels. Text inside simulations (flowchart labels, playback explanations, call stacks, coordinates), controls, and compact interface annotations have separate sizing. Do not shrink reading text to make a layout fit. Reserve a stable explanation region for simulation messages in fullscreen mode.
 
 The website logo uses `site/favicon.svg` directly so the header and browser icon stay consistent.
 

@@ -16,8 +16,9 @@
   --font-ui: "Turret Road", "Segoe UI", sans-serif;
   --font-accent: "Tilt Neon", "Segoe UI", sans-serif;
   --font-code: Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-reading-size: 16pt;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--font-reading-size);
 }
 
 body {
@@ -278,4 +279,18 @@ h2 { letter-spacing: .2px; }
   .learning-hero h1 { font-size: clamp(30px, 7.5vw, 48px); }
   .learning-flow { max-width: 520px; justify-self: center; }
   .course-overview .course-topics { columns: 1; }
+}
+
+/* Reading text is at least 16 points (about 21.33 CSS px), including on
+   mobile. Simulation text and compact interface annotations have separate
+   sizing so presentation panels can still fit one viewport. */
+.hero-copy,
+.module-card p:not(.topic-label),
+.demo-card p:not(.eyebrow),
+.course-topics,
+.module-intro > p:not(.eyebrow),
+.demo-heading p:not(.eyebrow),
+.teaching-notes > div {
+  font-size: var(--font-reading-size);
+  line-height: 1.7;
 }
