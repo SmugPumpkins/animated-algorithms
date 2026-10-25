@@ -1,0 +1,7 @@
+.idea/
+.venv/
+__pycache__/
+*.pyc
+hs_err_pid*.log
+node_modules/
+.DS_Store
