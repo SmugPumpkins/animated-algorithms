@@ -28,7 +28,7 @@ Organize the library as classes → CTS modules → demonstrations. `courses` an
 
 Keep module cards concise and factual: course code, title, principal program-of-studies topics, and the number of available demonstrations. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
 
-The home-page flowchart is Plan → Program → Debug → Repeat?, with a Yes branch back to Plan and a No branch to Take a break. Keep it concise and independent of any particular syllabus. Use the shared semantic palette for this chart as well.
+The home-page flowchart follows the teacher’s reference: START → INPUT instruction → Plan a solution → Implement a program → Debug → Does it work? A No branch returns to Plan; Yes continues to OUTPUT submission → END. Preserve standard shapes and the shared semantic palette, including distinct input and output colours.
 
 ## Required flowchart colours
 

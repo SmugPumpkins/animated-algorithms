@@ -1,5 +1,5 @@
 import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js';
-import { learningFlow } from './learning-flow.js';
+import { learningFlow } from './learning-flow.js?v=2';
 
 const main = document.querySelector('main');
 let cleanup = () => {}, routeVersion = 0;
