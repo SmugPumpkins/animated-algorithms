@@ -83,3 +83,11 @@ Future demonstrations should use the same pattern for growing data (queues, logs
 - `site/demonstrations.css`: stable visual panels and viewport-fitted fullscreen layout.
 
 Keep design changes in these shared files so future demonstrations inherit the same conventions.
+
+## Lessons and readability
+
+Lesson headings, body text and interface controls use Poppins. Program code, terminal text and inline code use Consolas. Preserve highlighted Consolas terms from source slides as inline code with a subtle cyan border and dark background. Source wording and slide order stay unchanged.
+
+The visible Readable font toggle on every page switches all text, including code and SVG labels, to Poppins. It remembers the choice on the device. Weights and sizes still distinguish roles.
+
+Lesson output starts empty and appears only after Run. Reset clears output and restores the original example.

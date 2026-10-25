@@ -5,3 +5,4 @@ __pycache__/
 hs_err_pid*.log
 node_modules/
 .DS_Store
+tmp/

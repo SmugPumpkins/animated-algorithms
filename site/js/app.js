@@ -5,6 +5,8 @@ const main = document.querySelector('main');
 let cleanup = () => {}, routeVersion = 0;
 const count = (value, noun, plural = `${noun}s`) => `${value} ${value === 1 ? noun : plural}`;
 const demoCount = items => items.reduce((total, module) => total + module.demonstrations.length, 0);
+const lessonCount = items => items.reduce((total, module) => total + module.lessons.length, 0);
+const activitySummary = items => [lessonCount(items) ? count(lessonCount(items), 'lesson') : '', demoCount(items) ? count(demoCount(items), 'demonstration') : ''].filter(Boolean).join(' · ') || '0 demonstrations';
 const curriculumSource = `<p class="curriculum-source">Module topics: <a href="https://education.alberta.ca/media/159479/cse_pos.pdf" target="_blank" rel="noopener">Alberta Computing Science program of studies ↗</a></p>`;
 const thumbnail = `<div class="maze-preview" aria-hidden="true">${Array.from({length: 35}, (_,i) => `<i class="${[8,9,10,15,17,22,23,24,25,26].includes(i) ? 'trail' : ''}">${i === 8 ? '●' : i === 26 ? '↗' : ''}</i>`).join('')}</div>`;
 
@@ -14,11 +16,12 @@ document.querySelector('.skip-link').addEventListener('click', event => {
 
 function moduleCard(module) {
   const available = module.demonstrations.length;
+  const lessonTotal = module.lessons.length;
   return `<a class="module-card" href="#/modules/${module.id}">
     <div class="card-top"><span class="module-code">${module.code}</span><span class="card-arrow">↗</span></div>
     <h3>${module.title}</h3><p class="topic-label">Module topics</p>
     <ul class="course-topics">${module.topics.map(topic => `<li>${topic}</li>`).join('')}</ul>
-    <div class="card-bottom"><span class="${available ? 'available' : ''}">${available ? `${count(available, 'demonstration')} available` : 'Demonstrations coming soon'}</span><span>Open module →</span></div>
+    <div class="card-bottom"><span class="${available || lessonTotal ? 'available' : ''}">${available || lessonTotal ? activitySummary([module]) : 'Demonstrations coming soon'}</span><span>Open module →</span></div>
   </a>`;
 }
 
@@ -27,7 +30,7 @@ function courseSection(course, standalone = false) {
   return `<section class="course-section" aria-labelledby="${course.id}-heading">
     <div class="section-heading"><div><h2 id="${course.id}-heading">${standalone ? 'Modules' : `<a href="#/courses/${course.id}">${course.title}</a>`}</h2>
       ${standalone ? '' : `<p class="class-description">${course.description}</p>`}</div>
-      <div class="class-summary"><span class="count">${count(items.length, 'module')} · ${count(demoCount(items), 'demonstration')}</span>${standalone ? '' : `<a class="class-link" href="#/courses/${course.id}">View class →</a>`}</div>
+      <div class="class-summary"><span class="count">${count(items.length, 'module')} · ${activitySummary(items)}</span>${standalone ? '' : `<a class="class-link" href="#/courses/${course.id}">View class →</a>`}</div>
     </div><div class="module-grid">${items.map(moduleCard).join('')}</div>
   </section>`;
 }
@@ -47,6 +50,11 @@ function demonstrationCard(module, demo, index) {
   </a>`;
 }
 
+function lessonsSection(module) {
+  if (!module.lessons.length) return '';
+  return `<section class="lesson-library"><div class="section-heading"><h2>Lessons</h2><span class="count">${count(module.lessons.length, 'lesson')}</span></div><div class="lesson-grid">${module.lessons.map(lesson => `<a class="lesson-card" href="${lesson.href}"><span class="module-code">Lesson ${lesson.number}</span><h3>${lesson.title} <span>↗</span></h3><p>${lesson.description}</p><div class="tags"><span>${lesson.slideCount} slides</span><span>Interactive Python</span></div><div class="card-bottom">Open slideshow <span>→</span></div></a>`).join('')}</div></section>`;
+}
+
 async function render() {
   const version = ++routeVersion;
   cleanup(); cleanup = () => {};
@@ -64,7 +72,7 @@ async function render() {
       </div>${learningFlow()}
     </section>
     <section class="library" aria-labelledby="classes-heading">
-      <div class="section-heading"><h2 id="classes-heading">Classes & modules</h2><span class="count">${count(courses.length, 'class', 'classes')} · ${count(modules.length, 'module')} · ${count(demoCount(modules), 'demonstration')}</span></div>
+      <div class="section-heading"><h2 id="classes-heading">Classes & modules</h2><span class="count">${count(courses.length, 'class', 'classes')} · ${count(modules.length, 'module')} · ${activitySummary(modules)}</span></div>
       <nav class="class-navigation" aria-label="Browse by class">${courses.map(course => `<a href="#/courses/${course.id}">${course.title} <span>→</span></a>`).join('')}</nav>
       ${courses.map(course => courseSection(course)).join('')}
       ${curriculumSource}
@@ -73,15 +81,16 @@ async function render() {
     document.title = `${course.title} · Animated Algorithms`;
     main.innerHTML = `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Classes</a><span>/</span><span>${course.title}</span></nav>
       <section class="module-intro class-intro"><p class="eyebrow">CTS COMPUTER SCIENCE</p><h1>${course.title}</h1><p>${course.description}</p>
-        <span class="count">${count(course.moduleIds.length, 'module')} · ${count(demoCount(getCourseModules(course)), 'demonstration')}</span>
+        <span class="count">${count(course.moduleIds.length, 'module')} · ${activitySummary(getCourseModules(course))}</span>
       </section><div class="library">${courseSection(course, true)}${curriculumSource}</div>`;
   } else if (parts[0] === 'modules' && module && parts.length === 2) {
     document.title = `${module.code} · Animated Algorithms`;
     main.innerHTML = `${breadcrumb(module)}
       <section class="module-intro"><p class="eyebrow">${module.code} · CTS COMPUTER SCIENCE</p><h1>${module.title}</h1><p>${module.description}</p><div class="tags">${module.topics.map(topic => `<span>${topic}</span>`).join('')}</div></section>
+      ${lessonsSection(module)}
       <section class="course-overview"><h2>Module topics</h2><ul class="course-topics">${(module.curriculumTopics || module.topics).map(topic => `<li>${topic}</li>`).join('')}</ul>${module.curriculumUrl ? `<a class="curriculum-source" href="${module.curriculumUrl}" target="_blank" rel="noopener">View the program of studies ↗</a>` : ''}</section>
       <section class="library"><div class="section-heading"><h2>Interactive demonstrations</h2><span class="count">${count(module.demonstrations.length, 'demonstration')}</span></div>
-        ${module.demonstrations.length ? `<div class="demo-grid">${module.demonstrations.map((demo, index) => demonstrationCard(module, demo, index)).join('')}</div>` : `<div class="empty-state"><h3>No demonstrations yet</h3><p>Interactive demonstrations will appear here as they are added.</p></div>`}
+        ${module.demonstrations.length ? `<div class="demo-grid">${module.demonstrations.map((demo, index) => demonstrationCard(module, demo, index)).join('')}</div>` : `<div class="empty-state"><h3>${module.lessons.length ? 'No standalone demonstrations yet' : 'No demonstrations yet'}</h3><p>${module.lessons.length ? 'The lesson above includes interactive code examples.' : 'Interactive demonstrations will appear here as they are added.'}</p></div>`}
       </section>`;
   } else if (parts[0] === 'demo' && module && parts.length === 3 && module.demonstrations.some(demo => demo.id === parts[2])) {
     const demo = module.demonstrations.find(demo => demo.id === parts[2]);

@@ -1,0 +1,221 @@
+[
+  {
+    "title": "Introduction to Python",
+    "kind": "cover",
+    "intro": "By the end of this lesson, you should be able to:",
+    "bullets": [
+      "Identify and use common Python datatypes, including strings, integers, floats, and Booleans.",
+      "Create, access, and change variables to store information in a program.",
+      "Use print() to display values in the console.",
+      "Use clear and descriptive names when creating variables."
+    ],
+    "sourcePage": 1
+  },
+  {
+    "title": "Displaying Output with print()",
+    "paragraphs": [
+      "The print() function displays information in the console.",
+      "Anything inside quotation marks is treated as text."
+    ],
+    "code": "print(\"Hello World\")",
+    "initialOutput": "Hello World\n",
+    "expectedOutput": "Hello World\n",
+    "sourcePage": 2,
+    "kind": "code",
+    "inlineCode": [
+      "print()"
+    ]
+  },
+  {
+    "title": "Variables",
+    "paragraphs": [
+      "A variable is a named location that stores a value.",
+      "Variables allow programs to remember information and use it later.",
+      "Think of a variable as a labeled container: the variable name is the label, and the value is what is stored inside."
+    ],
+    "code": "score = 100\nname = \"Alex\"\n\nprint(score)\nprint(name)",
+    "initialOutput": "100\nAlex\n",
+    "expectedOutput": "100\nAlex\n",
+    "sourcePage": 3,
+    "kind": "code"
+  },
+  {
+    "title": "Variables vs. Literals",
+    "paragraphs": [
+      "A literal is a value written directly in your code.",
+      "A variable stores a value under a name.",
+      "Both display 15, but the variable can be reused or changed later."
+    ],
+    "code": "age = 15\n\nprint(age) # Variable\nprint(15)  # Literal",
+    "initialOutput": "15\n15\n",
+    "expectedOutput": "15\n15\n",
+    "sourcePage": 4,
+    "kind": "code",
+    "inlineCode": [
+      "15"
+    ]
+  },
+  {
+    "title": "Datatypes",
+    "paragraphs": [
+      "A datatype describes what kind of information a value contains.",
+      "The datatype determines how Python can use the value.",
+      "To the right are the most common primitive datatypes."
+    ],
+    "code": "name = \"Alex\"       # str\nage = 15            # int\nheight = 1.72       # float\nis_student = True   # bool",
+    "sourcePage": 5,
+    "kind": "code",
+    "expectedOutput": ""
+  },
+  {
+    "title": "Strings (str)",
+    "paragraphs": [
+      "A string stores text as a sequence of characters.",
+      "Strings must be surrounded by quotation marks.",
+      "Numbers surrounded by quotation marks are also treated as strings rather than numbers."
+    ],
+    "code": "name = \"Alex\"\nmessage = \"Hello World\"\nnumber = \"42\"",
+    "sourcePage": 6,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "str"
+    ]
+  },
+  {
+    "title": "Numbers",
+    "paragraphs": [
+      "Python commonly uses two datatypes for numbers.",
+      "An int stores a whole number, while a float stores a number with a decimal value.",
+      "Python determines which datatype to use based on the value being stored."
+    ],
+    "code": "students = 24   # int\ntemp = 21.5     # float",
+    "sourcePage": 7,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "int",
+      "float"
+    ]
+  },
+  {
+    "title": "Integers (int)",
+    "paragraphs": [
+      "An integer is a whole number without a decimal point.",
+      "Integers can be positive, negative, or zero.",
+      "They are useful for values that are counted using whole numbers."
+    ],
+    "code": "age = 16\nscore = 100\ntemperature = -5",
+    "sourcePage": 8,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "int"
+    ]
+  },
+  {
+    "title": "Floats (float)",
+    "paragraphs": [
+      "A float is a number that contains a decimal point.",
+      "Floats are useful for measurements and other values that may contain a fractional or decimal amount."
+    ],
+    "code": "price = 9.99\nheight = 1.72\ntemperature = -3.5",
+    "sourcePage": 9,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "float"
+    ]
+  },
+  {
+    "title": "Booleans (bool)",
+    "paragraphs": [
+      "A Boolean stores one of two possible values: True or False.",
+      "Booleans are commonly used to represent whether a condition is currently true or false.",
+      "In Python, True and False must begin with capital letters."
+    ],
+    "code": "is_student = True\ngame_over = False",
+    "sourcePage": 10,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "True",
+      "False",
+      "bool"
+    ]
+  },
+  {
+    "title": "Initializing Variables",
+    "paragraphs": [
+      "Initializing a variable means creating it and assigning its first value.",
+      "Python uses the equals sign (=) to assign a value to a variable.",
+      "The variable name goes on the left of =, and the value being stored goes on the right."
+    ],
+    "code": "score = 100\nplayer_name = \"Alex\"",
+    "sourcePage": 11,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "="
+    ]
+  },
+  {
+    "title": "Naming Variables",
+    "paragraphs": [
+      "Variable names should clearly describe the information they store.",
+      "Python variables should normally use snake_case, with lowercase words separated by underscores.",
+      "Use descriptive words instead of unclear abbreviations or single-letter names."
+    ],
+    "code": "player_score = 100\nstudent_name = \"Alex\"\nnumber_of_lives = 3",
+    "sourcePage": 12,
+    "kind": "code",
+    "expectedOutput": "",
+    "inlineCode": [
+      "snake_case"
+    ]
+  },
+  {
+    "title": "Accessing Variables",
+    "paragraphs": [
+      "Accessing a variable means using the value currently stored inside it.",
+      "Use the variable's name whenever you want to access its value."
+    ],
+    "code": "score = 100\n\nprint(score)",
+    "initialOutput": "100\n",
+    "expectedOutput": "100\n",
+    "sourcePage": 13,
+    "kind": "code"
+  },
+  {
+    "title": "Changing Variables",
+    "paragraphs": [
+      "A variable can be changed by assigning a new value to it.",
+      "The new value replaces the value that was previously stored."
+    ],
+    "code": "score = 100\nprint(score)\n\nscore = 90\nprint(score)",
+    "initialOutput": "100\n90\n",
+    "expectedOutput": "100\n90\n",
+    "sourcePage": 14,
+    "kind": "code"
+  },
+  {
+    "title": "Putting It Together",
+    "paragraphs": [
+      "Variables allow programs to store information, access that information later, and change it as the program runs.",
+      "Each variable has a name, stores a value, and has a datatype based on the value being stored."
+    ],
+    "code": "player_name = \"Alex\"\nscore = 100\ngame_over = False\n\nprint(player_name)\nprint(score)\n\nscore = 150\nprint(score)",
+    "expectedOutput": "Alex\n100\n150\n",
+    "sourcePage": 15,
+    "kind": "code"
+  },
+  {
+    "title": "Congratulations!",
+    "kind": "closing",
+    "paragraphs": [
+      "You have completed the introduction to Python!",
+      "You should now be able to create variables using appropriate datatypes, access and change their values, and display information using print()."
+    ],
+    "sourcePage": 16
+  }
+]

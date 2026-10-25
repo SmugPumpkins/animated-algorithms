@@ -1,0 +1,69 @@
+{
+  "source": "1 - Introduction to Python.pdf",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Introduction\nto Python\nBy the end of this lesson, you should be able to:\n•\nIdentify and use common Python datatypes,\nincluding strings, integers, floats, and\nBooleans.\n•\nCreate, access, and change variables to store\ninformation in a program.\n•\nUse print() to display values in the console.\n•\nUse clear and descriptive names when\ncreating variables."
+    },
+    {
+      "page": 2,
+      "text": "print()\nDisplaying Output with\nprint(\"Hello World\")\nThe print() function displays\ninformation in the console.\nAnything inside quotation marks\nis treated as text.\nOUTPUT\nHello World"
+    },
+    {
+      "page": 3,
+      "text": "Variables\nscore = 100\nA variable is a named location\nthat stores a value.\nname = \"Alex\"\nVariables allow programs to\nremember information and use\nprint(score)\nit later.\nprint(name)\nThink of a variable as a labeled\ncontainer: the variable name is\nthe label, and the value is what\nOUTPUT\nis stored inside. 100\nAlex"
+    },
+    {
+      "page": 4,
+      "text": "Variables vs. Literals\nage = 15\nA literal is a value written\ndirectly in your code.\nprint(age) # Variable\nA variable stores a value under\nprint(15) # Literal\na name.\nBoth display 15, but the variable\ncan be reused or changed later.\nOUTPUT\n15\n15"
+    },
+    {
+      "page": 5,
+      "text": "Datatypes\nname = \"Alex\" # str\nA datatype describes what kind\nof information a value contains. age = 15 # int\nheight = 1.72 # float\nThe datatype determines how\nis_student = True # bool\nPython can use the value.\nTo the right are the most\ncommon primitive datatypes."
+    },
+    {
+      "page": 6,
+      "text": "str\nStrings ( )\nname = \"Alex\"\nA string stores text as a\nsequence of characters. message = \"Hello World\"\nnumber = \"42\"\nStrings must be surrounded by\nquotation marks.\nNumbers surrounded by\nquotation marks are also\ntreated as strings rather than\nnumbers."
+    },
+    {
+      "page": 7,
+      "text": "Numbers\nstudents = 24 # int\nPython commonly uses two\ndatatypes for numbers. temp = 21.5 # float\nAn int stores a whole number,\nwhile a float stores a number\nwith a decimal value.\nPython determines which\ndatatype to use based on the\nvalue being stored."
+    },
+    {
+      "page": 8,
+      "text": "int\nIntegers ( )\nage = 16\nAn integer is a whole number\nwithout a decimal point. score = 100\ntemperature = -5\nIntegers can be positive,\nnegative, or zero.\nThey are useful for values that\nare counted using whole\nnumbers."
+    },
+    {
+      "page": 9,
+      "text": "float\nFloats ( )\nprice = 9.99\nA float is a number that\ncontains a decimal point. height = 1.72\ntemperature = -3.5\nFloats are useful for\nmeasurements and other\nvalues that may contain a\nfractional or decimal amount."
+    },
+    {
+      "page": 10,
+      "text": "bool\nBooleans ( )\nis_student = True\nA Boolean stores one of two\npossible values: True or False. game_over = False\nBooleans are commonly used to\nrepresent whether a condition is\ncurrently true or false.\nIn Python, True and False must\nbegin with capital letters."
+    },
+    {
+      "page": 11,
+      "text": "Initializing Variables\nscore = 100\nInitializing a variable means\ncreating it and assigning its first player_name = \"Alex\"\nvalue.\nPython uses the equals sign (=)\nto assign a value to a variable.\nThe variable name goes on the\nleft of =, and the value being\nstored goes on the right."
+    },
+    {
+      "page": 12,
+      "text": "Naming Variables\nplayer_score = 100\nVariable names should clearly\ndescribe the information they student_name = \"Alex\"\nstore. number_of_lives = 3\nPython variables should\nnormally use snake_case, with\nlowercase words separated by\nunderscores.\nUse descriptive words instead of\nunclear abbreviations or single-\nletter names."
+    },
+    {
+      "page": 13,
+      "text": "Accessing Variables\nscore = 100\nAccessing a variable means\nusing the value currently stored\ninside it. print(score)\nUse the variable's name\nwhenever you want to access\nits value.\nOUTPUT\n100"
+    },
+    {
+      "page": 14,
+      "text": "Changing Variables\nscore = 100\nA variable can be changed by\nassigning a new value to it. print(score)\nThe new value replaces the\nscore = 90\nvalue that was previously\nstored. print(score)\nOUTPUT\n100\n90"
+    },
+    {
+      "page": 15,
+      "text": "Putting It Together\nplayer_name = \"Alex\"\nVariables allow programs to\nstore information, access that score = 100\ninformation later, and change it game_over = False\nas the program runs.\nEach variable has a name, print(player_name)\nstores a value, and has a print(score)\ndatatype based on the value\nbeing stored.\nscore = 150\nprint(score)"
+    },
+    {
+      "page": 16,
+      "text": "Congratulations!\nYou have completed the introduction to\nPython!\nYou should now be able to create\nvariables using appropriate datatypes,\naccess and change their values, and\ndisplay information using print()."
+    }
+  ]
+}

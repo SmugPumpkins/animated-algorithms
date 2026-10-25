@@ -326,10 +326,18 @@ h2 { letter-spacing: .2px; }
 .empty-state { border: 1px solid var(--line); border-radius: 5px; background: #141124; padding: 28px; }
 .empty-state h3 { font-size: 25px; margin-bottom: 15px; }
 .empty-state p { font-size: var(--font-reading-size); line-height: 1.7; color: var(--muted); margin: 0; }
+.lesson-library { padding: 32px 0; border-bottom: 1px solid var(--line); }
+.lesson-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.lesson-card { display: block; padding: 26px; border: 1px solid #665078; border-radius: 5px; background: linear-gradient(135deg, #211731, #101a2d); }
+.lesson-card:hover { border-color: var(--cyan); }
+.lesson-card h3 { margin: 22px 0 16px; font-size: 28px; }
+.lesson-card h3 > span { float: right; color: var(--cyan); }
+.lesson-card p { font-size: var(--font-reading-size); line-height: 1.7; color: var(--muted); }
 @media (min-width: 1250px) {
   .course-section .module-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
+  .lesson-grid { grid-template-columns: 1fr; }
   .class-navigation { flex-direction: column; }
   .class-navigation a { justify-content: space-between; }
   .class-summary { align-items: flex-start; }

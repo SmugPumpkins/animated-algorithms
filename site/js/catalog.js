@@ -17,17 +17,21 @@ export const courses = [
   },
 ];
 
-function moduleEntry(code, title, description, topics) {
+function moduleEntry(code, title, description, topics, lessons = []) {
   return {
     id: code.replace(' ', '').toLowerCase(), code, title, description, topics,
-    curriculumTopics: topics, curriculumUrl, demonstrations: [],
+    curriculumTopics: topics, curriculumUrl, demonstrations: [], lessons,
   };
 }
 
 export const modules = [
   moduleEntry('CSE 1110', 'Structured Programming 1',
     'Write sequential programs that accept, process and output data.',
-    ['Sequential algorithms', 'Variables and data types', 'Input, processing and output']),
+    ['Sequential algorithms', 'Variables and data types', 'Input, processing and output'], [{
+      id: 'introduction-to-python', number: 1, title: 'Introduction to Python',
+      description: 'Python datatypes, variables and console output.',
+      slideCount: 16, href: './lessons/cse1110/introduction-to-python/',
+    }]),
   moduleEntry('CSE 1120', 'Structured Programming 2',
     'Add decisions, repetition and blocks to structured programs.',
     ['Selection and decisions', 'Loops and repetition', 'Program blocks']),
@@ -54,6 +58,7 @@ export const modules = [
     ['Inheritance and polymorphism', 'Class relationships', 'Abstract classes and UML']),
   {
     id: 'cse3310', code: 'CSE 3310', title: 'Recursive Algorithms 1',
+    lessons: [],
     description: 'Recursive control flow, divide and conquer, and recursive searching and sorting.',
     topics: ['Recursive functions', 'Divide and conquer', 'Searching and sorting'],
     curriculumTopics: [
