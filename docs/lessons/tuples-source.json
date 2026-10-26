@@ -1,0 +1,22 @@
+[
+  {
+    "page": 1,
+    "text": "Data Structures\nPart 2: Tuples\nToo-pulls? Tuh-pulls? Too-pl\u00e9t?\nRegardless, storing groups of\ndata together that cannot be\nchanged."
+  },
+  {
+    "page": 2,
+    "text": "Tuples\nA tuple is a data structure that stores\ncolors = (\"red\", \"green\", \"blue\")\nmultiple values in a specific order,\nsimilar to a list.\nUnlike a list, a tuple is immutable,\nmeaning its values cannot be added, print(colors)\nremoved, or changed after the tuple\nis created.\nA tuple is created by separating\nvalues with commas (,), usually\ninside parentheses (()).\nOUTPUT\nTuples are useful for storing ('red', 'green', 'blue')\ncollections of values that should\nremain unchanged."
+  },
+  {
+    "page": 3,
+    "text": "Similarities Between Tuples and Lists\nTuples and lists are both ordered\ncolors = (\"red\", \"green\", \"blue\")\ncollections, meaning their values\nare stored in a specific order.\nLike lists, tuple values can be for color in colors:\naccessed using positive or\nprint(color)\nnegative indices and sections can\nbe accessed using slicing.\nYou can traverse a tuple with a\nif \"green\" in colors:\nfor loop, check membership\nusing in, and find its length using print(\"Green is in the tuple!\")\nlen().\nThe main difference is that a tuple\ncannot be modified after it is print(len(colors))\ncreated."
+  },
+  {
+    "page": 4,
+    "text": "Mutability vs Immutability\nA mutable object can be data = (\"Alice\", [0, 1, 2])\nchanged after it is created, while\nan immutable object cannot.\n# Lists are mutable\nLists are mutable, so their items\ndata[1].append(3)\ncan be added, removed, or\nreplaced.\nTuples are immutable, so their print(data)\nitems cannot.\nIf a tuple contains a mutable OUTPUT\n('Alice', [0, 1, 2, 3])\nobject (like a list), the mutable\nobject within the tuple can still be\nmodified as normal."
+  },
+  {
+    "page": 5,
+    "text": "Mutability vs Immutability continued...\nTrying to change a tuple directly data = (\"Alice\", [0, 1, 2])\nresults in an error.\n# Not allowed\ndata.append(100)\nprint(data)\nOUTPUT\nAttributeError: 'tuple' object has no\nattribute 'append'"
+  }
+]

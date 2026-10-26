@@ -61,3 +61,7 @@ The teacher's 21-slide Data Structures Part 1 deck follows Manipulating Strings 
 All examples support Run and Step, including mutations, negative indices, loops, copying and aliasing. At the reference mutation on the final slide, the original and reference variables both update while the copied list remains independent; tests verify that paused state.
 
 `layout: "code-emphasis"` gives longer code and printed list values a wider column. `denseText` adjusts dense explanations while keeping reading text above the 16pt minimum. These layouts preserve the content and keep the complete initial example visible. `compactCode` retains the shared tighter editor spacing where appropriate.
+
+## Tuples (CSE 2120, lesson 3)
+
+The five-slide Data Structures Part 2 deck retains its wording and order, with extracted text in `tuples-source.json`. All four code examples support Run and Step. The nested list can change while its containing tuple remains immutable; the final example raises a real AttributeError when attempting to append directly to the tuple. Output starts empty until execution.

@@ -59,6 +59,10 @@ export const modules = [
       id: 'lists', number: 2, title: 'Lists',
       description: 'Creating, indexing, modifying, traversing and copying Python lists.',
       slideCount: 21, href: './lessons/cse2120/lists/',
+    }, {
+      id: 'tuples', number: 3, title: 'Tuples',
+      description: 'Ordered collections, tuple traversal, immutability and mutable objects inside tuples.',
+      slideCount: 5, href: './lessons/cse2120/tuples/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',

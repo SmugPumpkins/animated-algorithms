@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Data Structures",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 2: Tuples",
+    "bullets": [
+      "Too-pulls? Tuh-pulls? Too-plét?",
+      "Regardless, storing groups of data together that cannot be changed."
+    ]
+  },
+  {
+    "title": "Tuples",
+    "kind": "code",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A tuple is a data structure that stores multiple values in a specific order, similar to a list.",
+      "Unlike a list, a tuple is immutable, meaning its values cannot be added, removed, or changed after the tuple is created.",
+      "A tuple is created by separating values with commas (,), usually inside parentheses (()).",
+      "Tuples are useful for storing collections of values that should remain unchanged."
+    ],
+    "code": "colors = (\"red\", \"green\", \"blue\")\n\nprint(colors)",
+    "expectedOutput": "('red', 'green', 'blue')\n",
+    "denseText": true,
+    "initialOutput": "('red', 'green', 'blue')\n",
+    "inlineCode": [
+      "(,)",
+      "(())"
+    ]
+  },
+  {
+    "title": "Similarities Between Tuples and Lists",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "Tuples and lists are both ordered collections, meaning their values are stored in a specific order.",
+      "Like lists, tuple values can be accessed using positive or negative indices and sections can be accessed using slicing.",
+      "You can traverse a tuple with a for loop, check membership using in, and find its length using len().",
+      "The main difference is that a tuple cannot be modified after it is created."
+    ],
+    "code": "colors = (\"red\", \"green\", \"blue\")\n\nfor color in colors:\n    print(color)\n\nif \"green\" in colors:\n    print(\"Green is in the tuple!\")\n\nprint(len(colors))",
+    "expectedOutput": "red\ngreen\nblue\nGreen is in the tuple!\n3\n",
+    "denseText": true,
+    "inlineCode": [
+      "for",
+      "in",
+      "len()"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Mutability vs Immutability",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "A mutable object can be changed after it is created, while an immutable object cannot.",
+      "Lists are mutable, so their items can be added, removed, or replaced.",
+      "Tuples are immutable, so their items cannot.",
+      "If a tuple contains a mutable object (like a list), the mutable object within the tuple can still be modified as normal."
+    ],
+    "code": "data = (\"Alice\", [0, 1, 2])\n\n# Lists are mutable\ndata[1].append(3)\n\nprint(data)",
+    "expectedOutput": "('Alice', [0, 1, 2, 3])\n",
+    "denseText": true,
+    "initialOutput": "('Alice', [0, 1, 2, 3])\n"
+  },
+  {
+    "title": "Mutability vs Immutability continued...",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "Trying to change a tuple directly results in an error."
+    ],
+    "code": "data = (\"Alice\", [0, 1, 2])\n\n# Not allowed\ndata.append(100)\n\nprint(data)",
+    "expectedError": "AttributeError: 'tuple' object has no attribute 'append'",
+    "initialOutput": "AttributeError: 'tuple' object has no attribute 'append'\n"
+  }
+]

@@ -250,3 +250,32 @@ test('stepping shows alias mutations together while the copied list stays indepe
   assert.equal(value('reference'), value('original'));
   assert.equal(value('copied'), "['red', 'green', 'blue']");
 });
+
+const tupleSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/tuples/slides.json'), 'utf8'));
+const tupleSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/tuples-source.json'), 'utf8'));
+test('Tuples preserves all five source slides, explanations, code and output', () => {
+  assert.equal(tupleSlides.length, 5);
+  tupleSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(tupleSource[index].text), `Source content differs on page ${index + 1}`);
+  });
+});
+
+test('all Tuples examples run and step with real output and AttributeError', async () => {
+  for (const slide of tupleSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const execution = runPython(slide.code, [], mode);
+      if (slide.expectedError) await assert.rejects(execution, new RegExp(slide.expectedError));
+      else assert.equal((await execution).output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('stepping retains tuple type while its nested list changes', async () => {
+  const result = await runPython(tupleSlides[3].code, [], 'step');
+  const mutation = result.steps.find(step => step.line === 4);
+  const data = mutation.variables.find(item => item.name === 'data');
+  assert.equal(data.type, 'tuple');
+  assert.equal(data.value, "('Alice', [0, 1, 2, 3])");
+});
