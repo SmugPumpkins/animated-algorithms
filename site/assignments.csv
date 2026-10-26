@@ -1,8 +1,8 @@
 lesson,assessment_url
 cse1110/introduction-to-python,
 cse1110/input-process-output,
-cse2110/external-modules,
-cse2110/focus-on-functions,
+cse2110/external-modules,https://github.com/STEM-Collegiate-Edmonton/Module-Calculator-App-CS1525-2627-S1
+cse2110/focus-on-functions,https://github.com/STEM-Collegiate-Edmonton/Function-Gauntlet-CS1525-2627-S1
 cse2120/manipulating-strings,
 cse2120/lists,
 cse2120/tuples,
