@@ -286,5 +286,38 @@
     "initialOutput": "Original: {'name': 'Alice', 'grade': 12}\nReference: {'name': 'Alice', 'grade': 12}\nCopy: {'name': 'Bob', 'grade': 11}\n",
     "compactCode": true,
     "layout": "long-explanation"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Dictionaries organize data as unique keys and their associated values.",
+      "Use keys to access, add, change or remove entries.",
+      "Use dictionary methods for defaults, length and traversal of keys, values or pairs.",
+      "A reference shares changes; copy() creates a separate dictionary."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

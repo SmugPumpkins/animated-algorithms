@@ -322,22 +322,36 @@
     "initialOutput": "Enter your name:\nMr. Forsyth\nHello, Mr. Forsyth!\n"
   },
   {
-    "title": "IPO Wrap Up",
-    "kind": "text",
-    "sourcePage": 17,
-    "paragraphs": [
-      "Python programs commonly follow the Input-Process-Output (IPO) model.",
-      "input() collects information from the user and always returns that information as a string, so numeric input may need to be cast with int() or float().",
-      "print() displays output, and values can be combined using commas, concatenation, or f-strings, with f-strings usually providing the clearest formatting.",
-      "Escape sequences such as \\n and \\\" can also be used to control how strings are displayed."
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Plan programs using the Input-Process-Output (IPO) model.",
+      "input() returns text; use int() or float() when calculations need numbers.",
+      "Display results with print(), commas, concatenation or f-strings.",
+      "Use escape sequences such as \\n and \\\" to format strings."
     ],
     "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
       "input()",
       "int()",
       "float()",
-      "print()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
       "\\n",
       "\\\""
-    ]
+    ],
+    "sourcePage": 17
   }
 ]

@@ -73,5 +73,38 @@
     "code": "data = (\"Alice\", [0, 1, 2])\n\n# Not allowed\ndata.append(100)\n\nprint(data)",
     "expectedError": "AttributeError: 'tuple' object has no attribute 'append'",
     "initialOutput": "AttributeError: 'tuple' object has no attribute 'append'\n"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Tuples store ordered values and support indexing, slicing and traversal.",
+      "Use membership checks and len() to inspect a tuple.",
+      "Tuples are immutable: their items cannot be added, removed or replaced.",
+      "A mutable object inside a tuple, such as a list, can still change."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

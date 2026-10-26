@@ -139,5 +139,38 @@
     "code": "age_text = \"16\"\nprice_text = \"12.50\"\n\nage = int(age_text)\nprice = float(price_text)",
     "expectedOutput": "",
     "sourcePage": 9
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Use string methods to change capitalization and remove surrounding whitespace.",
+      "Split text into pieces, replace content and join strings together.",
+      "Choose separators to control how text is split or joined.",
+      "Cast numeric text with int() or float() before using it in calculations."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

@@ -7,7 +7,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const slides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/introduction-to-python/slides.json'), 'utf8'));
+const slides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/introduction-to-python/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const source = JSON.parse(readFileSync(path.join(root, 'docs/lessons/introduction-to-python-source.json'), 'utf8'));
 const words = text => {
   const result = new Map();
@@ -15,10 +15,11 @@ const words = text => {
   return [...result].sort(([a], [b]) => a.localeCompare(b));
 };
 
-test('all 16 original slides retain every source word, code token and output value', () => {
+test('Introduction instructional slides retain source wording before the replacement wrap-up', () => {
   assert.equal(slides.length, source.pages.length);
   assert.equal(slides.length, 16);
   slides.forEach((slide, index) => {
+    if (slide.kind === 'wrapup') return;
     assert.equal(slide.sourcePage, index + 1);
     const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
     assert.deepEqual(words(text), words(source.pages[index].text), `Original content differs on slide ${index + 1}`);
@@ -109,7 +110,7 @@ test('all original examples also finish correctly when stepping', async () => {
 });
 
 
-const externalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/external-modules/slides.json'), 'utf8'));
+const externalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/external-modules/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 test('external modules lesson examples run and step with their real companion files', async () => {
   for (const slide of externalSlides.filter(slide => slide.code || slide.files)) {
     const files = Object.fromEntries((slide.files || []).map(file => [file.name, file.code]));
@@ -150,7 +151,7 @@ test('registered lesson links and slide counts match the deployed lesson files',
 });
 
 
-const functionSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/focus-on-functions/slides.json'), 'utf8'));
+const functionSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/focus-on-functions/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const functionSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/focus-on-functions-source.json'), 'utf8'));
 test('Focus on Functions preserves slide order and extractable source wording', () => {
   assert.equal(functionSlides.length, 15);
@@ -193,7 +194,7 @@ test('both full battle-game versions accept real choices and finish in run and s
 });
 
 
-const stringSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/manipulating-strings/slides.json'), 'utf8'));
+const stringSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/manipulating-strings/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const stringSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/manipulating-strings-source.json'), 'utf8'));
 test('string lesson preserves method explanations and removes the file-handling framing', () => {
   assert.equal(stringSlides.length, 9);
@@ -223,7 +224,7 @@ test('every string manipulation example produces real expected output in run and
 });
 
 
-const listSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/lists/slides.json'), 'utf8'));
+const listSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/lists/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const listSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/lists-source.json'), 'utf8'));
 test('Lists retains all 21 original slides, explanations, code and output values', () => {
   assert.equal(listSlides.length, 21);
@@ -253,7 +254,7 @@ test('stepping shows alias mutations together while the copied list stays indepe
   assert.equal(value('copied'), "['red', 'green', 'blue']");
 });
 
-const tupleSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/tuples/slides.json'), 'utf8'));
+const tupleSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/tuples/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const tupleSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/tuples-source.json'), 'utf8'));
 test('Tuples preserves all five source slides, explanations, code and output', () => {
   assert.equal(tupleSlides.length, 5);
@@ -282,7 +283,7 @@ test('stepping retains tuple type while its nested list changes', async () => {
   assert.equal(data.value, "('Alice', [0, 1, 2, 3])");
 });
 
-const dictionarySlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/dictionaries/slides.json'), 'utf8'));
+const dictionarySlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/dictionaries/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const dictionarySource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/dictionaries-source.json'), 'utf8'));
 test('Dictionaries retains all 16 source slides, explanations, code and output', () => {
   assert.equal(dictionarySlides.length, 16);
@@ -311,7 +312,7 @@ test('dictionary references share mutations while copied values remain independe
   assert.equal(value('copied'), "{'name': 'Bob', 'grade': 11}");
 });
 
-const dataClassSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/data-classes/slides.json'), 'utf8'));
+const dataClassSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/data-classes/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const dataClassSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/data-classes-source.json'), 'utf8'));
 test('Data Classes retains all nine original slides, explanations, code and output', () => {
   assert.equal(dataClassSlides.length, 9);
@@ -359,7 +360,7 @@ test('annotation lowering preserves strings and source lines during stepping', a
   assert.equal(assignment.variables.find(item => item.name === 'item').value, "Example(name='A')");
 });
 
-const multidimensionalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/multidimensional-lists/slides.json'), 'utf8'));
+const multidimensionalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/multidimensional-lists/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const multidimensionalSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/multidimensional-lists-source.json'), 'utf8'));
 test('Multidimensional Lists retains all 13 source slides and coordinate labels', () => {
   assert.equal(multidimensionalSlides.length, 13);
@@ -414,7 +415,7 @@ test('f-string highlighting retains nested expressions, multiline strings and in
   }
 });
 
-const parallelSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/parallel-lists/slides.json'), 'utf8'));
+const parallelSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/parallel-lists/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const parallelSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/parallel-lists-source.json'), 'utf8'));
 test('Parallel Lists retains all six source slides, explanations, code and output', () => {
   assert.equal(parallelSlides.length, 6);
@@ -442,7 +443,7 @@ test('edited parallel lists retain matching pairs across indices, enumerate and 
   }
 });
 
-const fileSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2130/reading-writing-appending/slides.json'), 'utf8'));
+const fileSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2130/reading-writing-appending/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const fileSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/reading-writing-appending-source.json'), 'utf8'));
 test('file lesson preserves all 15 slides with the requested Part 1 renumbering', () => {
   assert.equal(fileSlides.length, 15);
@@ -476,11 +477,12 @@ test('virtual files retain unterminated last lines, reject missing reads and iso
   assert.equal((await runPython(read, [], 'run', 'step', {dataFiles:{'students.txt':'Original\n'}})).output, "['Original\\n']\n");
 });
 
-const ipoSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/input-process-output/slides.json'), 'utf8'));
+const ipoSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/input-process-output/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
 const ipoSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/input-process-output-source.json'), 'utf8'));
 test('IPO lesson retains 17 source slides and the approved slide 8 code correction', () => {
   assert.equal(ipoSlides.length, 17);
   ipoSlides.forEach((slide, index) => {
+    if (slide.kind === 'wrapup') return;
     assert.equal(slide.sourcePage, index + 1);
     const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', ...(slide.stageLabels || []), ...(slide.ipoChart?.headers || []), ...(slide.ipoChart?.cells || []), slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : '', slide.terminalNote || ''].join('\n');
     const original = index === 7 ? ipoSource[index].text.replace('name = input("What is your name? ")', 'number = input("Enter a number: ")').replace('print(name)', 'print(number + 1)') : ipoSource[index].text;

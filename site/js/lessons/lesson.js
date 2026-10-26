@@ -1,6 +1,7 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
 import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-textfiles';
+import { loadAssignment, assignmentMarkup } from './assignments.js?v=20261026-wrapups';
 
 const $ = selector => document.querySelector(selector);
 function inlineCode(text, tokens = []) {
@@ -33,7 +34,9 @@ function slideMarkup(slide, index) {
   const indexGrid = slide.indexGrid ? `<table class="lesson-index-grid" aria-label="Row and column indices"><tbody>${slide.indexGrid.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
   const annotations = (slide.annotations || []).map(note => `<div><h3>${escapeHtml(note.title)}</h3><p>${inlineCode(note.text, slide.inlineCode)}</p></div>`).join('');
   const documentation = slide.documentation;
-  const contents = slide.kind === 'comparison'
+  const contents = slide.kind === 'wrapup'
+    ? `${title}<ul class="wrapup-list source-body">${slide.bullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul><aside class="assignment-next" aria-label="Next step" data-assignment-next><p>Loading assignment link…</p></aside>`
+    : slide.kind === 'comparison'
     ? `${title}<div class="comparison-layout">${slide.examples.map(example => `<div class="example-panel">${example.paragraph ? `<div class="source-body comparison-explanation"><p>${inlineCode(example.paragraph, slide.inlineCode)}</p></div>` : ''}${playgroundMarkup(example)}</div>`).join('')}</div>${slide.caption ? `<p class="comparison-caption">${inlineCode(slide.caption, slide.inlineCode)}</p>` : ''}`
     : slide.layout === 'documentation'
       ? `${title}<div class="source-body wide-caption">${paragraphs}</div><div class="documentation-layout">${playgroundMarkup(slide)}<aside class="documentation-preview" aria-label="Function documentation"><pre>${escapeHtml(documentation.signature)}</pre><p>${escapeHtml(documentation.description)}</p><h3>Params:</h3><dl>${documentation.parameters.map(parameter => `<dt><span class="inline-code">${escapeHtml(parameter.name)}</span></dt><dd>${escapeHtml(parameter.description)}</dd>`).join('')}</dl><p><strong>Returns:</strong> ${escapeHtml(documentation.returns)}</p></aside></div>`
@@ -74,6 +77,18 @@ try {
   });
   await deck.initialize();
   $('.lesson-loading').remove();
+  const lessonParts = location.pathname.split('/').filter(Boolean);
+  const lessonKey = lessonParts.slice(lessonParts.lastIndexOf('lessons') + 1, lessonParts.lastIndexOf('lessons') + 3).join('/');
+  const assignmentAbort = new AbortController();
+  loadAssignment(lessonKey, { signal: assignmentAbort.signal }).then(assignment => {
+    document.querySelectorAll('[data-assignment-next]').forEach(panel => { panel.innerHTML = assignmentMarkup(assignment); });
+    deck.layout();
+  }).catch(error => {
+    if (assignmentAbort.signal.aborted) return;
+    console.error('Assignment links:', error);
+    document.querySelectorAll('[data-assignment-next]').forEach(panel => { panel.innerHTML = assignmentMarkup({ status: 'unavailable' }); });
+    deck.layout();
+  });
   deck.on('slidechanged', event => { controllers.get(event.previousSlide)?.forEach(controller => controller.stop()); });
   $('#slide-select').addEventListener('change', event => {
     deck.slide(Number(event.target.value));
@@ -87,7 +102,7 @@ try {
     $('#fullscreen').textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Fullscreen';
     deck.layout();
   });
-  window.addEventListener('pagehide', () => { for (const group of controllers.values()) for (const controller of group) controller.destroy(); });
+  window.addEventListener('pagehide', () => { assignmentAbort.abort(); for (const group of controllers.values()) for (const controller of group) controller.destroy(); });
   window.addEventListener('resize', () => deck.layout());
 } catch (error) {
   $('.lesson-loading').textContent = error.message;

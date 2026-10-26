@@ -96,5 +96,37 @@
     ],
     "denseText": true,
     "compactCode": true
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Parallel lists store related values at matching indices.",
+      "Keep list order aligned so matching positions refer to the same item.",
+      "Traverse related lists with indices, enumerate() or zip()."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

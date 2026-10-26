@@ -137,5 +137,38 @@
     "denseText": true,
     "initialOutput": "Student(name='Alice', grade=12)\n",
     "compactCode": true
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Data classes describe a consistent structure for related data.",
+      "Import dataclass and place @dataclass above the class definition.",
+      "Declare fields with type annotations and create instances with their own values.",
+      "Use dot notation to access and change an instance’s fields."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

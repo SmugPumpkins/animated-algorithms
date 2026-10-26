@@ -322,5 +322,38 @@
     ],
     "layout": "code-emphasis",
     "denseText": true
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Lists store ordered collections of values in one variable.",
+      "Access values with indices and slices; add, replace or remove items.",
+      "Traverse a list to process its values and use list methods to organize data.",
+      "Assignment can share a reference; copy() creates a separate list."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

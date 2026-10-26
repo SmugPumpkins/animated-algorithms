@@ -107,3 +107,22 @@ The virtual filesystem uses Skulpt's nonreadopen/fileopen/filewrite hooks, prese
 The 17-slide deck retains its wording and order, with extracted PDF text in `input-process-output-source.json`. The teacher explicitly approved correcting slide 8's mismatched name-input code to `number = input("Enter a number: ")` followed by `print(number + 1)`, so its actual TypeError matches the explanation. The source terminal image's wording is retained in the source fixture; execution displays the interpreter's genuine error message.
 
 All other code examples are transcribed from the source and support real terminal input, Run and Step. Tests cover every example in both modes, numeric casting, newline prompts, escape sequences and the corrected error. `ipoChart` supplies headers and one row of purpose descriptions for a native accessible planning table. Optional `stageLabels` retains the Input/Process/Output labels alongside the processing example. Source prompt/user annotations appear as a compact terminal note; the terminal always starts empty.
+
+## Required wrap-ups and assignment links
+
+Every slideshow must end with one `kind: "wrapup"` slide: title `Wrap Up`, 3–5 concise overview bullets, and optional orange `inlineCode` terms. If a supplied deck already has a wrap-up, use or adapt that slide instead of adding a duplicate. This teacher-authorized summary convention overrides source fidelity for wrap-up slides only; preserve the remaining instructional slides. Added summaries use `sourcePage: null`. Introduction to Python and External Modules replace their old closing slides; Input, Process, Output keeps its existing wrap-up position with a shorter point-form overview.
+
+### Updating assignment repositories each semester
+
+Edit **`site/assignments.csv`**. Its only columns are `lesson` and `assessment_url`. All current lessons already have a row. `lesson` is the stable `<module-id>/<lesson-id>` from the lesson folder, such as `cse1110/introduction-to-python`; leave that key unchanged across years. Paste the new semester's complete HTTPS GitHub repository URL into `assessment_url`, for example:
+
+```csv
+lesson,assessment_url
+cse1110/introduction-to-python,https://github.com/YourAccount/intro-assignment-2027-winter
+```
+
+Use the actual assignment repository students should fork, not the reusable starting template, a student's fork, or a `/fork` URL. This example is documentation only; all shipped URLs are blank at the teacher's request. Keep older assignment repositories available for previous cohorts. Changing this CSV changes the destination for future clicks, without moving, creating or changing any existing forks.
+
+Save/commit the CSV and let GitHub Pages deploy. No lesson HTML/JSON or JavaScript changes are needed. The next page load fetches the CSV without using a cached mapping. A nonblank URL displays **Start your assignment →**, followed by a reminder to fork and submit the fork link. A blank URL shows **Assignment link coming soon** with no broken or disabled link. Missing/unavailable mappings do not prevent teaching the lesson. Add a new row when registering a future lesson; tests enforce row coverage and wrap-ups.
+
+Keep full assignment outlines, assessment criteria and submission instructions in the assignment repository for a single maintained source of truth. The lesson ends with the overview and the next-step link rather than a duplicate outline. CSV parsing supports normal spreadsheet quoting and CRLF. `node --test` validates CSV structure, repository URLs and lesson coverage before publishing.

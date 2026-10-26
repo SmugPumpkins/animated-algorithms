@@ -390,5 +390,38 @@
     "compactCode": true,
     "inlineCode": [],
     "layout": "wide"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Use with open() to open a text file and close it automatically.",
+      "Read existing contents with read() or readlines().",
+      "Write mode replaces contents; append mode adds text at the end.",
+      "Edit files through a read-process-write cycle, using newline characters to separate records."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

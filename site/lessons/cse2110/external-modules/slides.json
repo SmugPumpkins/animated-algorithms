@@ -246,16 +246,35 @@
     "sourcePage": 10
   },
   {
-    "title": "Try it with your own module",
-    "kind": "closing",
-    "paragraphs": [
-      "Create a geometry_tools.py module containing a documented function.",
-      "Import the function into main.py, pass in values, and use its return value.",
-      "Add a guarded test so the module can be checked directly without printing test output on import."
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Organize reusable functions in separate Python modules.",
+      "Import a module or specific functions to use them in another program.",
+      "Use parameters and return values to pass information between functions.",
+      "Guard direct-run tests with __name__ and document interfaces with type hints and docstrings."
     ],
     "inlineCode": [
-      "geometry_tools.py",
-      "main.py"
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
     ],
     "sourcePage": 10
   }

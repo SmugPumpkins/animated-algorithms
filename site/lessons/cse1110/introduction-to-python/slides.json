@@ -210,11 +210,35 @@
     "kind": "code"
   },
   {
-    "title": "Congratulations!",
-    "kind": "closing",
-    "paragraphs": [
-      "You have completed the introduction to Python!",
-      "You should now be able to create variables using appropriate datatypes, access and change their values, and display information using print()."
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Python stores values using datatypes such as int, float, str and bool.",
+      "Variables name values so you can access and change them.",
+      "Choose appropriate datatypes for the information your program stores.",
+      "Use print() to display values and program results."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
     ],
     "sourcePage": 16
   }

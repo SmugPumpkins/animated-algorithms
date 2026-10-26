@@ -10,3 +10,5 @@ For all website and demonstration work, follow [docs/design-system.md](docs/desi
 - Run `node --test` before publishing. Check changed layouts and controls in the browser at desktop and mobile sizes.
 
 - Slideshows use Poppins for text and Consolas for code. Normalize highlighted Consolas terms to orange inline code using the lesson rule in the design system. Keep slide controls minimal: Select slide, Fullscreen, and Run/Step/Stop/Reset for always-editable code. Readable font controls belong outside slideshows.
+
+- End every slideshow with a concise point-form wrap-up (3–5 bullets); reuse an existing wrap-up when present. Register its stable lesson key in `site/assignments.csv`. Assignment links belong in that CSV, never hard-coded in lesson content; see `docs/lessons/README.md` for yearly updates.

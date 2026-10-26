@@ -47,7 +47,7 @@ export const modules = [
     ['Modular design', 'Functions and procedures', 'Parameters and scope'], [{
       id: 'focus-on-functions', number: 1, title: 'Focus on Functions',
       description: 'Procedural design, single-purpose functions, stubs, type hints and docstrings.',
-      slideCount: 15, href: './lessons/cse2110/focus-on-functions/',
+      slideCount: 16, href: './lessons/cse2110/focus-on-functions/',
     }, {
       id: 'external-modules', number: 2, title: 'External Modules',
       description: 'Importing Python modules, testing reusable functions and documenting their interfaces.',
@@ -58,38 +58,38 @@ export const modules = [
     ['Arrays and indexing', 'Records', 'Structured data processing'], [{
       id: 'manipulating-strings', number: 1, title: 'Manipulating Strings',
       description: 'String methods for capitalization, whitespace, splitting, replacing, joining and numeric conversion.',
-      slideCount: 9, href: './lessons/cse2120/manipulating-strings/',
+      slideCount: 10, href: './lessons/cse2120/manipulating-strings/',
     }, {
       id: 'lists', number: 2, title: 'Lists',
       description: 'Creating, indexing, modifying, traversing and copying Python lists.',
-      slideCount: 21, href: './lessons/cse2120/lists/',
+      slideCount: 22, href: './lessons/cse2120/lists/',
     }, {
       id: 'tuples', number: 3, title: 'Tuples',
       description: 'Ordered collections, tuple traversal, immutability and mutable objects inside tuples.',
-      slideCount: 5, href: './lessons/cse2120/tuples/',
+      slideCount: 6, href: './lessons/cse2120/tuples/',
     }, {
       id: 'dictionaries', number: 4, title: 'Dictionaries',
       description: 'Key-value pairs, dictionary methods, traversal, copying and references.',
-      slideCount: 16, href: './lessons/cse2120/dictionaries/',
+      slideCount: 17, href: './lessons/cse2120/dictionaries/',
     }, {
       id: 'data-classes', number: 5, title: 'Data Classes',
       description: 'Declared fields, type annotations, instances and dot notation.',
-      slideCount: 9, href: './lessons/cse2120/data-classes/',
+      slideCount: 10, href: './lessons/cse2120/data-classes/',
     }, {
       id: 'multidimensional-lists', number: 6, title: 'Multidimensional Lists',
       description: 'Nested lists, rows and columns, multidimensional indexing and nested-loop traversal.',
-      slideCount: 13, href: './lessons/cse2120/multidimensional-lists/',
+      slideCount: 14, href: './lessons/cse2120/multidimensional-lists/',
     }, {
       id: 'parallel-lists', number: 7, title: 'Parallel Lists',
       description: 'Related lists, matching indices, enumerate and zip traversal.',
-      slideCount: 6, href: './lessons/cse2120/parallel-lists/',
+      slideCount: 7, href: './lessons/cse2120/parallel-lists/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',
     ['File organization', 'Reading and writing files', 'Sequential and random access'], [{
       id: 'reading-writing-appending', number: 1, title: 'Reading, Writing, and Appending',
       description: 'Text file modes, reading lines, writing, appending and the read-process-write cycle.',
-      slideCount: 15, href: './lessons/cse2130/reading-writing-appending/',
+      slideCount: 16, href: './lessons/cse2130/reading-writing-appending/',
     }]),
   moduleEntry('CSE 3110', 'Iterative Algorithm 1',
     'Develop iterative algorithms for searching and sorting.',

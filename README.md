@@ -70,3 +70,7 @@ Tests cover catalog references, unique URLs, module discoverability, demonstrati
 ## Teaching slides
 
 CSE 1110 includes a 16-slide [Introduction to Python lesson](site/lessons/cse1110/introduction-to-python/index.html). See the [lesson authoring guide](docs/lessons/README.md) for content, interactive terminals and typography conventions.
+
+## Assignment links and lesson wrap-ups
+
+Update semester-specific assignment repository links in [`site/assignments.csv`](site/assignments.csv). Keep lesson keys stable and replace only the URL column. Blank URLs show a coming-soon message. Every lesson ends with a point-form wrap-up and a CSV-powered next step. See [the teaching guide](docs/lessons/README.md#required-wrap-ups-and-assignment-links) for details.

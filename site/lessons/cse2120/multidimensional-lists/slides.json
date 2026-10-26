@@ -203,5 +203,38 @@
     "inlineCode": [],
     "compactCode": true,
     "layout": "code-emphasis"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Multidimensional lists contain nested lists representing rows, grids or layers.",
+      "Use one index for each dimension to access a value.",
+      "Nested loops traverse values in row-major or column-major order.",
+      "Deeper structures need additional indices and nested loops."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]

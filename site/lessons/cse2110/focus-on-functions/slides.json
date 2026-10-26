@@ -212,5 +212,38 @@
     },
     "expectedOutput": "",
     "sourcePage": 15
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "bullets": [
+      "Break programs into functions that each perform one clear task.",
+      "Use parameters for inputs and return values for results.",
+      "Use function stubs to plan and build a program in stages.",
+      "Make functions easier to understand with type hints and docstrings."
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "str",
+      "bool",
+      "print()",
+      "input()",
+      "int()",
+      "float()",
+      "copy()",
+      "len()",
+      "dataclass",
+      "@dataclass",
+      "__name__",
+      "enumerate()",
+      "zip()",
+      "with open()",
+      "read()",
+      "readlines()",
+      "\\n",
+      "\\\""
+    ],
+    "sourcePage": null
   }
 ]
