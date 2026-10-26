@@ -99,3 +99,5 @@ Module page section order is Module topics → Lessons → Interactive demonstra
 Keep a consecutive inline-code expression in one `.inline-code` span and one highlight box. Merge adjacent marked terms separated only by whitespace. Keep the expression together; use a wider layout or a shorter explanatory example when a long expression cannot fit. Do not draw separate boxes around individual words of a single code expression.
 
 The home-page flowchart must be at most 1.5 times the height of the entire adjacent text block (eyebrow, headings and introductory paragraph). Measure that block responsively, including when the readable-font preference changes, and scale the SVG proportionally. Disconnect its size observer when leaving the home page.
+
+Inside editable Python blocks, decorators use yellow, string escape sequences use orange, f-string braces use pink, and interpolated expressions use pale purple. Preserve normal syntax colors inside expressions. These code-block colors are separate from the orange inline-code convention. Editor and terminal scrollbars use dark tracks and cyan thumbs, retaining native scrolling and platform fallbacks.

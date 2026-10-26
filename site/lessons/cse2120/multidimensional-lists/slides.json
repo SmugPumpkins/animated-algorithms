@@ -1,0 +1,207 @@
+[
+  {
+    "title": "Advanced Uses for Lists",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 1: Multidimensional Lists",
+    "bullets": [
+      "Bringing lists into the 2nd Dimension... and BEYOND!"
+    ]
+  },
+  {
+    "title": "Multidimensional Lists",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A multidimensional list is a list that contains other lists.",
+      "These nested lists can be used to represent structures such as tables, grids, layers, or grouped data.",
+      "Each additional level of nesting adds another dimension to the structure."
+    ]
+  },
+  {
+    "title": "2D Lists",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "A 2D list is a list containing other lists, commonly representing a table or grid.",
+      "The outer list contains rows, while each inner list contains the values in that row."
+    ],
+    "code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n]",
+    "expectedOutput": "",
+    "denseText": true,
+    "inlineCode": []
+  },
+  {
+    "title": "Creating a 2D List",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "A 2D list can be created manually by placing several lists inside another list.",
+      "Each inner list usually represents one row of related data.",
+      "Keeping each row the same length makes the structure easier to work with."
+    ],
+    "code": "students = [\n    [\"Alex\", 82, 91],\n    [\"Sam\", 75, 88],\n    [\"Jordan\", 94, 90]\n]",
+    "expectedOutput": "",
+    "denseText": true,
+    "inlineCode": []
+  },
+  {
+    "title": "Rows and Columns in 2D Lists",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "In a 2D list, each inner list usually represents a row, while values in the same position form columns.",
+      "Rows often store one complete record, while columns represent the same type of information across different records.",
+      "This makes 2D lists useful for keeping related data organized."
+    ],
+    "code": "students = [\n    # Name , Grade, Score\n    [\"Alex\", 10, 91],\n    [\"Sam\", 11, 88],\n    [\"Jordan\", 10, 90]\n]",
+    "expectedOutput": "",
+    "denseText": true,
+    "inlineCode": []
+  },
+  {
+    "title": "Accessing Values in 2D Lists",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "Values in a 2D list are accessed using two indices.",
+      "The first index selects the inner list, and the second index selects the value inside it.",
+      "This is commonly written as list[row][column]."
+    ],
+    "code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n]\n\nprint(grid[1][2])",
+    "expectedOutput": "6\n",
+    "denseText": true,
+    "inlineCode": [
+      "list[row][column]"
+    ],
+    "initialOutput": "6\n",
+    "indexGrid": [
+      [
+        "0,0",
+        "0,1",
+        "0,2"
+      ],
+      [
+        "1,0",
+        "1,1",
+        "1,2"
+      ],
+      [
+        "2,0",
+        "2,1",
+        "2,2"
+      ]
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Traversing with Nested Loops",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "A 2D list can be traversed using one loop for the rows and another loop for the values inside each row.",
+      "This works well when you need each value but do not need its position.",
+      "The inner loop completes before the outer loop moves to the next row."
+    ],
+    "code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6]\n]\n\nfor row in grid:\n    for value in row:\n        print(value)",
+    "expectedOutput": "1\n2\n3\n4\n5\n6\n",
+    "denseText": true,
+    "inlineCode": [],
+    "compactCode": true
+  },
+  {
+    "title": "Traversing with Indices in Nested Loops",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "Nested loops can also use indices when the position of each value matters.",
+      "One loop tracks the row index and another tracks the column index.",
+      "This gives direct access to each value using list[i][j]."
+    ],
+    "code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6]\n]\n\nfor i in range(len(grid)):\n    for j in range(len(grid[i])):\n        print(grid[i][j])",
+    "expectedOutput": "1\n2\n3\n4\n5\n6\n",
+    "denseText": true,
+    "inlineCode": [
+      "list[i][j]"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Row Major Traversal",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "Row major traversal processes every value in one row before moving to the next row.",
+      "This is the most natural way to traverse a typical 2D list in Python.",
+      "The outer loop handles rows, while the inner loop handles columns."
+    ],
+    "code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6]\n]\n\nfor i in range(len(grid)):\n    for j in range(len(grid[i])):\n        print(grid[i][j])",
+    "expectedOutput": "1\n2\n3\n4\n5\n6\n",
+    "denseText": true,
+    "inlineCode": [],
+    "compactCode": true
+  },
+  {
+    "title": "Column Major Traversal",
+    "kind": "code",
+    "sourcePage": 10,
+    "paragraphs": [
+      "Column major traversal processes values down each column before moving to the next column.",
+      "This usually requires working with indices because Python stores the structure by rows.",
+      "The column loop runs on the outside while the row loop runs inside."
+    ],
+    "code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6]\n]\n\nfor j in range(len(grid[0])):\n    for i in range(len(grid)):\n        print(grid[i][j])",
+    "expectedOutput": "1\n4\n2\n5\n3\n6\n",
+    "denseText": true,
+    "inlineCode": [],
+    "compactCode": true
+  },
+  {
+    "title": "3D Lists and Beyond",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "A 3D list contains 2D lists inside another list.",
+      "It can represent structures such as multiple grids, layers, or groups of tables.",
+      "Python does not place a hard limit on how deeply lists can be nested, although deeply nested structures become harder to manage."
+    ],
+    "code": "levels = [\n    [\n        [1, 2],\n        [3, 4]\n    ],\n    [\n        [5, 6],\n        [7, 8]\n    ]\n]",
+    "expectedOutput": "",
+    "denseText": true,
+    "inlineCode": [],
+    "compactCode": true
+  },
+  {
+    "title": "Accessing Values in 3D and Beyond Lists",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "Each additional dimension requires another index.",
+      "A 3D list therefore uses three indices, such as list[i][j][k].",
+      "The same pattern continues for deeper nested lists."
+    ],
+    "code": "levels = [\n    [\n        [1, 2],\n        [3, 4]\n    ],\n    [\n        [5, 6],\n        [7, 8]\n    ]\n]\n\nprint(levels[1][0][1])",
+    "expectedOutput": "6\n",
+    "denseText": true,
+    "inlineCode": [
+      "list[i][j][k]"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Traversing 3D and Beyond Lists",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "Traversing deeper lists requires another nested loop for each dimension.",
+      "A 3D list usually requires three loops, while a 4D list may require four.",
+      "As dimensions are added, the number of values that may need to be processed can grow very quickly."
+    ],
+    "code": "levels = [\n    [\n        [1, 2],\n        [3, 4]\n    ],\n    [\n        [5, 6],\n        [7, 8]\n    ]\n]\n\nfor level in levels:\n    for row in level:\n        for value in row:\n            print(value)",
+    "expectedOutput": "1\n2\n3\n4\n5\n6\n7\n8\n",
+    "denseText": true,
+    "inlineCode": [],
+    "compactCode": true,
+    "layout": "code-emphasis"
+  }
+]

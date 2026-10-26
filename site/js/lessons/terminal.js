@@ -1,16 +1,69 @@
 export const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
-function pythonTokens(code) {
-  return code.split(/("""[\s\S]*?(?:"""|$)|'''[\s\S]*?(?:'''|$)|f?"(?:\\.|[^"\\])*"|f?'(?:\\.|[^'\\])*'|#[^\n]*|\b(?:True|False|None|print|input|int|float|str|bool|def|return|if|else|elif|from|import|as|class|for|while|in|and|or|not|pass)\b|\b\d+(?:\.\d+)?\b)/g).map(text => {
-    let kind = '';
-    if (/^(f?["'])/.test(text)) kind = 'string';
-    else if (text.startsWith('#')) kind = 'comment';
-    else if (/^(True|False|None)$/.test(text)) kind = 'literal';
-    else if (/^(print|input|int|float|str|bool)$/.test(text)) kind = 'builtin';
-    else if (/^(def|return|if|else|elif|from|import|as|class|for|while|in|and|or|not|pass)$/.test(text)) kind = 'keyword';
-    else if (/^\d/.test(text)) kind = 'number';
-    return { text, kind };
-  });
+function pythonTokens(code, defaultKind = '') {
+  const tokens = [];
+  const add = (text, kind = defaultKind) => {
+    if (!text) return;
+    if (tokens.at(-1)?.kind === kind) tokens.at(-1).text += text;
+    else tokens.push({ text, kind });
+  };
+  let i = 0;
+  while (i < code.length) {
+    const rest = code.slice(i);
+    const string = rest.match(/^([rubf]{0,2})("""|'''|"|')/i);
+    if (string && (string[1] === '' || !/[A-Za-z0-9_]/.test(code[i - 1] || ''))) {
+      const [, prefix, quote] = string;
+      const raw = /r/i.test(prefix), formatted = /f/i.test(prefix);
+      add(string[0], 'string'); i += string[0].length;
+      while (i < code.length) {
+        if (code.startsWith(quote, i)) { add(quote, 'string'); i += quote.length; break; }
+        if (code[i] === '\\') {
+          const escape = code.slice(i).match(/^\\(?:N\{[^}]*\}|u[0-9a-fA-F]{0,4}|U[0-9a-fA-F]{0,8}|x[0-9a-fA-F]{0,2}|[0-7]{1,3}|[^])/)?.[0] || '\\';
+          add(escape, raw ? 'string' : 'escape'); i += escape.length; continue;
+        }
+        if (formatted && (code.startsWith('{{', i) || code.startsWith('}}', i))) {
+          add(code.slice(i, i + 2), 'escape'); i += 2; continue;
+        }
+        if (formatted && code[i] === '{') {
+          add('{', 'format-brace'); i++;
+          const start = i;
+          let depth = 1, innerQuote = null;
+          for (; i < code.length; i++) {
+            if (innerQuote) {
+              if (code[i] === '\\') i++;
+              else if (code.startsWith(innerQuote, i)) { i += innerQuote.length - 1; innerQuote = null; }
+            } else if (code[i] === '"' || code[i] === "'") {
+              innerQuote = code.startsWith(code[i].repeat(3), i) ? code[i].repeat(3) : code[i];
+              i += innerQuote.length - 1;
+            } else if (code[i] === '{') depth++;
+            else if (code[i] === '}' && --depth === 0) break;
+          }
+          tokens.push(...pythonTokens(code.slice(start, i), 'interpolation'));
+          if (code[i] === '}') { add('}', 'format-brace'); i++; }
+          continue;
+        }
+        add(code[i++], 'string');
+      }
+      continue;
+    }
+    if (code[i] === '#') {
+      const comment = rest.match(/^[^\n]*/)[0]; add(comment, 'comment'); i += comment.length; continue;
+    }
+    const decorator = code[i] === '@' && !code.slice(code.lastIndexOf('\n', i - 1) + 1, i).trim()
+      ? rest.match(/^@[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*/) : null;
+    if (decorator) { add(decorator[0], 'decorator'); i += decorator[0].length; continue; }
+    const word = rest.match(/^[A-Za-z_]\w*|^\d+(?:\.\d+)?/);
+    if (word) {
+      const text = word[0];
+      const kind = /^(True|False|None)$/.test(text) ? 'literal'
+        : /^(print|input|int|float|str|bool)$/.test(text) ? 'builtin'
+        : /^(def|return|if|else|elif|from|import|as|class|for|while|in|and|or|not|pass)$/.test(text) ? 'keyword'
+        : /^\d/.test(text) ? 'number' : defaultKind;
+      add(text, kind); i += text.length; continue;
+    }
+    add(code[i++]);
+  }
+  return tokens;
 }
 const tokenMarkup = (text, kind) => kind ? `<span class="python-${kind}">${escapeHtml(text)}</span>` : escapeHtml(text);
 export function highlightPython(code) {

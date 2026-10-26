@@ -71,6 +71,10 @@ export const modules = [
       id: 'data-classes', number: 5, title: 'Data Classes',
       description: 'Declared fields, type annotations, instances and dot notation.',
       slideCount: 9, href: './lessons/cse2120/data-classes/',
+    }, {
+      id: 'multidimensional-lists', number: 6, title: 'Multidimensional Lists',
+      description: 'Nested lists, rows and columns, multidimensional indexing and nested-loop traversal.',
+      slideCount: 13, href: './lessons/cse2120/multidimensional-lists/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',

@@ -356,3 +356,58 @@ test('annotation lowering preserves strings and source lines during stepping', a
   const assignment = result.steps.find(step => step.line === 10);
   assert.equal(assignment.variables.find(item => item.name === 'item').value, "Example(name='A')");
 });
+
+const multidimensionalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/multidimensional-lists/slides.json'), 'utf8'));
+const multidimensionalSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/multidimensional-lists-source.json'), 'utf8'));
+test('Multidimensional Lists retains all 13 source slides and coordinate labels', () => {
+  assert.equal(multidimensionalSlides.length, 13);
+  multidimensionalSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', ...(slide.indexGrid || []).flat(), slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(multidimensionalSource[index].text), `Source differs on page ${index + 1}`);
+  });
+});
+
+test('every multidimensional example runs and steps with actual nested-list output', async () => {
+  for (const slide of multidimensionalSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(slide.code, [], mode);
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('stepping follows distinct row-major and column-major traversal positions', async () => {
+  const row = await runPython(multidimensionalSlides[8].code.replace('print(grid[i][j])', 'print(i, j)'), [], 'step');
+  const column = await runPython(multidimensionalSlides[9].code.replace('print(grid[i][j])', 'print(i, j)'), [], 'step');
+  assert.equal(row.output, '0 0\n0 1\n0 2\n1 0\n1 1\n1 2\n');
+  assert.equal(column.output, '0 0\n1 0\n0 1\n1 1\n0 2\n1 2\n');
+});
+
+test('syntax highlighting distinguishes decorators, escapes and f-string expressions safely', () => {
+  const code = '@dataclass\nclass Student:\n    name: str\nprint(f"Hello {student.name}: {score + 1}\\n{{literal}} <tag>")\nraw = r"\\n"\n# @dataclass is a comment\nlabel = "@dataclass"\nresult = left @ right';
+  const html = highlightPython(code);
+  assert.match(html, /python-decorator[^>]*>@dataclass/);
+  assert.equal((html.match(/python-decorator/g) || []).length, 1);
+  assert.match(html, /python-escape[^>]*>\\n/);
+  assert.match(html, /python-format-brace[^>]*>\{/);
+  assert.match(html, /python-interpolation[^>]*>student\.name/);
+  assert.match(html, /python-interpolation[^>]*>score \+ /);
+  assert.match(html, /python-escape[^>]*>[^<]*\{\{/);
+  assert.match(html, /python-string[^>]*>r&quot;\\n&quot;/);
+  assert.equal(html.replace(/<[^>]+>/g, ''), escapeHtml(code));
+  assert.equal(highlightLines(code, 4).replace(/<\/span><span class="code-line/g, '</span>\n<span class="code-line').replace(/<[^>]+>/g, ''), escapeHtml(code));
+  assert.equal((highlightLines(code, 4).match(/executing-line/g) || []).length, 1);
+});
+
+test('f-string highlighting retains nested expressions, multiline strings and incomplete edits', () => {
+  for (const code of [
+    'print(f"{student[\'name\']} { {\'x\': 1} } {score:{width}.{precision}f}")',
+    'message = f"""Hi {name}\\n\nScore: {score!r}"""',
+    'print(f"unfinished {name',
+    'text = """@decorator\n{not_formatted}\\t"""',
+  ]) {
+    assert.equal(highlightPython(code).replace(/<[^>]+>/g, ''), escapeHtml(code));
+    assert.equal(highlightLines(code).replace(/<\/span><span class="code-line/g, '</span>\n<span class="code-line').replace(/<[^>]+>/g, ''), escapeHtml(code));
+  }
+});
