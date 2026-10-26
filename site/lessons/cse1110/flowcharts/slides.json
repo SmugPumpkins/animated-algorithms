@@ -1,0 +1,690 @@
+[
+  {
+    "title": "Structured Programming",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 2: Visualizing Algorithms with Flowcharts",
+    "objectiveLead": "By the end of this lesson, you should be able to:",
+    "bullets": [
+      "Explain how flowcharts represent algorithms visually.",
+      "Identify the common symbols used in programming flowcharts.",
+      "Represent sequence, selection, and iteration using flowcharts."
+    ]
+  },
+  {
+    "title": "Flowcharts",
+    "kind": "flowchart",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A flowchart is a diagram that uses symbols and arrows to represent the steps and decisions in an algorithm.",
+      "Flowcharts allow programmers to plan and understand the logic of a program before writing code.",
+      "Arrows connect the symbols and show the order in which the steps occur.",
+      "Different symbols have different meanings."
+    ],
+    "diagram": {
+      "width": 820,
+      "height": 560,
+      "nodes": [
+        {
+          "id": "start",
+          "type": "terminator",
+          "role": "start",
+          "x": 10,
+          "y": 30,
+          "width": 180,
+          "height": 80,
+          "lines": [
+            "Start"
+          ]
+        },
+        {
+          "id": "end",
+          "type": "terminator",
+          "role": "end",
+          "x": 220,
+          "y": 30,
+          "width": 180,
+          "height": 80,
+          "lines": [
+            "End"
+          ]
+        },
+        {
+          "id": "process",
+          "type": "process",
+          "role": "process",
+          "x": 500,
+          "y": 30,
+          "width": 230,
+          "height": 80,
+          "lines": [
+            "Process"
+          ]
+        },
+        {
+          "id": "input",
+          "type": "io",
+          "role": "parameter",
+          "x": 10,
+          "y": 210,
+          "width": 220,
+          "height": 100,
+          "lines": [
+            "Input"
+          ]
+        },
+        {
+          "id": "output",
+          "type": "io",
+          "role": "output",
+          "x": 260,
+          "y": 210,
+          "width": 220,
+          "height": 100,
+          "lines": [
+            "Output"
+          ]
+        },
+        {
+          "id": "decision",
+          "type": "decision",
+          "role": "decision",
+          "x": 510,
+          "y": 170,
+          "width": 230,
+          "height": 160,
+          "lines": [
+            "Decision"
+          ]
+        },
+        {
+          "id": "subprocess",
+          "type": "predefined",
+          "role": "predefined",
+          "x": 80,
+          "y": 420,
+          "width": 260,
+          "height": 100,
+          "lines": [
+            "Sub-process"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "path": "M740 250H790",
+          "label": "True/Yes",
+          "x": 755,
+          "y": 230
+        },
+        {
+          "path": "M625 330V390",
+          "label": "False/No",
+          "x": 690,
+          "y": 380
+        }
+      ]
+    },
+    "denseText": true
+  },
+  {
+    "title": "https://app.diagrams.net/",
+    "kind": "resource",
+    "sourcePage": 3,
+    "paragraphs": [
+      "I use this website to create flowcharts for free and without needing to make an account!",
+      "The link will also be shared on Schoology"
+    ],
+    "resourceUrl": "https://app.diagrams.net/",
+    "image": "diagrams-net.png",
+    "imageAlt": "diagrams.net flowchart tool logo"
+  },
+  {
+    "title": "START/END",
+    "kind": "flowchart",
+    "sourcePage": 4,
+    "paragraphs": [
+      "The START/END symbol indicates where a process begins or ends.",
+      "Every flowchart should have at least one start symbol and one end symbol."
+    ],
+    "diagram": {
+      "width": 760,
+      "height": 460,
+      "nodes": [
+        {
+          "id": "start",
+          "type": "terminator",
+          "role": "start",
+          "x": 30,
+          "y": 170,
+          "width": 280,
+          "height": 120,
+          "lines": [
+            "START"
+          ]
+        },
+        {
+          "id": "end",
+          "type": "terminator",
+          "role": "end",
+          "x": 420,
+          "y": 170,
+          "width": 280,
+          "height": 120,
+          "lines": [
+            "END"
+          ]
+        }
+      ],
+      "edges": []
+    },
+    "denseText": true
+  },
+  {
+    "title": "Process",
+    "kind": "flowchart",
+    "sourcePage": 5,
+    "paragraphs": [
+      "The Process symbol represents an action or operation being performed.",
+      "Most statements in a program are represented using process symbols."
+    ],
+    "diagram": {
+      "width": 760,
+      "height": 460,
+      "nodes": [
+        {
+          "id": "process",
+          "type": "process",
+          "role": "process",
+          "x": 190,
+          "y": 150,
+          "width": 360,
+          "height": 180,
+          "lines": []
+        }
+      ],
+      "edges": []
+    },
+    "denseText": true
+  },
+  {
+    "title": "Arrow",
+    "kind": "flowchart",
+    "sourcePage": 6,
+    "paragraphs": [
+      "Arrows show the direction that control flows through the process.",
+      "They connect flowchart symbols and indicate what step happens next."
+    ],
+    "diagram": {
+      "width": 760,
+      "height": 460,
+      "nodes": [],
+      "edges": [
+        {
+          "path": "M100 230H650"
+        }
+      ]
+    },
+    "denseText": true
+  },
+  {
+    "title": "Input/Output",
+    "kind": "flowchart",
+    "sourcePage": 7,
+    "paragraphs": [
+      "The Input/Output symbol represents data entering or leaving a program.",
+      "Common examples include receiving user input or displaying output to the screen."
+    ],
+    "diagram": {
+      "width": 760,
+      "height": 460,
+      "nodes": [
+        {
+          "id": "input",
+          "type": "io",
+          "role": "parameter",
+          "x": 30,
+          "y": 170,
+          "width": 300,
+          "height": 140,
+          "lines": [
+            "Input"
+          ]
+        },
+        {
+          "id": "output",
+          "type": "io",
+          "role": "output",
+          "x": 420,
+          "y": 170,
+          "width": 300,
+          "height": 140,
+          "lines": [
+            "Output"
+          ]
+        }
+      ],
+      "edges": []
+    },
+    "denseText": true
+  },
+  {
+    "title": "Decision",
+    "kind": "flowchart",
+    "sourcePage": 8,
+    "paragraphs": [
+      "The Decision symbol represents a condition that can evaluate to either true or false.",
+      "Depending on the result, the flow follows a different path."
+    ],
+    "diagram": {
+      "width": 760,
+      "height": 460,
+      "nodes": [
+        {
+          "id": "decision",
+          "type": "decision",
+          "role": "decision",
+          "x": 160,
+          "y": 100,
+          "width": 440,
+          "height": 260,
+          "lines": []
+        }
+      ],
+      "edges": []
+    },
+    "denseText": true
+  },
+  {
+    "title": "Subprocess",
+    "kind": "flowchart",
+    "sourcePage": 9,
+    "paragraphs": [
+      "The Subprocess symbol represents a task that has been defined elsewhere, such as a function.",
+      "It allows complex processes to be broken into smaller, reusable parts."
+    ],
+    "diagram": {
+      "width": 760,
+      "height": 460,
+      "nodes": [
+        {
+          "id": "subprocess",
+          "type": "predefined",
+          "role": "predefined",
+          "x": 190,
+          "y": 150,
+          "width": 360,
+          "height": 180,
+          "lines": []
+        }
+      ],
+      "edges": []
+    },
+    "denseText": true
+  },
+  {
+    "title": "Visualizing Control Structures",
+    "kind": "text",
+    "sourcePage": 10,
+    "paragraphs": [
+      "Flowcharts can be used to visualize the three fundamental control structures used in programming: sequence, selection, and iteration."
+    ]
+  },
+  {
+    "title": "Visualizing Sequence",
+    "kind": "flowchart",
+    "sourcePage": 11,
+    "paragraphs": [
+      "A sequence is represented by a series of process symbols connected by arrows."
+    ],
+    "diagram": {
+      "width": 1120,
+      "height": 290,
+      "nodes": [
+        {
+          "id": "start",
+          "type": "terminator",
+          "role": "start",
+          "x": 10,
+          "y": 110,
+          "width": 140,
+          "height": 70,
+          "lines": [
+            "START"
+          ]
+        },
+        {
+          "id": "input",
+          "type": "io",
+          "role": "parameter",
+          "x": 210,
+          "y": 95,
+          "width": 170,
+          "height": 100,
+          "lines": [
+            "INPUT",
+            "name"
+          ]
+        },
+        {
+          "id": "message",
+          "type": "process",
+          "role": "process",
+          "x": 440,
+          "y": 70,
+          "width": 220,
+          "height": 150,
+          "lines": [
+            "message =",
+            "\"Hello\" + name"
+          ]
+        },
+        {
+          "id": "output",
+          "type": "io",
+          "role": "output",
+          "x": 720,
+          "y": 95,
+          "width": 180,
+          "height": 100,
+          "lines": [
+            "OUTPUT",
+            "message"
+          ]
+        },
+        {
+          "id": "end",
+          "type": "terminator",
+          "role": "end",
+          "x": 960,
+          "y": 110,
+          "width": 140,
+          "height": 70,
+          "lines": [
+            "END"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "path": "M150 145H210"
+        },
+        {
+          "path": "M380 145H440"
+        },
+        {
+          "path": "M660 145H720"
+        },
+        {
+          "path": "M900 145H960"
+        }
+      ]
+    },
+    "denseText": true,
+    "flowLayout": "wide",
+    "flowExample": "sequence"
+  },
+  {
+    "title": "Visualizing Selection",
+    "kind": "flowchart",
+    "sourcePage": 12,
+    "paragraphs": [
+      "Selection structures use decision symbols to show different paths that may be taken based on a condition."
+    ],
+    "diagram": {
+      "width": 1240,
+      "height": 380,
+      "nodes": [
+        {
+          "id": "start",
+          "type": "terminator",
+          "role": "start",
+          "x": 10,
+          "y": 155,
+          "width": 130,
+          "height": 70,
+          "lines": [
+            "START"
+          ]
+        },
+        {
+          "id": "values",
+          "type": "process",
+          "role": "process",
+          "x": 190,
+          "y": 120,
+          "width": 230,
+          "height": 140,
+          "lines": [
+            "temp_celsius = 25",
+            "WARM = 21"
+          ]
+        },
+        {
+          "id": "check",
+          "type": "decision",
+          "role": "decision",
+          "x": 470,
+          "y": 115,
+          "width": 270,
+          "height": 150,
+          "lines": [
+            "temp_celsius > WARM"
+          ]
+        },
+        {
+          "id": "hot",
+          "type": "io",
+          "role": "output",
+          "x": 780,
+          "y": 5,
+          "width": 260,
+          "height": 100,
+          "lines": [
+            "OUTPUT",
+            "\"Wow, it sure is",
+            "hot!\""
+          ]
+        },
+        {
+          "id": "sweater",
+          "type": "io",
+          "role": "output",
+          "x": 780,
+          "y": 275,
+          "width": 260,
+          "height": 100,
+          "lines": [
+            "OUTPUT",
+            "\"Grab a",
+            "sweater!\""
+          ]
+        },
+        {
+          "id": "end",
+          "type": "terminator",
+          "role": "end",
+          "x": 1090,
+          "y": 155,
+          "width": 130,
+          "height": 70,
+          "lines": [
+            "END"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "path": "M140 190H190"
+        },
+        {
+          "path": "M420 190H470"
+        },
+        {
+          "path": "M605 115V55H780",
+          "label": "True",
+          "x": 650,
+          "y": 45
+        },
+        {
+          "path": "M605 265V325H780",
+          "label": "False",
+          "x": 650,
+          "y": 315
+        },
+        {
+          "path": "M1040 55H1155V155"
+        },
+        {
+          "path": "M1040 325H1155V225"
+        }
+      ]
+    },
+    "denseText": true,
+    "flowLayout": "wide",
+    "flowExample": "selection"
+  },
+  {
+    "title": "Visualizing Iteration",
+    "kind": "flowchart",
+    "sourcePage": 13,
+    "paragraphs": [
+      "Iteration structures use arrows that loop back to an earlier point in the flowchart, representing code that repeats until a condition is met."
+    ],
+    "diagram": {
+      "width": 1110,
+      "height": 370,
+      "nodes": [
+        {
+          "id": "start",
+          "type": "terminator",
+          "role": "start",
+          "x": 10,
+          "y": 125,
+          "width": 130,
+          "height": 70,
+          "lines": [
+            "START"
+          ]
+        },
+        {
+          "id": "values",
+          "type": "process",
+          "role": "process",
+          "x": 190,
+          "y": 115,
+          "width": 180,
+          "height": 90,
+          "lines": [
+            "total = 0",
+            "i = 0"
+          ]
+        },
+        {
+          "id": "check",
+          "type": "decision",
+          "role": "decision",
+          "x": 430,
+          "y": 70,
+          "width": 190,
+          "height": 180,
+          "lines": [
+            "i < 3"
+          ]
+        },
+        {
+          "id": "total",
+          "type": "process",
+          "role": "process",
+          "x": 435,
+          "y": 280,
+          "width": 180,
+          "height": 70,
+          "lines": [
+            "total += i"
+          ]
+        },
+        {
+          "id": "increment",
+          "type": "process",
+          "role": "process",
+          "x": 720,
+          "y": 280,
+          "width": 180,
+          "height": 70,
+          "lines": [
+            "i += 1"
+          ]
+        },
+        {
+          "id": "output",
+          "type": "io",
+          "role": "output",
+          "x": 720,
+          "y": 35,
+          "width": 180,
+          "height": 90,
+          "lines": [
+            "OUTPUT",
+            "total"
+          ]
+        },
+        {
+          "id": "end",
+          "type": "terminator",
+          "role": "end",
+          "x": 960,
+          "y": 45,
+          "width": 130,
+          "height": 70,
+          "lines": [
+            "END"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "path": "M140 160H190"
+        },
+        {
+          "path": "M370 160H430"
+        },
+        {
+          "path": "M525 70V40H690V80H720",
+          "label": "False",
+          "x": 610,
+          "y": 28
+        },
+        {
+          "path": "M525 250V280",
+          "label": "True",
+          "x": 565,
+          "y": 270
+        },
+        {
+          "path": "M615 315H720"
+        },
+        {
+          "path": "M900 315H940V160H620"
+        },
+        {
+          "path": "M900 80H960"
+        }
+      ]
+    },
+    "denseText": true,
+    "flowLayout": "wide",
+    "flowExample": "iteration"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "Flowcharts use symbols and arrows to represent the logic of an algorithm.",
+      "Use terminators, process, input/output, decision and subprocess symbols for different kinds of steps.",
+      "Arrows show instruction order, decision branches and loops.",
+      "Represent sequence, selection and iteration visually before writing code."
+    ]
+  }
+]

@@ -130,3 +130,11 @@ Keep full assignment outlines, assessment criteria and submission instructions i
 ## Algorithms (CSE 1110, lesson 3)
 
 The seven-page Structured Programming Part 1 deck retains all instructional wording and code. A new eighth slide provides the standard point-form wrap-up, with a blank `cse1110/algorithms` assignment row. Extracted text is stored in `algorithms-source.json`. Sequence accepts real terminal input; selection can be edited to explore both branches; iteration executes a real loop. `objectiveLead`, `bodyBullets` and `afterBullets` preserve source objectives and explanation lists as native slide text. Tests cover source fidelity, Run/Step, alternate branches and changed loop counts.
+
+## Visualizing Algorithms with Flowcharts (CSE 1110, lesson 4)
+
+The 13-page Structured Programming Part 2 deck retains visible wording and order, followed by the required fourteenth wrap-up. `flowcharts-source.json` stores extracted PDF text; page 3's extracted `diagrams.net - Wikipedia` is hidden image metadata, not visible slide wording. Its original embedded diagrams.net logo is extracted unchanged and its tool URL remains clickable. A blank `cse1110/flowcharts` assignment row is included.
+
+Flowcharts are native SVG with geometry (`type`) separate from shared semantic `role` colors. Start/end and input/output examples show both roles distinctly. The final sequence, selection and iteration diagrams retain all source labels and use Run/Step/Stop/Reset to highlight execution. Playback runs at one instruction per second. `flowchartSteps` computes example states independently from rendering: the selection uses the source's 25 > 21 condition; the loop computes total 3 when i reaches 3. The greeting uses example input Alex and the source's exact `"Hello" + name` expression. No Python code screenshot is present in this source deck. Leaving a slide stops its timer; page cleanup removes all listeners and timers.
+
+`kind: "flowchart"` accepts a `diagram` with viewBox dimensions, nodes (IDs, geometry, roles, coordinates, sizes and label lines), and routed edges. Set `flowLayout: "wide"` for examples and `flowExample` for playback. `kind: "resource"` shows the original tool link and image. Text uses Poppins; diagram instructions use Consolas. Tests cover source wording, geometry/roles, branch connections, loop results and playback cleanup.

@@ -1,0 +1,54 @@
+[
+  {
+    "page": 1,
+    "text": "Structured\nProgramming\nPart 2: Visualizing Algorithms\nwith Flowcharts\nBy the end of this lesson, you should be able to:\n\u2022\nExplain how flowcharts represent algorithms\nvisually.\n\u2022\nIdentify the common symbols used in\nprogramming flowcharts.\n\u2022\nRepresent sequence, selection, and iteration\nusing flowcharts."
+  },
+  {
+    "page": 2,
+    "text": "Flowcharts\nA flowchart is a diagram that\nuses symbols and arrows to\nrepresent the steps and\ndecisions in an algorithm.\nFlowcharts allow programmers\nto plan and understand the\nlogic of a program before\nwriting code.\nArrows connect the symbols\nand show the order in which\nthe steps occur.\nDifferent symbols have\ndifferent meanings."
+  },
+  {
+    "page": 3,
+    "text": "I use this website to create\nflowcharts for free and without\ndiagrams.net - Wikipedia\nneeding to make an account!\nThe link will also be shared on\nSchoology\nhttps://app.diagrams.net/"
+  },
+  {
+    "page": 4,
+    "text": "START/END\nThe START/END symbol indicates\nwhere a process begins or ends.\nEvery flowchart should have at\nleast one start symbol and one\nend symbol."
+  },
+  {
+    "page": 5,
+    "text": "Process\nThe Process symbol represents\nan action or operation being\nperformed.\nMost statements in a program\nare represented using process\nsymbols."
+  },
+  {
+    "page": 6,
+    "text": "Arrow\nArrows show the direction that\ncontrol flows through the\nprocess.\nThey connect flowchart symbols\nand indicate what step happens\nnext."
+  },
+  {
+    "page": 7,
+    "text": "Input/Output\nThe Input/Output symbol\nrepresents data entering or\nleaving a program.\nCommon examples include\nreceiving user input or displaying\noutput to the screen."
+  },
+  {
+    "page": 8,
+    "text": "Decision\nThe Decision symbol represents a\ncondition that can evaluate to\neither true or false.\nDepending on the result, the flow\nfollows a different path."
+  },
+  {
+    "page": 9,
+    "text": "Subprocess\nThe Subprocess symbol\nrepresents a task that has been\ndefined elsewhere, such as a\nfunction.\nIt allows complex processes to be\nbroken into smaller, reusable\nparts."
+  },
+  {
+    "page": 10,
+    "text": "Visualizing Control\nStructures\nFlowcharts can be used to visualize the\nthree fundamental control structures used\nin programming: sequence, selection, and\niteration."
+  },
+  {
+    "page": 11,
+    "text": "Visualizing Sequence\nA sequence is represented by a series of process symbols connected by\narrows."
+  },
+  {
+    "page": 12,
+    "text": "Visualizing Selection\nSelection structures use decision symbols to show different paths that may\nbe taken based on a condition."
+  },
+  {
+    "page": 13,
+    "text": "Visualizing Iteration\nIteration\nstructures use\narrows that\nloop back to\nan earlier\npoint in the\nflowchart,\nrepresenting\ncode that\nrepeats until a\ncondition is\nmet."
+  }
+]

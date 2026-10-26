@@ -39,6 +39,10 @@ export const modules = [
       id: 'algorithms', number: 3, title: 'Algorithms',
       description: 'Algorithms, structured programming, sequence, selection and iteration.',
       slideCount: 8, href: './lessons/cse1110/algorithms/',
+    }, {
+      id: 'flowcharts', number: 4, title: 'Visualizing Algorithms with Flowcharts',
+      description: 'Flowchart symbols and step-by-step diagrams for sequence, selection and iteration.',
+      slideCount: 14, href: './lessons/cse1110/flowcharts/',
     }]),
   moduleEntry('CSE 1120', 'Structured Programming 2',
     'Add decisions, repetition and blocks to structured programs.',

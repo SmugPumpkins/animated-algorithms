@@ -225,6 +225,19 @@ html, body { width: 100%; height: 100%; margin: 0; }
 .reveal .assignment-link { display: inline-block; padding: 10px 18px; border: 1px solid #4de8f4; border-radius: 5px; color: #9ff7ff; background: #16313d; font: 600 24px/1.3 Poppins, sans-serif; }
 .reveal .assignment-link:hover { color: #fff; background: #244651; }
 .reveal .assignment-link:focus-visible { outline: 3px solid #ff8fdb; outline-offset: 5px; }
+.reveal .lesson-flow-wide { display: flex; flex-direction: column; flex: 1; min-height: 0; gap: 16px; }
+.reveal .lesson-flow-wide > .source-body { font-size: 24px; line-height: 1.4; }
+.reveal .lesson-flow-wide > .source-body p { margin: 0; }
+.reveal .lesson-flow-panel { display: flex; flex-direction: column; flex: 1; min-height: 0; min-width: 0; border: 1px solid #39425e; border-radius: 5px; background: #101025; }
+.reveal .lesson-flow-visual { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 14px; }
+.reveal .lesson-flowchart { width: 100%; height: 100%; max-height: 100%; overflow: visible; }
+.reveal .lesson-flowchart text { font: 22px var(--font-code); fill: #eeebff; }
+.reveal .lesson-flowchart .edge-label { font-size: 20px; fill: #d4cce9; }
+.reveal .lesson-flowchart .flow-edges > path { fill: none; stroke-width: 2; }
+.reveal .lesson-flow-panel .flow-legend { padding: 8px 12px; margin: 0; font: 15px/1.3 Poppins, sans-serif; }
+.reveal .flow-step-status { flex: 0 0 56px; overflow: auto; margin: 0; border-top: 1px solid #39425e; padding: 10px 14px; font: 20px/1.4 Poppins, sans-serif; color: #d4cce9; }
+.reveal .lesson-resource-image { width: 100%; height: 100%; min-height: 0; object-fit: contain; padding: 30px; }
+.reveal .lesson-resource-link { color: #4de8f4; text-decoration: underline; text-underline-offset: 6px; }
 .reveal .data-files { flex: 0 0 140px; min-height: 0; overflow: auto; border-top: 1px solid #37435f; }
 .reveal .data-file-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; }
 .reveal .data-file-panel small { color: #b6b2ce; font-size: 15px; margin-left: 12px; }

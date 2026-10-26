@@ -536,3 +536,72 @@ test('edited control structures respond to actual input, branch conditions and r
     assert.equal((await runPython(algorithmSlides[6].code.replace('range(5)','range(2)'), [], mode)).output, 'Hello!\nHello!\n');
   }
 });
+
+const flowSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/flowcharts/slides.json'), 'utf8'));
+const flowSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/flowcharts-source.json'), 'utf8'));
+test('Flowcharts preserves all 13 visible source slides before the wrap-up', () => {
+  assert.equal(flowSlides.length, 14);
+  flowSlides.slice(0,13).forEach((slide,index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', slide.objectiveLead || '', ...(slide.bullets || []), ...(slide.paragraphs || [])].join('\n');
+    const original = index === 2 ? flowSource[index].text.replace('diagrams.net - Wikipedia','') : flowSource[index].text;
+    assert.deepEqual(words(text), words(original), `Source differs on page ${index + 1}`);
+  });
+});
+
+test('flowchart diagrams use valid separate geometry and semantic roles', async () => {
+  const {FLOW_ROLES} = await import('../site/js/flowchart-theme.js');
+  const {flowchartMarkup,flowchartSteps} = await import('../site/js/lessons/flowchart.js');
+  for (const [index,slide] of flowSlides.entries()) {
+    if (!slide.diagram) continue;
+    const ids = slide.diagram.nodes.map(node => node.id);
+    assert.equal(new Set(ids).size,ids.length);
+    for (const node of slide.diagram.nodes) {
+      assert.ok(Object.hasOwn(FLOW_ROLES,node.role));
+      assert.ok(['terminator','io','process','decision','predefined'].includes(node.type));
+    }
+    const markup = flowchartMarkup(slide,index);
+    assert.ok(markup.includes('class="flowchart lesson-flowchart"'));
+    if (slide.flowExample) for (const step of flowchartSteps(slide.flowExample)) assert.ok(ids.includes(step.node));
+  }
+  assert.equal(flowSlides[6].diagram.nodes.find(node => node.id==='input').role,'parameter');
+  assert.equal(flowSlides[6].diagram.nodes.find(node => node.id==='output').role,'output');
+  assert.equal(flowSlides[8].diagram.nodes[0].type,'predefined');
+});
+
+test('flowchart playback computes selection and iteration paths and values', async () => {
+  const {flowchartSteps} = await import('../site/js/lessons/flowchart.js');
+  assert.deepEqual(flowchartSteps('sequence').map(step => step.node),['start','input','message','output','end']);
+  const selection = flowchartSteps('selection');
+  assert.ok(selection.some(step => step.node==='hot'));
+  assert.ok(!selection.some(step => step.node==='sweater'));
+  assert.match(selection.find(step=>step.node==='check').text,/25 > 21 is True/);
+  const iteration = flowchartSteps('iteration');
+  assert.equal(iteration.filter(step=>step.node==='total').length,3);
+  assert.equal(iteration.filter(step=>step.node==='check').length,4);
+  assert.match(iteration.findLast(step=>step.node==='check').text,/3 < 3 is False/);
+  assert.match(iteration.find(step=>step.node==='output').text,/total: 3/);
+  assert.equal(iteration.at(-1).node,'end');
+});
+
+test('flowchart playback pauses, resets and cleans up timers and listeners', async t => {
+  const {mountFlowchart} = await import('../site/js/lessons/flowchart.js');
+  t.mock.timers.enable({apis:['setInterval']});
+  const buttons = ['run','step','stop','reset'].map(name => Object.assign(new EventTarget(), {dataset:{flow:name},disabled:false}));
+  const status = {textContent:''};
+  const nodes = ['start','input','message','output','end'].map(id => {
+    const classes = new Set();
+    return {dataset:{node:id},classes,classList:{toggle(name,on){if(on)classes.add(name);else classes.delete(name);},remove(name){classes.delete(name);}}};
+  });
+  const root = {querySelector(){return status;},querySelectorAll(selector){return selector==='[data-flow]' ? buttons : selector==='[data-node]' ? nodes : nodes.filter(node=>node.classes.has('active'));}};
+  const player = mountFlowchart(root,'sequence');
+  const click = name => buttons.find(button=>button.dataset.flow===name).dispatchEvent(new Event('click'));
+  const active = () => nodes.filter(node=>node.classes.has('active')).map(node=>node.dataset.node);
+  click('run');assert.deepEqual(active(),['start']);
+  t.mock.timers.tick(1000);assert.deepEqual(active(),['input']);
+  click('stop');t.mock.timers.tick(5000);assert.deepEqual(active(),['input']);
+  click('step');assert.deepEqual(active(),['message']);
+  click('reset');assert.deepEqual(active(),[]);
+  click('run');player.stop();t.mock.timers.tick(5000);assert.deepEqual(active(),['start']);
+  player.destroy();click('step');t.mock.timers.tick(5000);assert.deepEqual(active(),['start']);
+});
