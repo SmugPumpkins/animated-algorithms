@@ -21,6 +21,7 @@ export function playgroundMarkup(slide) {
       <button type="button" data-action="reset">Reset</button>
     </div></div>
     <div class="code-pane"><pre class="source-code" tabindex="0" aria-label="Python code"><code>${highlightPython(slide.code)}</code></pre>
+      <pre class="editor-highlight source-code" aria-hidden="true" hidden><code></code></pre>
       <textarea class="code-editor" aria-label="Edit Python code" spellcheck="false" autocapitalize="off" autocomplete="off" hidden>${escapeHtml(slide.code)}</textarea>
     </div>
     <div class="terminal-pane" ${slide.initialOutput === undefined ? 'hidden' : ''}>
@@ -36,7 +37,11 @@ export function playgroundMarkup(slide) {
 export function mountPlayground(root, slide) {
   const $ = selector => root.querySelector(selector);
   const buttons = Object.fromEntries([...root.querySelectorAll('[data-action]')].map(button => [button.dataset.action, button]));
-  const editor = $('.code-editor'), source = $('.source-code');
+  const editor = $('.code-editor'), source = $('.source-code'), highlight = $('.editor-highlight');
+  function updateHighlight() {
+    highlight.querySelector('code').innerHTML = highlightPython(editor.value + '\n');
+    highlight.scrollTop = editor.scrollTop; highlight.scrollLeft = editor.scrollLeft;
+  }
   const terminal = $('.terminal-pane'), output = $('.terminal-output'), inputRow = $('.terminal-input-row');
   const status = $('.execution-status'), variables = $('.runtime-variables');
   let worker = null, watchdog = null, editing = false, running = false;
@@ -100,7 +105,7 @@ export function mountPlayground(root, slide) {
 
   function reset() {
     stop(); editor.value = slide.code; editing = false;
-    editor.hidden = true; source.hidden = false;
+    editor.hidden = true; source.hidden = false; highlight.hidden = true;
     source.querySelector('code').innerHTML = highlightPython(slide.code);
     buttons.edit.textContent = 'Edit code'; buttons.edit.setAttribute('aria-pressed', 'false');
     output.textContent = '';
@@ -114,7 +119,8 @@ export function mountPlayground(root, slide) {
     run, stop: () => stop(), reset,
     edit() {
       editing = !editing;
-      editor.hidden = !editing; source.hidden = editing;
+      editor.hidden = !editing; source.hidden = editing; highlight.hidden = !editing;
+      if (editing) updateHighlight();
       buttons.edit.textContent = editing ? 'View code' : 'Edit code';
       buttons.edit.setAttribute('aria-pressed', String(editing));
       if (editing) editor.focus({ preventScroll: true });
@@ -122,6 +128,8 @@ export function mountPlayground(root, slide) {
     },
   };
   const abort = new AbortController();
+  editor.addEventListener('input', updateHighlight, { signal: abort.signal });
+  editor.addEventListener('scroll', () => { highlight.scrollTop = editor.scrollTop; highlight.scrollLeft = editor.scrollLeft; }, { signal: abort.signal });
   for (const [action, button] of Object.entries(buttons)) button.addEventListener('click', handlers[action], { signal: abort.signal });
   inputRow.addEventListener('submit', event => {
     event.preventDefault(); if (!worker || inputRow.hidden) return;

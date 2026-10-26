@@ -135,3 +135,11 @@ html, body { width: 100%; height: 100%; margin: 0; }
   .reading-mode .reveal .code-toolbar button { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* A transparent native editor retains selection, keyboard and screen-reader
+   support while its synchronized, noninteractive layer supplies token colour. */
+.reveal .code-pane { position: relative; }
+.reveal .editor-highlight, .reveal .code-editor { position: absolute; inset: 0; }
+.reveal .editor-highlight { pointer-events: none; overflow: hidden; }
+.reveal .code-editor { background: transparent; color: transparent; caret-color: #f0edff; -webkit-text-fill-color: transparent; }
+.reveal .code-editor::selection { background: #5575a977; }
