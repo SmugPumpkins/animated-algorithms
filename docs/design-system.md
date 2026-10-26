@@ -10,7 +10,7 @@ Retro neon: deep midnight surfaces, crisp geometric headings, cyan and pink acce
 
 | Font | Use |
 | --- | --- |
-| Tourney, weights 500–700 | Page headings, section headings, module and demonstration titles |
+| Tilt Neon | Page headings, section headings, module and demonstration titles |
 | Aldrich | Paragraphs, explanations, teaching notes and general body text |
 | Turret Road | Controls, navigation, small section labels, badges, legends and panel headings |
 | Tilt Neon | Brand wordmark and short decorative captions or introductory accents |
@@ -28,7 +28,7 @@ Organize the library as classes → CTS modules → demonstrations. `courses` an
 
 Keep module cards concise and factual: course code, title, principal program-of-studies topics, and the number of available demonstrations. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
 
-The home-page flowchart follows the teacher’s reference: START → INPUT instruction → Plan a solution → Implement a program → Debug → Does it work? A No branch returns to Plan; Yes continues to OUTPUT submission → END. Preserve standard shapes and the shared semantic palette, including distinct input and output colours.
+The home-page flowchart follows the teacher’s simplified reference: START → Plan → Program → Debug. → Test → END. The Repeat branch returns from the right of Test to the right of Plan. Keep Start and End as terminators, Plan/Program/Debug as processes, and Test as a decision. Use the shared semantic palette.
 
 ## Required flowchart colours
 

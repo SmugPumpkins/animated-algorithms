@@ -53,7 +53,7 @@ Class pages use `#/courses/<class-id>`, module pages use `#/modules/<module-id>`
 
 Each demonstration module exports `mount(root)`. It renders into the supplied element and returns a cleanup function to remove listeners and cancel animation work when navigating away. The generic home and module pages are generated from the registry. Keep algorithm logic independent of the DOM, as in `dfs-engine.js`, so it can be tested directly.
 
-SVG keeps diagrams sharp at any display size. The main library has no build step. Lessons bundle reveal.js and Skulpt locally. Tourney, Aldrich, Turret Road, and Tilt Neon load from Google Fonts, with system fallbacks. Code and terminal text use Consolas.
+SVG keeps diagrams sharp at any display size. The main library has no build step. Lessons bundle reveal.js and Skulpt locally. Aldrich, Turret Road, Tilt Neon, and Poppins load from Google Fonts, with system fallbacks. Code and terminal text use Consolas.
 
 ## Styling and flowchart conventions
 
