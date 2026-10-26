@@ -160,7 +160,9 @@ h2 { letter-spacing: .2px; }
 }
 .card-bottom { font-family: var(--font-ui); font-size: 13px; color: var(--cyan); }
 .card-bottom > span:first-child { color: var(--muted); }
-.site-footer { color: #918ba9; }
+.site-footer { color: #918ba9; flex-wrap: wrap; gap: 16px; align-items: center; }
+.site-footer [data-curriculum-link] { flex-basis: 100%; }
+.site-footer .curriculum-source { margin: 0; }
 .breadcrumb a:hover { color: var(--cyan); }
 .module-intro h1 { letter-spacing: -.8px; }
 .demo-number { color: var(--pink); font-family: var(--font-code); }

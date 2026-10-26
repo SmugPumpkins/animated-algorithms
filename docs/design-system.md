@@ -26,7 +26,7 @@ The website logo uses `site/favicon.svg` directly so the header and browser icon
 
 Organize the library as classes → CTS modules → demonstrations. `courses` and `modules` in `site/js/catalog.js` are the source of truth for membership and ordering. Render home sections and class pages from those registries; do not assume there will always be two classes or five modules per class. Keep class titles as supplied by the teacher. Preserve stable module/demo URLs, use class-aware breadcrumbs, and show an honest empty state for modules without demonstrations.
 
-Keep module cards concise and factual: course code, title, principal program-of-studies topics, and the number of available demonstrations. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
+Keep module cards concise and factual: course code, title and principal program-of-studies topics. Avoid slogans and decorative taglines in module cards. Curriculum coverage and the demonstrations currently available are separate; listing a topic does not mean its demo has already been built. Cite the official Alberta Computing Science program of studies when summarizing course outcomes: https://education.alberta.ca/media/159479/cse_pos.pdf
 
 The home-page flowchart follows the teacher’s simplified reference: START → Plan → Program → Debug. → Test → END. The Repeat branch returns from the right of Test to the right of Plan. Keep Start and End as terminators, Plan/Program/Debug as processes, and Test as a decision. Use the shared semantic palette.
 
@@ -101,3 +101,7 @@ Keep a consecutive inline-code expression in one `.inline-code` span and one hig
 The home-page flowchart must be at most 1.5 times the height of the entire adjacent text block (eyebrow, headings and introductory paragraph). Measure that block responsively, including when the readable-font preference changes, and scale the SVG proportionally. Disconnect its size observer when leaving the home page.
 
 Inside editable Python blocks, decorators use yellow, string escape sequences use orange, f-string braces use pink, and interpolated expressions use pale purple. Preserve normal syntax colors inside expressions. These code-block colors are separate from the orange inline-code convention. Editor and terminal scrollbars use dark tracks and cyan thumbs, retaining native scrolling and platform fallbacks.
+
+## Keep library pages concise
+
+Omit CTS Computer Science eyebrow labels, redundant topic tags, activity counts/class summaries and card action footers. The whole card is its link. Class headings on the home page link directly to their course pages. Keep module topics in the main single-column list; put program-of-studies links at the bottom in the page footer. Every page, including slideshows, includes a Nathan Forsyth copyright. Reserve a compact footer row in slideshow layouts so it does not overlap controls.
