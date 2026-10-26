@@ -717,7 +717,7 @@ test('revised selection deck separates nesting and logical operators into comple
   assert.equal(nestingSlides.length,7);
   assert.equal(logicalSlides.length,9);
   assert.ok(nestingSlides.filter(slide=>slide.code).every(slide=>! /\b(and|or)\b/.test(slide.code)));
-  assert.ok(logicalSlides.some(slide=>slide.code?.includes('if 0 < x < 10:')));
+  assert.ok(logicalSlides.some(slide=>slide.code?.includes('0 < x < 10')));
   assert.equal(nestingSlides.at(-1).kind,'wrapup');
   assert.equal(logicalSlides.at(-1).kind,'wrapup');
 });
@@ -756,12 +756,14 @@ test('truth tables agree with Python for every Boolean input pair', async () => 
     }
   }
 });
-test('parentheses change the staff access result and chained ranges exclude endpoints', async () => {
+test('parentheses change staff access and chained comparison operators control endpoints', async () => {
   assert.equal((await runPython(logicalSlides[5].code)).output,'Access granted.\n');
   assert.equal((await runPython(logicalSlides[6].code)).output,'Access denied.\n');
   for (const x of [-1,0,0.5,1,5,9.99,10,11]) {
     const code = logicalSlides[7].code.replace('x = 5',`x = ${x}`);
-    for (const mode of ['run','step']) assert.equal((await runPython(code,[],mode)).output,x>0&&x<10 ? 'Valid\nValid\n' : '');
+    const strict = x>0&&x<10 ? 'True' : 'False';
+    const inclusive = x>=0&&x<10 ? 'True' : 'False';
+    for (const mode of ['run','step']) assert.equal((await runPython(code,[],mode)).output,`${strict}\n${strict}\n${inclusive}\n`);
   }
 });
 

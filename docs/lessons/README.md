@@ -168,3 +168,5 @@ Use one simple idea per sentence. Explain alternatives in separate sentences. Ke
 
 
 Stepping includes a final completion step. After the last Python statement, its highlight and final values remain visible with “Last statement complete · Step to finish”. The next Step clears the line highlight and shows Finished without executing more code. Run and Step then stay disabled until Reset. Run mode finishes directly in that state. Reset clears output and restores the original example. Finished examples cannot silently restart through buttons or Ctrl/Cmd+Enter.
+
+Truth-table headers style only the operator in `A and B` / `A or B` as orange inline code. The chained-comparison slide focuses on syntax and evaluates `0 < x < 10`, `10 > x > 0` and `0 <= x < 10` with editable input values. Tests check strict, reversed and partially inclusive boundaries in Run and Step.

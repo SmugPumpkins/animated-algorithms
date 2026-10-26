@@ -260,23 +260,28 @@
     "layout": "code-emphasis"
   },
   {
-    "title": "Checking a Number Between Values",
+    "title": "Chained Comparison Syntax",
     "kind": "code",
     "sourcePage": 15,
     "paragraphs": [
-      "The condition 0 < x < 10 checks an open range.",
-      "The value must be greater than 0. The value must also be less than 10.",
-      "The values 0 and 10 are excluded. Here, x is 5. Each check displays Valid."
+      "Python can chain comparisons in one condition. Every adjacent comparison must be True.",
+      "0 < x < 10 excludes both endpoints.",
+      "10 > x > 0 checks the same range in descending order.",
+      "0 <= x < 10 includes 0. It excludes 10.",
+      "Other comparison operators can be used in a chain. Use <= or >= to include an endpoint."
     ],
-    "code": "x = 5\n\n# Using and\nif x > 0 and x < 10:\n    print(\"Valid\")\n\n# Chained comparison\nif 0 < x < 10:\n    print(\"Valid\")",
-    "expectedOutput": "Valid\nValid\n",
-    "initialOutput": "Valid\nValid",
+    "code": "x = 5\n\nprint(0 < x < 10)\nprint(10 > x > 0)\nprint(0 <= x < 10)",
+    "expectedOutput": "True\nTrue\nTrue\n",
+    "initialOutput": "True\nTrue\nTrue",
     "denseText": true,
     "compactCode": true,
     "inlineCode": [
+      "True",
       "0 < x < 10",
-      "x",
-      "Valid"
+      "10 > x > 0",
+      "0 <= x < 10",
+      "<=",
+      ">="
     ],
     "layout": "long-explanation"
   },
@@ -289,14 +294,16 @@
       "Use or when at least one Boolean condition must be True.",
       "Use a truth table to check each combination of inputs.",
       "Use parentheses to make condition grouping clear.",
-      "Use 0 < x < 10 to check an open range. The endpoints are excluded."
+      "Chain comparisons such as 0 < x < 10. Use <= or >= to include an endpoint."
     ],
     "inlineCode": [
       "and",
       "or",
       "True",
       "0 < x < 10",
-      "x"
+      "x",
+      "<=",
+      ">="
     ]
   }
 ]
