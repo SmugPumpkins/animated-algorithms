@@ -221,27 +221,61 @@
     "kind": "pseudocode",
     "sourcePage": null,
     "paragraphs": [
-      "Follow the same sequence as the flowchart: receive a name, build a greeting, then display it."
+      "A sequence follows instructions in order, from top to bottom. Each instruction finishes before the next begins.",
+      "INPUT receives a name. SET builds and stores the greeting in message. OUTPUT then displays that stored value.",
+      "Order matters: name must be received before it is used, and message must be created before it is displayed. With Alex as the input, the output is HelloAlex."
     ],
-    "pseudocode": "START\n    INPUT name\n    SET message TO \"Hello\" + name\n    OUTPUT message\nEND"
+    "pseudocode": "START\n    INPUT name\n    SET message TO \"Hello\" + name\n    OUTPUT message\nEND",
+    "inlineCode": [
+      "INPUT",
+      "SET",
+      "OUTPUT",
+      "name",
+      "message",
+      "Alex",
+      "HelloAlex"
+    ]
   },
   {
     "title": "Selection in Pseudocode",
     "kind": "pseudocode",
     "sourcePage": null,
     "paragraphs": [
-      "Use the same temperature and threshold as the flowchart. Only the matching branch runs."
+      "Selection chooses a path by testing a condition. The IF and ELSE blocks are alternatives; only one runs.",
+      "Here, temp_celsius is 25 and WARM is 21. Since 25 > 21 is True, the first OUTPUT runs and the ELSE block is skipped.",
+      "At 21 or below, the condition is False and the sweater message is displayed instead. END IF marks where the paths rejoin."
     ],
-    "pseudocode": "START\n    SET temp_celsius TO 25\n    SET WARM TO 21\n    IF temp_celsius > WARM\n        OUTPUT \"Wow, it sure is hot!\"\n    ELSE\n        OUTPUT \"Grab a sweater!\"\n    END IF\nEND"
+    "pseudocode": "START\n    SET temp_celsius TO 25\n    SET WARM TO 21\n    IF temp_celsius > WARM\n        OUTPUT \"Wow, it sure is hot!\"\n    ELSE\n        OUTPUT \"Grab a sweater!\"\n    END IF\nEND",
+    "inlineCode": [
+      "IF",
+      "ELSE",
+      "OUTPUT",
+      "temp_celsius",
+      "WARM",
+      "25 > 21",
+      "True",
+      "False",
+      "END IF"
+    ]
   },
   {
     "title": "Iteration in Pseudocode",
     "kind": "pseudocode",
     "sourcePage": null,
     "paragraphs": [
-      "Repeat the same additions as the flowchart while i is less than 3, then display the total."
+      "Iteration repeats instructions while a condition is True. Here, total stores a running sum and i controls the loop.",
+      "Each pass adds i to total, then increases i by 1. The values added are 0, 1 and 2, so total becomes 3.",
+      "When i reaches 3, the condition i < 3 is False. The loop ends and OUTPUT displays 3. Without increasing i, this loop would never finish."
     ],
-    "pseudocode": "START\n    SET total TO 0\n    SET i TO 0\n    WHILE i < 3\n        ADD i TO total\n        INCREASE i BY 1\n    END WHILE\n    OUTPUT total\nEND"
+    "pseudocode": "START\n    SET total TO 0\n    SET i TO 0\n    WHILE i < 3\n        ADD i TO total\n        INCREASE i BY 1\n    END WHILE\n    OUTPUT total\nEND",
+    "inlineCode": [
+      "True",
+      "False",
+      "total",
+      "i",
+      "i < 3",
+      "OUTPUT"
+    ]
   },
   {
     "title": "Wrap Up",
