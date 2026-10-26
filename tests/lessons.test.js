@@ -146,3 +146,46 @@ test('registered lesson links and slide counts match the deployed lesson files',
     }
   }
 });
+
+
+const functionSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/focus-on-functions/slides.json'), 'utf8'));
+const functionSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/focus-on-functions-source.json'), 'utf8'));
+test('Focus on Functions preserves slide order and extractable source wording', () => {
+  assert.equal(functionSlides.length, 15);
+  functionSlides.forEach((slide, index) => assert.equal(slide.sourcePage, index + 1));
+  for (const page of [1, 2, 3, 4, 5, 6, 7, 8, 11]) {
+    const slide = functionSlides[page - 1];
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.caption || '', slide.code || '', ...(slide.examples || []).map(example => example.code), slide.initialOutput ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(functionSource[page - 1].text), `Original content differs on page ${page}`);
+  }
+});
+
+test('function examples run and step, including real input and intentional type errors', async () => {
+  for (const slide of functionSlides) {
+    for (const example of slide.examples || (slide.code ? [slide] : [])) {
+      if (example.randomExample) continue;
+      for (const mode of ['run', 'step']) {
+        const execution = runPython(example.code, example.testInputs || [], mode);
+        if (example.expectedError) await assert.rejects(execution, new RegExp(example.expectedError));
+        else {
+          const result = await execution;
+          assert.equal(result.output, example.expectedOutput, `${slide.title} / ${example.label || ''}: ${mode}`);
+        }
+      }
+    }
+  }
+});
+
+test('both full battle-game versions accept real choices and finish in run and step modes', async () => {
+  for (const mode of ['run', 'step']) {
+    const results = [];
+    for (const slide of functionSlides.filter(slide => slide.randomExample)) {
+      const result = await runPython('import random\nrandom.seed(42)\n' + slide.code, Array(30).fill('1'), mode);
+      assert.match(result.output, /A monster appears!/);
+      assert.match(result.output, /Final Score: \d+/);
+      assert.ok(result.promptCount > 0);
+      results.push(result.output);
+    }
+    assert.equal(results[0], results[1], 'Refactoring must retain the game behaviour');
+  }
+});

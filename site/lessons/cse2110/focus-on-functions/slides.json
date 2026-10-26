@@ -1,0 +1,216 @@
+[
+  {
+    "title": "Procedural Programming",
+    "kind": "cover",
+    "intro": "Part 1: Focus on Functions",
+    "bullets": [
+      "The idea that programs are made up of interconnected functions to manage and process data."
+    ],
+    "sourcePage": 1
+  },
+  {
+    "title": "Procedural Programming",
+    "kind": "text",
+    "paragraphs": [
+      "Procedural programming organizes a program around procedures or functions that perform specific tasks.",
+      "Basic structured programming focuses on clear control flow using sequence, selection, and repetition, while procedural programming adds stronger organization by dividing that logic into reusable functions.",
+      "The goal is to break a larger program into smaller procedures that can be understood and tested separately."
+    ],
+    "sourcePage": 2
+  },
+  {
+    "title": "Focus on Functions",
+    "kind": "text",
+    "paragraphs": [
+      "Procedural programming relies heavily on functions to organize a program into smaller sections of behaviour.",
+      "Each function usually receives data, performs a task, and may return a result.",
+      "Procedural programming simply uses functions as its main way of structuring program logic."
+    ],
+    "sourcePage": 3
+  },
+  {
+    "title": "Using Functions for Input/Output Machines",
+    "kind": "code",
+    "paragraphs": [
+      "A function can be thought of as a small input/output machine.",
+      "It receives values through parameters, processes those values, and can return a result.",
+      "This makes the function easier to reuse because the same logic can work with different inputs."
+    ],
+    "code": "def calculate_area(width, height):\n    area = width * height\n    return area\n\nresult = calculate_area(5, 3)\nprint(result)",
+    "initialOutput": "15\n",
+    "expectedOutput": "15\n",
+    "sourcePage": 4
+  },
+  {
+    "title": "Atomization",
+    "kind": "text",
+    "paragraphs": [
+      "Atomization means breaking a larger program into smaller functions that each handle one part of the problem.",
+      "Instead of keeping all of the program's logic together, each major task becomes its own procedure.",
+      "This makes the program easier to read, test, and change."
+    ],
+    "sourcePage": 5
+  },
+  {
+    "title": "Atomization",
+    "kind": "comparison",
+    "examples": [
+      {
+        "label": "Without Functions",
+        "code": "# Without Functions\nname = input(\"Enter your name: \")\nscore1 = int(input(\"First score: \"))\nscore2 = int(input(\"Second score: \"))\naverage = (score1 + score2) / 2\nprint(f\"{name}'s average is {average}.\")",
+        "testInputs": [
+          "Nathan",
+          "80",
+          "90"
+        ],
+        "expectedOutput": "Enter your name: Nathan\nFirst score: 80\nSecond score: 90\nNathan's average is 85.0.\n"
+      },
+      {
+        "label": "With Functions",
+        "code": "# With Functions\ndef get_name():\n    return input(\"Enter your name: \")\ndef get_score():\n    return int(input(\"Enter a score: \"))\ndef calculate_average(score1, score2):\n    return (score1 + score2) / 2\ndef display_result(name, average):\n    print(f\"{name}'s average is {average}.\")\nname = get_name()\nscore1 = get_score()\nscore2 = get_score()\naverage = calculate_average(score1, score2)\ndisplay_result(name, average)",
+        "testInputs": [
+          "Nathan",
+          "80",
+          "90"
+        ],
+        "expectedOutput": "Enter your name: Nathan\nEnter a score: 80\nEnter a score: 90\nNathan's average is 85.0.\n"
+      }
+    ],
+    "sourcePage": 6
+  },
+  {
+    "title": "One Function, One Task",
+    "kind": "text",
+    "paragraphs": [
+      "A useful procedural programming guideline is that each function should have one clear responsibility.",
+      "Functions can contain several lines of code, but those lines should all contribute to the same task.",
+      "Separating unrelated jobs makes functions easier to understand, reuse, and test."
+    ],
+    "sourcePage": 7
+  },
+  {
+    "title": "One Function, One Task",
+    "kind": "comparison",
+    "caption": "Note: This example is an exaggeration. Keeping text to fit on a slide limits a function already to be kept pretty simple",
+    "examples": [
+      {
+        "label": "One Function, One Task",
+        "code": "# One Function, One Task\ndef get_price():\n    return float(input(\"Enter the item price: \"))\ndef calculate_tax(price):\n    return price * 0.05\ndef calculate_total(price, tax):\n    return price + tax\ndef display_total(total):\n    print(f\"Total: ${total:.2f}\")\nprice = get_price()\ntax = calculate_tax(price)\ntotal = calculate_total(price, tax)\ndisplay_total(total)",
+        "testInputs": [
+          "20"
+        ],
+        "expectedOutput": "Enter the item price: 20\nTotal: $21.00\n"
+      },
+      {
+        "label": "One Function Does Everything",
+        "code": "# One Function Does Everything\ndef process_purchase():\n    price = float(input(\"Item price: \"))\n    tax = price * 0.05\n    total = price + tax\n    print(f\"Total: ${total:.2f}\")\nprocess_purchase()",
+        "testInputs": [
+          "20"
+        ],
+        "expectedOutput": "Item price: 20\nTotal: $21.00\n"
+      }
+    ],
+    "sourcePage": 8
+  },
+  {
+    "title": "One Bloated Mega Function",
+    "kind": "code",
+    "layout": "wide",
+    "code": "import random\n\n\ndef play_battle():\n    player_health = 100\n    enemy_health = 80\n    potions = 2\n    score = 0\n\n    print(\"A monster appears!\")\n\n    while player_health > 0 and enemy_health > 0:\n        print(\"\\n--- BATTLE STATUS ---\")\n        print(f\"Player Health: {player_health}\")\n        print(f\"Enemy Health: {enemy_health}\")\n        print(f\"Potions: {potions}\")\n        print(f\"Score: {score}\")\n\n        print(\"\\nChoose an action:\")\n        print(\"1. Attack\")\n        print(\"2. Use Potion\")\n\n        choice = input(\"> \").strip()\n\n        if choice == \"1\":\n            damage = random.randint(10, 20)\n            enemy_health -= damage\n            score += damage\n\n            print(f\"You attack the monster for {damage} damage!\")\n\n            if enemy_health <= 0:\n                enemy_health = 0\n                print(\"You defeated the monster!\")\n                score += 100\n                print(f\"Final Score: {score}\")\n                break\n\n        elif choice == \"2\":\n            if potions > 0:\n                healing = random.randint(20, 30)\n                player_health += healing\n\n                if player_health > 100:\n                    player_health = 100\n\n                potions -= 1\n\n                print(f\"You use a potion and recover {healing} health.\")\n            else:\n                print(\"You do not have any potions left.\")\n                continue\n\n        else:\n            print(\"Invalid choice.\")\n            continue\n\n        enemy_damage = random.randint(8, 18)\n        player_health -= enemy_damage\n\n        if player_health < 0:\n            player_health = 0\n\n        print(f\"The monster attacks you for {enemy_damage} damage!\")\n\n        if player_health <= 0:\n            print(\"You were defeated!\")\n            print(f\"Final Score: {score}\")\n            break\n\n\nplay_battle()",
+    "sourceUrl": "https://github.com/SmugPumpkins/One-Function-One-Task-Examples/blob/main/one-bloated-mega-function.py",
+    "randomExample": true,
+    "sourcePage": 9
+  },
+  {
+    "title": "Same Program Broken Into Smaller Functions",
+    "kind": "code",
+    "layout": "wide",
+    "code": "import random\n\n\ndef display_status(player_health, enemy_health, potions, score):\n    print(\"\\n--- BATTLE STATUS ---\")\n    print(f\"Player Health: {player_health}\")\n    print(f\"Enemy Health: {enemy_health}\")\n    print(f\"Potions: {potions}\")\n    print(f\"Score: {score}\")\n\n\ndef get_player_action():\n    print(\"\\nChoose an action:\")\n    print(\"1. Attack\")\n    print(\"2. Use Potion\")\n\n    return input(\"> \").strip()\n\n\ndef player_attack(enemy_health, score):\n    damage = random.randint(10, 20)\n    enemy_health -= damage\n    score += damage\n\n    if enemy_health < 0:\n        enemy_health = 0\n\n    print(f\"You attack the monster for {damage} damage!\")\n\n    return enemy_health, score\n\n\ndef use_potion(player_health, potions):\n    if potions <= 0:\n        print(\"You do not have any potions left.\")\n        return player_health, potions, False\n\n    healing = random.randint(20, 30)\n    player_health += healing\n\n    if player_health > 100:\n        player_health = 100\n\n    potions -= 1\n\n    print(f\"You use a potion and recover {healing} health.\")\n\n    return player_health, potions, True\n\n\ndef enemy_attack(player_health):\n    damage = random.randint(8, 18)\n    player_health -= damage\n\n    if player_health < 0:\n        player_health = 0\n\n    print(f\"The monster attacks you for {damage} damage!\")\n\n    return player_health\n\n\ndef display_game_over(player_health, score):\n    if player_health > 0:\n        print(\"You defeated the monster!\")\n        score += 100\n    else:\n        print(\"You were defeated!\")\n\n    print(f\"Final Score: {score}\")\n\n    return score\n\n\ndef play_battle():\n    player_health = 100\n    enemy_health = 80\n    potions = 2\n    score = 0\n\n    print(\"A monster appears!\")\n\n    while player_health > 0 and enemy_health > 0:\n        display_status(player_health, enemy_health, potions, score)\n\n        choice = get_player_action()\n\n        if choice == \"1\":\n            enemy_health, score = player_attack(enemy_health, score)\n\n        elif choice == \"2\":\n            player_health, potions, action_completed = use_potion(\n                player_health,\n                potions\n            )\n\n            if not action_completed:\n                continue\n\n        else:\n            print(\"Invalid choice.\")\n            continue\n\n        if enemy_health <= 0:\n            break\n\n        player_health = enemy_attack(player_health)\n\n    display_game_over(player_health, score)\n\n\nplay_battle()",
+    "sourceUrl": "https://github.com/SmugPumpkins/One-Function-One-Task-Examples/blob/main/one-function-one-task.py",
+    "randomExample": true,
+    "sourcePage": 10
+  },
+  {
+    "title": "Stub Programming",
+    "kind": "code",
+    "compactCode": true,
+    "paragraphs": [
+      "Stub programming means creating the functions a program will need before writing their full behaviour.",
+      "A stub usually contains pass or a temporary placeholder so the overall structure of the program can be planned first.",
+      "This allows programmers to design how functions connect before completing each part."
+    ],
+    "inlineCode": [
+      "pass"
+    ],
+    "code": "def get_player_name():\n    pass\ndef roll_dice():\n    pass\ndef move_player():\n    pass\ndef display_board():\n    pass\ndef main():\n    get_player_name()\n    roll_dice()\n    move_player()\n    display_board()\nmain()",
+    "expectedOutput": "",
+    "sourcePage": 11
+  },
+  {
+    "title": "Friendly Function Reminders – Type Hints",
+    "kind": "code",
+    "layout": "wide",
+    "paragraphs": [
+      "Always include type hints for your parameters and return values."
+    ],
+    "code": "def get_area(width: int, length: int) -> int:\n    \"\"\"Calculate the area of a rectangle.\n\n    :param width: Width of the rectangle.\n    :param length: Length of the rectangle\n    :return: Area of the rectangle in units squared.\n    \"\"\"\n    area = width * length\n    return area",
+    "expectedOutput": "",
+    "sourcePage": 12
+  },
+  {
+    "title": "Friendly Function Reminders – Type Hints",
+    "kind": "comparison",
+    "examples": [
+      {
+        "label": "Parameter type hints",
+        "paragraph": "Adding parameter type hints will help your code editor warn you when you are putting invalid input into a function.",
+        "code": "def get_area(width: int, length: int) -> int:\n    area = width * length\n    return area\n\nget_area(\"Hello\", \"World\")",
+        "expectedError": "TypeError"
+      },
+      {
+        "label": "Return type hints",
+        "paragraph": "Adding return type hints will help your code editor warn you when you are incorrectly using the return value.",
+        "code": "def get_area(width: int, length: int) -> int:\n    area = width * length\n    return area\n\narbitrary_warning = len(get_area(3, 4))",
+        "expectedError": "TypeError"
+      }
+    ],
+    "sourcePage": 13
+  },
+  {
+    "title": "Friendly Function Reminders – Docstrings",
+    "kind": "code",
+    "layout": "wide",
+    "paragraphs": [
+      "You should also always add correctly formatted docstrings."
+    ],
+    "code": "def get_area(width: int, length: int) -> int:\n    \"\"\"Calculate the area of a rectangle.\n\n    :param width: Width of the rectangle.\n    :param length: Length of the rectangle\n    :return: Area of the rectangle in units squared.\n    \"\"\"\n    area = width * length\n    return area",
+    "expectedOutput": "",
+    "sourcePage": 14
+  },
+  {
+    "title": "Friendly Function Reminders – Docstrings",
+    "kind": "code",
+    "layout": "documentation",
+    "paragraphs": [
+      "Docstrings will allow your code editor to explain your own code to you later, even when you don’t have it in front of you."
+    ],
+    "code": "def get_area(width: int, length: int) -> int:\n    \"\"\"Calculate the area of a rectangle.\n\n    :param width: Width of the rectangle.\n    :param length: Length of the rectangle\n    :return: Area of the rectangle in units squared.\n    \"\"\"\n    area = width * length\n    return area\n\nmy_area = get_area(4, 8)",
+    "documentation": {
+      "signature": "def get_area(width: int, length: int) -> int",
+      "description": "Calculate the area of a rectangle.",
+      "parameters": [
+        {
+          "name": "width",
+          "description": "Width of the rectangle."
+        },
+        {
+          "name": "length",
+          "description": "Length of the rectangle"
+        }
+      ],
+      "returns": "Area of the rectangle in units squared."
+    },
+    "expectedOutput": "",
+    "sourcePage": 15
+  }
+]

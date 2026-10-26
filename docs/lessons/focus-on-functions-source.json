@@ -1,0 +1,62 @@
+[
+  {
+    "page": 1,
+    "text": "Procedural\nProgramming\nPart 1: Focus on\nFunctions\nThe idea that programs are made up of\ninterconnected functions to manage\nand process data."
+  },
+  {
+    "page": 2,
+    "text": "Procedural Programming\nProcedural programming organizes a program around\nprocedures or functions that perform specific tasks.\nBasic structured programming focuses on clear control\nflow using sequence, selection, and repetition, while\nprocedural programming adds stronger organization by\ndividing that logic into reusable functions.\nThe goal is to break a larger program into smaller\nprocedures that can be understood and tested\nseparately."
+  },
+  {
+    "page": 3,
+    "text": "Focus on Functions\nProcedural programming relies heavily on functions\nto organize a program into smaller sections of\nbehaviour.\nEach function usually receives data, performs a task,\nand may return a result.\nProcedural programming simply uses functions as\nits main way of structuring program logic."
+  },
+  {
+    "page": 4,
+    "text": "Using Functions for Input/Output Machines\nA function can be def calculate_area(width, height):\nthought of as a small area = width * height\nreturn area\ninput/output machine.\nIt receives values\nthrough parameters,\nresult = calculate_area(5, 3)\nprocesses those values,\nprint(result)\nand can return a result.\nThis makes the function\neasier to reuse because\nOUTPUT\nthe same logic can work\n15\nwith different inputs."
+  },
+  {
+    "page": 5,
+    "text": "Atomization\nAtomization means breaking a larger program into\nsmaller functions that each handle one part of the\nproblem.\nInstead of keeping all of the program's logic\ntogether, each major task becomes its own\nprocedure.\nThis makes the program easier to read, test, and\nchange."
+  },
+  {
+    "page": 6,
+    "text": "Atomization\n# Without Functions # With Functions\nname = input(\"Enter your name: \") def get_name():\nreturn input(\"Enter your name: \")\nscore1 = int(input(\"First score: \"))\nscore2 = int(input(\"Second score: \")) def get_score():\nreturn int(input(\"Enter a score: \"))\naverage = (score1 + score2) / 2 def calculate_average(score1, score2):\nreturn (score1 + score2) / 2\nprint(f\"{name}'s average is {average}.\")\ndef display_result(name, average):\nprint(f\"{name}'s average is {average}.\")\nname = get_name()\nscore1 = get_score()\nscore2 = get_score()\naverage = calculate_average(score1, score2)\ndisplay_result(name, average)"
+  },
+  {
+    "page": 7,
+    "text": "One Function, One Task\nA useful procedural programming guideline is that\neach function should have one clear responsibility.\nFunctions can contain several lines of code, but\nthose lines should all contribute to the same task.\nSeparating unrelated jobs makes functions easier to\nunderstand, reuse, and test."
+  },
+  {
+    "page": 8,
+    "text": "One Function, One Task\n# One Function Does Everything\n# One Function, One Task\ndef get_price():\ndef process_purchase():\nreturn float(input(\"Enter the item price: \"))\nprice = float(input(\"Item price: \"))\ndef calculate_tax(price): tax = price * 0.05\nreturn price * 0.05\ntotal = price + tax\ndef calculate_total(price, tax): print(f\"Total: ${total:.2f}\")\nreturn price + tax\ndef display_total(total):\nprint(f\"Total: ${total:.2f}\")\nprocess_purchase()\nprice = get_price()\ntax = calculate_tax(price)\ntotal = calculate_total(price, tax)\ndisplay_total(total)\nNote: This example is an exaggeration.\nKeeping text to fit on a slide limits a function\nalready to be kept pretty simple"
+  },
+  {
+    "page": 9,
+    "text": "Github Logo - Free social media icons\nOne Bloated Mega Function"
+  },
+  {
+    "page": 10,
+    "text": "Github Logo - Free social media icons\nSame Program Broken Into Smaller Functions"
+  },
+  {
+    "page": 11,
+    "text": "Stub Programming\ndef get_player_name():\nStub programming means\npass\ncreating the functions a\nprogram will need before\ndef roll_dice():\nwriting their full behaviour.\npass\nA stub usually contains pass\ndef move_player():\nor a temporary placeholder pass\nso the overall structure of\ndef display_board():\nthe program can be\npass\nplanned first.\ndef main():\nThis allows programmers to\nget_player_name()\ndesign how functions\nroll_dice()\nconnect before completing\nmove_player()\neach part. display_board()\nmain()"
+  },
+  {
+    "page": 12,
+    "text": "Friendly Function Reminders \u2013 Type Hints\nAlways include type hints for your parameters and\nreturn values.\n: int : int) -> int"
+  },
+  {
+    "page": 13,
+    "text": "Friendly Function Reminders \u2013 Type Hints\nAdding parameter type hints will help your code\neditor warn you when you are putting invalid input\ninto a function.\nAdding return type hints will help your code editor\nwarn you when you are incorrectly using the return\nvalue."
+  },
+  {
+    "page": 14,
+    "text": "Friendly Function Reminders \u2013 Docstrings\nYou should also always add correctly formatted\ndocstrings.\n\"\"\"Calculate the area of a rectangle.\n:param width: Width of the rectangle.\n:param length: Length of the rectangle\n:return: Area of the rectangle in units squared.\n\"\"\""
+  },
+  {
+    "page": 15,
+    "text": "Friendly Function Reminders \u2013 Docstrings\nDocstrings will allow your code editor to explain your\nown code to you later, even when you don\u2019t have it\nin front of you."
+  }
+]

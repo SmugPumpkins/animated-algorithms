@@ -29,3 +29,17 @@ Reusable slide layouts:
 Companion Python files are held in memory and imported by the real interpreter. Step follows execution into supplied files, highlights the relevant editor and switches tabs when needed. The paused status identifies the current source file. Files do not persist after reload. Inline code and syntax colours use the shared theme, including multiline docstrings.
 
 Module pages display module topics in one column, followed by lessons, then interactive demonstrations.
+
+
+## Focus on Functions (CSE 2110, lesson 1)
+
+The teacher's 15-slide Procedural Programming Part 1 deck retains its wording and slide order. `focus-on-functions-source.json` stores the extracted PDF text for source checks. Code screenshots become editable examples; blank lines in the dense comparisons are compacted for layout. The type-hint warning examples and final documentation example include the previously introduced `get_area` definition so each example is independently executable. Original editor inlay hints are shown as normal valid Python arguments, not mistaken for Python syntax. Intentional misuse examples produce real TypeErrors when run.
+
+The full battle games on slides 9 and 10 are copied from the source links embedded in the PDF, rather than transcribed from tiny screenshots:
+
+- [One bloated mega function](https://github.com/SmugPumpkins/One-Function-One-Task-Examples/blob/main/one-bloated-mega-function.py), source blob `360e30e64bb989268ea7f0cb6fc5780e6a6e4e05`.
+- [One function, one task](https://github.com/SmugPumpkins/One-Function-One-Task-Examples/blob/main/one-function-one-task.py), source blob `9c04bdf9143ff9773aa62770b9610d405a82b861`.
+
+Both are runnable, use real player choices, retain random outcomes, and provide a visible GitHub source link. Tests seed randomness only inside the test harness to compare their behaviour.
+
+`kind: "comparison"` accepts an `examples` array. Each example has its own code, optional paragraph and accessible label, and independent Run/Step/Stop/Reset, terminal input and variables. An optional slide caption follows both panels. Leaving the slide stops every example, including paused sessions. `compactCode` gives a dense example tighter code spacing without shrinking teaching prose. `layout: "documentation"` combines a runnable example with a readable native documentation preview (signature, description, parameters and return text).

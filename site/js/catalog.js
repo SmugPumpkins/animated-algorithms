@@ -41,6 +41,10 @@ export const modules = [
   moduleEntry('CSE 2110', 'Procedural Programming 1',
     'Break programs into reusable procedures and functions.',
     ['Modular design', 'Functions and procedures', 'Parameters and scope'], [{
+      id: 'focus-on-functions', number: 1, title: 'Focus on Functions',
+      description: 'Procedural design, single-purpose functions, stubs, type hints and docstrings.',
+      slideCount: 15, href: './lessons/cse2110/focus-on-functions/',
+    }, {
       id: 'external-modules', number: 2, title: 'External Modules',
       description: 'Importing Python modules, testing reusable functions and documenting their interfaces.',
       slideCount: 13, href: './lessons/cse2110/external-modules/',
