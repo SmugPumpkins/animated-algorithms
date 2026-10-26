@@ -509,3 +509,30 @@ test('IPO casting and newline prompts accept new responses and retain correct ty
   assert.equal(greeting.output, 'Enter your name:\nAda\nHello, Ada!\n');
   assert.equal(greeting.promptCount, 1);
 });
+
+const algorithmSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/algorithms/slides.json'), 'utf8'));
+const algorithmSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/algorithms-source.json'), 'utf8'));
+test('Algorithms retains all seven source pages before its added wrap-up', () => {
+  assert.equal(algorithmSlides.length, 8);
+  algorithmSlides.slice(0,7).forEach((slide,index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', slide.objectiveLead || '', ...(slide.bullets || []), ...(slide.paragraphs || []), ...(slide.bodyBullets || []), ...(slide.afterBullets || []), slide.code || ''].join('\n');
+    assert.deepEqual(words(text), words(algorithmSource[index].text), `Source differs on page ${index + 1}`);
+  });
+});
+
+test('sequence, selection and iteration examples execute in run and step modes', async () => {
+  for (const slide of algorithmSlides.filter(slide => slide.code)) {
+    for (const mode of ['run','step']) {
+      assert.equal((await runPython(slide.code, slide.testInputs || [], mode)).output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('edited control structures respond to actual input, branch conditions and repeat counts', async () => {
+  for (const mode of ['run','step']) {
+    assert.equal((await runPython(algorithmSlides[4].code, ['Ada'], mode)).output, 'What is your name? Ada\nHello Ada\n');
+    assert.equal((await runPython(algorithmSlides[5].code.replace('age = 16','age = 15'), [], mode)).output, 'You cannot drive yet.\n');
+    assert.equal((await runPython(algorithmSlides[6].code.replace('range(5)','range(2)'), [], mode)).output, 'Hello!\nHello!\n');
+  }
+});

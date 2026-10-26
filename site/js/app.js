@@ -1,4 +1,4 @@
-import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js?v=20261026-wrapups';
+import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js?v=20261026-algorithms';
 import { learningFlow } from './learning-flow.js?v=3';
 
 const main = document.querySelector('main');

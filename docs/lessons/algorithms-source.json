@@ -1,0 +1,30 @@
+[
+  {
+    "page": 1,
+    "text": "Structured\nProgramming\nPart 1: Algorithms\nBy the end of this lesson, you should be able to:\n\u2022\nExplain what an algorithm is.\n\u2022\nIdentify the three fundamental control structures used in\nstructured programming.\n\u2022\nExplain how sequence, selection, and iteration change the\nflow of a program."
+  },
+  {
+    "page": 2,
+    "text": "Before Structured Programming\nEarly programs often relied on the GOTO statement, which allowed the program\nto jump directly to any labeled line of code.\nWhile this made simple programs possible, larger programs often became\nconfusing because execution could jump unpredictably between many\ndifferent locations.\nIn the 1960s and 1970s, structured programming replaced this approach by\nusing sequence, selection (if statements), and iteration (loops), making\nprograms easier to read, test, and maintain."
+  },
+  {
+    "page": 3,
+    "text": "Structured Programming\nStructured programming organizes programs using predictable control\nstructures instead of jumping unpredictably between different sections of\ncode.\nThe three fundamental control structures are:\nSequence \u2014 Perform instructions in order.\nSelection \u2014 Choose which instructions to perform.\nIteration \u2014 Repeat instructions.\nThese structures make programs easier to read, test, and maintain."
+  },
+  {
+    "page": 4,
+    "text": "Algorithms\nAn algorithm is a sequence of step-by-step instructions designed to perform a\ntask or solve a problem.\nPrograms are implementations of algorithms using a programming language.\nAlgorithms often:\n\u2022 Receive input.\n\u2022 Process that information.\n\u2022 Produce output.\n\u2022 Use control structures to determine which steps happen and when."
+  },
+  {
+    "page": 5,
+    "text": "Sequence\n# First get an input from the user\nA sequence executes\nname = input(\"What is your name? \")\ninstructions one after another in\nthe order they appear.\n# Second process the input data\nThe program starts with one message = \"Hello \" + name\ninstruction, completes it, and\n# Lastly output the new message\nthen moves to the next.\nprint(message)\nA recipe is a real-world example\nof sequence because its\ninstructions are followed step by\nstep in order."
+  },
+  {
+    "page": 6,
+    "text": "Selection\n# Start with an input value\nA selection allows a program to\nage = 16\nchoose between different paths.\nA condition is evaluated as # Different code will run\neither True or False, and the # depending on the value\nresult determines which if age >= 16:\nprint(\"You can drive.\")\ninstructions are performed.\nelse:\nPython's if and else statements\nprint(\"You cannot drive yet.\")\nare examples of selection."
+  },
+  {
+    "page": 7,
+    "text": "Iteration\nAn iteration repeats a set of # This is an example\ninstructions.\n# of a for loop.\nInstructions can repeat:\n\u2022 A specific number of times.\n# This for loop will\n\u2022 Until a particular condition is # run 5 times.\nmet.\nfor _ in range(5):\nLoops make programs more\nprint(\"Hello!\")\nefficient because the same\ninstructions do not need to be\nwritten repeatedly."
+  }
+]

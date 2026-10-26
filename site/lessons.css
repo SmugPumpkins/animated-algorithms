@@ -132,6 +132,8 @@ html, body { width: 100%; height: 100%; margin: 0; }
 /* Reusable lesson layouts: explanations, annotated code and companion files. */
 .reveal .text-layout { max-width: 1060px; margin: auto 0; font-size: 32px; line-height: 1.55; }
 .reveal .text-layout p { margin-bottom: 32px; }
+.reveal .dense-text .text-layout { font-size: 26px; line-height: 1.35; }
+.reveal .dense-text .text-layout p { margin-bottom: 18px; }
 .reveal .wide-layout { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 20px; }
 .reveal .wide-layout > .playground { flex: 1; }
 .reveal .wide-caption { font-size: 24px; }
@@ -214,6 +216,9 @@ html, body { width: 100%; height: 100%; margin: 0; }
 .reveal .wrapup-list { margin: 0; padding-left: 30px; font-size: 26px; line-height: 1.4; }
 .reveal .wrapup-list li { margin-bottom: 18px; padding-left: 6px; }
 .reveal .wrapup-list li::marker { color: #4de8f4; }
+.reveal .lesson-body-list { margin: 0 0 18px; padding-left: 30px; }
+.reveal .lesson-body-list li { margin: 0 0 10px; }
+.reveal .lesson-body-list li::marker { color: #4de8f4; }
 .reveal .assignment-next { margin-top: auto; padding-top: 18px; border-top: 1px solid #4d3b61; }
 .reveal .assignment-next h3 { margin: 0 0 10px; color: #ff8fdb; font: 600 24px/1.3 Poppins, sans-serif; }
 .reveal .assignment-next p { margin: 10px 0 0; font: 22px/1.4 Poppins, sans-serif; color: #c1bbd3; }

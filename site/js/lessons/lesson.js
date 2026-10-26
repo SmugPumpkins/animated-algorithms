@@ -28,7 +28,9 @@ function slideMarkup(slide, index) {
     return `<g class="flow-node" data-node="cycle-${i}" data-role="${escapeHtml(node.role)}" transform="translate(${x} ${y})"><rect width="210" height="90" rx="12"/><text x="105" y="37" text-anchor="middle"><tspan x="105">${escapeHtml(lines[0])}</tspan><tspan x="105" dy="28">${escapeHtml(lines[1] || '')}</tspan></text></g>`;
   }).join('')}</svg>` : '';
   const title = `<h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>${inlineCode(slide.title, slide.inlineCode)}${slide.sourceUrl ? `<a class="lesson-source" href="${escapeHtml(slide.sourceUrl)}" target="_blank" rel="noopener">GitHub source ↗</a>` : ''}</h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>`;
-  const paragraphs = (slide.paragraphs || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('');
+  const paragraphs = (slide.paragraphs || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('')
+    + (slide.bodyBullets ? `<ul class="lesson-body-list">${slide.bodyBullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul>` : '')
+    + (slide.afterBullets || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('');
   const stages = slide.stageLabels ? `<ol class="ipo-stages" aria-label="Program stages">${slide.stageLabels.map(label => `<li>${escapeHtml(label)}</li>`).join('')}</ol>` : '';
   const ipoChart = slide.ipoChart ? `<table class="ipo-chart"><thead><tr>${slide.ipoChart.headers.map(header => `<th scope="col">${escapeHtml(header)}</th>`).join('')}</tr></thead><tbody><tr>${slide.ipoChart.cells.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr></tbody></table>` : '';
   const indexGrid = slide.indexGrid ? `<table class="lesson-index-grid" aria-label="Row and column indices"><tbody>${slide.indexGrid.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
@@ -49,7 +51,7 @@ function slideMarkup(slide, index) {
     : slide.layout === 'wide' || slide.layout === 'annotated'
       ? `${title}<div class="wide-layout">${slide.paragraphs ? `<div class="source-body wide-caption">${paragraphs}</div>` : ''}${playgroundMarkup(slide)}${annotations ? `<div class="code-annotations">${annotations}</div>` : ''}</div>`
     : slide.kind === 'cover'
-    ? `<div class="cover-layout"><div class="cover-title">${title}</div><div class="source-body objectives"><p>${inlineCode(slide.intro, slide.inlineCode)}</p><ul>${slide.bullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul></div></div>`
+    ? `<div class="cover-layout"><div class="cover-title">${title}</div><div class="source-body objectives"><p>${inlineCode(slide.intro, slide.inlineCode)}</p>${slide.objectiveLead ? `<p>${inlineCode(slide.objectiveLead, slide.inlineCode)}</p>` : ''}<ul>${slide.bullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul></div></div>`
     : slide.kind === 'closing'
       ? `<div class="closing-layout">${title}<div class="source-body">${paragraphs}</div></div>`
       : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}${stages}${indexGrid}</div>${playgroundMarkup(slide)}</div>`;

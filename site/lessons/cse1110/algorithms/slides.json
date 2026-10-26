@@ -1,0 +1,126 @@
+[
+  {
+    "title": "Structured Programming",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 1: Algorithms",
+    "objectiveLead": "By the end of this lesson, you should be able to:",
+    "bullets": [
+      "Explain what an algorithm is.",
+      "Identify the three fundamental control structures used in structured programming.",
+      "Explain how sequence, selection, and iteration change the flow of a program."
+    ]
+  },
+  {
+    "title": "Before Structured Programming",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "Early programs often relied on the GOTO statement, which allowed the program to jump directly to any labeled line of code.",
+      "While this made simple programs possible, larger programs often became confusing because execution could jump unpredictably between many different locations.",
+      "In the 1960s and 1970s, structured programming replaced this approach by using sequence, selection (if statements), and iteration (loops), making programs easier to read, test, and maintain."
+    ],
+    "inlineCode": [
+      "GOTO"
+    ]
+  },
+  {
+    "title": "Structured Programming",
+    "kind": "text",
+    "sourcePage": 3,
+    "paragraphs": [
+      "Structured programming organizes programs using predictable control structures instead of jumping unpredictably between different sections of code.",
+      "The three fundamental control structures are:",
+      "Sequence — Perform instructions in order.",
+      "Selection — Choose which instructions to perform.",
+      "Iteration — Repeat instructions.",
+      "These structures make programs easier to read, test, and maintain."
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Algorithms",
+    "kind": "text",
+    "sourcePage": 4,
+    "paragraphs": [
+      "An algorithm is a sequence of step-by-step instructions designed to perform a task or solve a problem.",
+      "Programs are implementations of algorithms using a programming language.",
+      "Algorithms often:"
+    ],
+    "bodyBullets": [
+      "Receive input.",
+      "Process that information.",
+      "Produce output.",
+      "Use control structures to determine which steps happen and when."
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Sequence",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "A sequence executes instructions one after another in the order they appear.",
+      "The program starts with one instruction, completes it, and then moves to the next.",
+      "A recipe is a real-world example of sequence because its instructions are followed step by step in order."
+    ],
+    "code": "# First get an input from the user\nname = input(\"What is your name? \")\n\n# Second process the input data\nmessage = \"Hello \" + name\n\n# Lastly output the new message\nprint(message)",
+    "testInputs": [
+      "Nathan"
+    ],
+    "expectedOutput": "What is your name? Nathan\nHello Nathan\n",
+    "compactCode": true,
+    "denseText": true
+  },
+  {
+    "title": "Selection",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "A selection allows a program to choose between different paths.",
+      "A condition is evaluated as either True or False, and the result determines which instructions are performed.",
+      "Python's if and else statements are examples of selection."
+    ],
+    "code": "# Start with an input value\nage = 16\n\n# Different code will run\n# depending on the value\nif age >= 16:\n    print(\"You can drive.\")\nelse:\n    print(\"You cannot drive yet.\")",
+    "expectedOutput": "You can drive.\n",
+    "inlineCode": [
+      "True",
+      "False",
+      "if",
+      "else"
+    ],
+    "compactCode": true,
+    "denseText": true
+  },
+  {
+    "title": "Iteration",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "An iteration repeats a set of instructions.",
+      "Instructions can repeat:"
+    ],
+    "bodyBullets": [
+      "A specific number of times.",
+      "Until a particular condition is met."
+    ],
+    "afterBullets": [
+      "Loops make programs more efficient because the same instructions do not need to be written repeatedly."
+    ],
+    "code": "# This is an example\n# of a for loop.\n\n# This for loop will\n# run 5 times.\nfor _ in range(5):\n    print(\"Hello!\")",
+    "expectedOutput": "Hello!\nHello!\nHello!\nHello!\nHello!\n",
+    "compactCode": true,
+    "denseText": true
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "Algorithms are step-by-step instructions for solving a problem or performing a task.",
+      "Programs implement algorithms using a programming language.",
+      "Sequence runs instructions in order; selection chooses a path; iteration repeats instructions.",
+      "Structured programming uses these control structures to make programs easier to read, test and maintain."
+    ]
+  }
+]

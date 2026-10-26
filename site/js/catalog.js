@@ -35,6 +35,10 @@ export const modules = [
       id: 'input-process-output', number: 2, title: 'Input, Process, Output',
       description: 'IPO planning, real terminal input, numeric casting, output formatting and escape characters.',
       slideCount: 17, href: './lessons/cse1110/input-process-output/',
+    }, {
+      id: 'algorithms', number: 3, title: 'Algorithms',
+      description: 'Algorithms, structured programming, sequence, selection and iteration.',
+      slideCount: 8, href: './lessons/cse1110/algorithms/',
     }]),
   moduleEntry('CSE 1120', 'Structured Programming 2',
     'Add decisions, repetition and blocks to structured programs.',
