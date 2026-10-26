@@ -2,7 +2,7 @@ import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
 import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-textfiles';
 import { loadAssignment, assignmentMarkup } from './assignments.js?v=20261026-wrapups';
-import { flowchartMarkup, mountFlowchart } from './flowchart.js?v=20261026-flowcharts';
+import { flowchartMarkup, mountFlowchart } from './flowchart.js?v=20261026-pseudocode';
 
 const $ = selector => document.querySelector(selector);
 function inlineCode(text, tokens = []) {
@@ -37,7 +37,11 @@ function slideMarkup(slide, index) {
   const indexGrid = slide.indexGrid ? `<table class="lesson-index-grid" aria-label="Row and column indices"><tbody>${slide.indexGrid.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
   const annotations = (slide.annotations || []).map(note => `<div><h3>${escapeHtml(note.title)}</h3><p>${inlineCode(note.text, slide.inlineCode)}</p></div>`).join('');
   const documentation = slide.documentation;
-  const contents = slide.kind === 'flowchart'
+  const contents = slide.kind === 'keyword-table'
+    ? `${title}<p class="keyword-group">${escapeHtml(slide.group)}</p><table class="pseudocode-keywords"><tbody>${slide.keywords.map(row => `<tr><th scope="row"><span class="inline-code">${escapeHtml(row.keyword)}</span></th><td>${row.explanations.map(text => `<p>${inlineCode(text,slide.inlineCode)}</p>`).join('')}</td></tr>`).join('')}</tbody></table>`
+    : slide.kind === 'pseudocode'
+    ? `${title}<div class="slide-columns"><div class="source-body">${paragraphs}</div><pre class="pseudocode-sample" aria-label="Pseudocode example"><code>${slide.pseudocode.split(/\b(END IF|END WHILE|START|END|INPUT|OUTPUT|SET|TO|IF|ELSE|WHILE|ADD|INCREASE|BY)\b/g).map(part => /^(END IF|END WHILE|START|END|INPUT|OUTPUT|SET|TO|IF|ELSE|WHILE|ADD|INCREASE|BY)$/.test(part) ? `<span class="pseudocode-keyword">${escapeHtml(part)}</span>` : escapeHtml(part)).join('')}</code></pre></div>`
+    : slide.kind === 'flowchart'
     ? `${title}<div class="${slide.flowLayout === 'wide' ? 'lesson-flow-wide' : 'slide-columns'}"><div class="source-body">${paragraphs}</div>${flowchartMarkup(slide,index)}</div>`
     : slide.kind === 'resource'
     ? `<h2><a class="lesson-resource-link" href="${escapeHtml(slide.resourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(slide.title)} â†—</a></h2><div class="slide-columns"><div class="source-body">${paragraphs}</div><img class="lesson-resource-image" src="${escapeHtml(slide.image)}" alt="${escapeHtml(slide.imageAlt)}"></div>`
@@ -68,7 +72,7 @@ try {
   if (!response.ok) throw new Error('Lesson content could not be loaded.');
   const slides = await response.json();
   $('.slides').innerHTML = slides.map(slideMarkup).join('');
-  $('#slide-select').innerHTML = '<option value="" selected disabled>Select slide</option>' + slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}</option>`).join('');
+  $('#slide-select').innerHTML = '<option value="" selected disabled>Select slide</option>' + slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}${slide.group ? ` — ${escapeHtml(slide.group)}` : ''}</option>`).join('');
   document.querySelectorAll('.lesson-slide').forEach((section, index) => {
     const examples = slides[index].examples || (slides[index].code || slides[index].files ? [slides[index]] : []);
     const mounted = [...section.querySelectorAll('.playground')].map((playground, exampleIndex) => mountPlayground(playground, examples[exampleIndex]));

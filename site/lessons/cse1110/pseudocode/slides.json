@@ -1,0 +1,257 @@
+[
+  {
+    "title": "Structured Programming",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 3: Structuring Algorithms with Pseudocode",
+    "objectiveLead": "By the end of this lesson, you should be able to:",
+    "bullets": [
+      "Explain how pseudocode describes algorithms using plain language.",
+      "Identify common pseudocode keywords and control structures.",
+      "Use indentation to show hierarchy in pseudocode."
+    ]
+  },
+  {
+    "title": "Pseudocode",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "Pseudocode: An informal way of describing an algorithm using plain language that resembles programming code but is not written in a specific programming language.",
+      "PSEUDOCODE IS NOT CODE"
+    ],
+    "bodyBullets": [
+      "Pseudocode should be written as plain language to allow you to simplify your thinking.",
+      "Pseudocode should be able to be translated to any programming language.",
+      "If your pseudocode looks the same as your Python code, then you are doing something wrong."
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Keywords in Pseudocode",
+    "kind": "keyword-table",
+    "sourcePage": 3,
+    "group": "Basic Commands",
+    "keywords": [
+      {
+        "keyword": "START",
+        "explanations": [
+          "Shows the beginning of pseudocode."
+        ]
+      },
+      {
+        "keyword": "END",
+        "explanations": [
+          "Shows the end of pseudocode."
+        ]
+      },
+      {
+        "keyword": "INPUT",
+        "explanations": [
+          "Shows when a user is providing input.",
+          "Typically followed by a variable name."
+        ]
+      },
+      {
+        "keyword": "OUTPUT",
+        "explanations": [
+          "Shows when data is displayed to the user."
+        ]
+      }
+    ],
+    "inlineCode": [
+      "IF",
+      "ELIF",
+      "ELSE",
+      "FOR",
+      "WHILE",
+      "FUNCTION",
+      "RETURN",
+      "END FUNCTION",
+      "True"
+    ]
+  },
+  {
+    "title": "Keywords in Pseudocode",
+    "kind": "keyword-table",
+    "sourcePage": 3,
+    "group": "Selection",
+    "keywords": [
+      {
+        "keyword": "IF",
+        "explanations": [
+          "Used for SELECTION control structures.",
+          "Must include a condition."
+        ]
+      },
+      {
+        "keyword": "ELIF",
+        "explanations": [
+          "Optional for IF blocks.",
+          "Used for secondary conditions in SELECTION control structures.",
+          "Must include a condition."
+        ]
+      },
+      {
+        "keyword": "ELSE",
+        "explanations": [
+          "Optional for IF blocks.",
+          "Used for the final option in SELECTION control structures.",
+          "Does not include a condition."
+        ]
+      },
+      {
+        "keyword": "END IF",
+        "explanations": [
+          "Shows the end of a SELECTION control structure.",
+          "Must follow after all IF, ELIF, and ELSE sections of a single block of code."
+        ]
+      }
+    ],
+    "inlineCode": [
+      "IF",
+      "ELIF",
+      "ELSE",
+      "FOR",
+      "WHILE",
+      "FUNCTION",
+      "RETURN",
+      "END FUNCTION",
+      "True"
+    ]
+  },
+  {
+    "title": "Keywords in Pseudocode",
+    "kind": "keyword-table",
+    "sourcePage": 3,
+    "group": "Iteration",
+    "keywords": [
+      {
+        "keyword": "FOR",
+        "explanations": [
+          "Used for ITERATION control structures.",
+          "Must include a specific pattern for iterating."
+        ]
+      },
+      {
+        "keyword": "END FOR",
+        "explanations": [
+          "Shows the end of a FOR ITERATION control structure."
+        ]
+      },
+      {
+        "keyword": "WHILE",
+        "explanations": [
+          "Used for ITERATION control structures.",
+          "Must include a condition to evaluate.",
+          "Continues to iterate as long as the condition is True."
+        ]
+      },
+      {
+        "keyword": "END WHILE",
+        "explanations": [
+          "Shows the end of a WHILE ITERATION control structure."
+        ]
+      }
+    ],
+    "inlineCode": [
+      "IF",
+      "ELIF",
+      "ELSE",
+      "FOR",
+      "WHILE",
+      "FUNCTION",
+      "RETURN",
+      "END FUNCTION",
+      "True"
+    ]
+  },
+  {
+    "title": "Keywords in Pseudocode",
+    "kind": "keyword-table",
+    "sourcePage": 3,
+    "group": "Functions",
+    "keywords": [
+      {
+        "keyword": "FUNCTION",
+        "explanations": [
+          "Used to declare custom functions.",
+          "Must include a function name.",
+          "May include function parameters."
+        ]
+      },
+      {
+        "keyword": "END FUNCTION",
+        "explanations": [
+          "Used to show the end of a FUNCTION that has been declared."
+        ]
+      },
+      {
+        "keyword": "RETURN",
+        "explanations": [
+          "Optional for functions.",
+          "Used to show a value that is being returned.",
+          "If being used, must come before END FUNCTION.",
+          "Logic that comes after RETURN in a FUNCTION block will not run."
+        ]
+      }
+    ],
+    "inlineCode": [
+      "IF",
+      "ELIF",
+      "ELSE",
+      "FOR",
+      "WHILE",
+      "FUNCTION",
+      "RETURN",
+      "END FUNCTION",
+      "True"
+    ]
+  },
+  {
+    "title": "Pseudocode is Indented to Show Hierarchy",
+    "kind": "pseudocode",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Just like in Python and many other programming languages, pseudocode uses indentation to help clarify what code is nested inside other blocks of code."
+    ],
+    "pseudocode": "START\n\n    INPUT name\n\n    message = \"Hello\" + name\n\n    OUTPUT message\n\nEND"
+  },
+  {
+    "title": "Sequence in Pseudocode",
+    "kind": "pseudocode",
+    "sourcePage": null,
+    "paragraphs": [
+      "Follow the same sequence as the flowchart: receive a name, build a greeting, then display it."
+    ],
+    "pseudocode": "START\n    INPUT name\n    SET message TO \"Hello\" + name\n    OUTPUT message\nEND"
+  },
+  {
+    "title": "Selection in Pseudocode",
+    "kind": "pseudocode",
+    "sourcePage": null,
+    "paragraphs": [
+      "Use the same temperature and threshold as the flowchart. Only the matching branch runs."
+    ],
+    "pseudocode": "START\n    SET temp_celsius TO 25\n    SET WARM TO 21\n    IF temp_celsius > WARM\n        OUTPUT \"Wow, it sure is hot!\"\n    ELSE\n        OUTPUT \"Grab a sweater!\"\n    END IF\nEND"
+  },
+  {
+    "title": "Iteration in Pseudocode",
+    "kind": "pseudocode",
+    "sourcePage": null,
+    "paragraphs": [
+      "Repeat the same additions as the flowchart while i is less than 3, then display the total."
+    ],
+    "pseudocode": "START\n    SET total TO 0\n    SET i TO 0\n    WHILE i < 3\n        ADD i TO total\n        INCREASE i BY 1\n    END WHILE\n    OUTPUT total\nEND"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "Pseudocode describes an algorithm in plain language without relying on a particular programming language.",
+      "Use keywords to identify input, output, selection, iteration and functions.",
+      "Match control structures with their ending keywords so their boundaries are clear.",
+      "Indent nested steps to show the hierarchy of the algorithm."
+    ]
+  }
+]

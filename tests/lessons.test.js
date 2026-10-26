@@ -588,20 +588,57 @@ test('flowchart playback pauses, resets and cleans up timers and listeners', asy
   const {mountFlowchart} = await import('../site/js/lessons/flowchart.js');
   t.mock.timers.enable({apis:['setInterval']});
   const buttons = ['run','step','stop','reset'].map(name => Object.assign(new EventTarget(), {dataset:{flow:name},disabled:false}));
-  const status = {textContent:''};
+  const actionClasses = new Set();
+  const action = {textContent:'',classList:{add(name){actionClasses.add(name);},remove(name){actionClasses.delete(name);}}};
+  const count = {textContent:''};
   const nodes = ['start','input','message','output','end'].map(id => {
     const classes = new Set();
     return {dataset:{node:id},classes,classList:{toggle(name,on){if(on)classes.add(name);else classes.delete(name);},remove(name){classes.delete(name);}}};
   });
-  const root = {querySelector(){return status;},querySelectorAll(selector){return selector==='[data-flow]' ? buttons : selector==='[data-node]' ? nodes : nodes.filter(node=>node.classes.has('active'));}};
+  const root = {querySelector(selector){return selector === '.flow-step-action' ? action : count;},querySelectorAll(selector){return selector==='[data-flow]' ? buttons : selector==='[data-node]' ? nodes : nodes.filter(node=>node.classes.has('active'));}};
   const player = mountFlowchart(root,'sequence');
   const click = name => buttons.find(button=>button.dataset.flow===name).dispatchEvent(new Event('click'));
   const active = () => nodes.filter(node=>node.classes.has('active')).map(node=>node.dataset.node);
   click('run');assert.deepEqual(active(),['start']);
+  assert.equal(count.textContent,'1 / 5');assert.equal(action.textContent,'Start the algorithm.');assert.ok(actionClasses.has('inline-code'));
   t.mock.timers.tick(1000);assert.deepEqual(active(),['input']);
   click('stop');t.mock.timers.tick(5000);assert.deepEqual(active(),['input']);
   click('step');assert.deepEqual(active(),['message']);
-  click('reset');assert.deepEqual(active(),[]);
+  click('reset');assert.deepEqual(active(),[]);assert.equal(count.textContent,'0 / 5');assert.ok(!actionClasses.has('inline-code'));
   click('run');player.stop();t.mock.timers.tick(5000);assert.deepEqual(active(),['start']);
   player.destroy();click('step');t.mock.timers.tick(5000);assert.deepEqual(active(),['start']);
+});
+
+const pseudocodeSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/pseudocode/slides.json'), 'utf8'));
+const pseudocodeSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/pseudocode-source.json'), 'utf8'));
+test('Pseudocode preserves explanations and sample with approved new cover objectives', () => {
+  assert.equal(pseudocodeSlides.length,11);
+  assert.deepEqual(pseudocodeSlides.map(slide=>slide.sourcePage),[1,2,3,3,3,3,4,null,null,null,null]);
+  assert.ok(pseudocodeSlides[0].bullets.every(text=>!/flowchart/i.test(text)));
+  for (const page of [2,4]) {
+    const slide = pseudocodeSlides.find(slide=>slide.sourcePage===page);
+    const text = [slide.title,...slide.paragraphs,...(slide.bodyBullets||[]),slide.pseudocode||''].join('\n');
+    assert.deepEqual(words(text),words(pseudocodeSource[page-1].text));
+  }
+  const tables = pseudocodeSlides.filter(slide=>slide.kind==='keyword-table');
+  const text = [tables[0].title,...tables.flatMap(slide=>slide.keywords.flatMap(row=>[row.keyword,...row.explanations]))].join('\n');
+  const original = pseudocodeSource[2].text.replace('SELECTIONcontrol','SELECTION control').replace('customfunctions','custom functions').replace('isTrue','is True');
+  assert.deepEqual(words(text),words(original));
+});
+
+test('pseudocode reference contains all 15 keywords and does not run as Python', () => {
+  const keywords = pseudocodeSlides.flatMap(slide=>(slide.keywords||[]).map(row=>row.keyword));
+  assert.deepEqual(keywords,['START','END','INPUT','OUTPUT','IF','ELIF','ELSE','END IF','FOR','END FOR','WHILE','END WHILE','FUNCTION','END FUNCTION','RETURN']);
+  assert.ok(pseudocodeSlides.every(slide=>!slide.code&&!slide.files));
+  assert.match(pseudocodeSlides[6].pseudocode,/\n    INPUT name/);
+  assert.match(pseudocodeSlides[6].pseudocode,/\nEND$/);
+});
+
+ test('pseudocode control-structure examples match the flowchart algorithms', () => {
+  const examples = pseudocodeSlides.slice(7,10);
+  assert.deepEqual(examples.map(slide=>slide.title), ['Sequence in Pseudocode','Selection in Pseudocode','Iteration in Pseudocode']);
+  assert.match(examples[0].pseudocode,/INPUT name\n    SET message TO "Hello" \+ name\n    OUTPUT message/);
+  assert.match(examples[1].pseudocode,/SET temp_celsius TO 25\n    SET WARM TO 21/);
+  assert.match(examples[1].pseudocode,/IF temp_celsius > WARM[\s\S]*Wow, it sure is hot![\s\S]*ELSE[\s\S]*Grab a sweater![\s\S]*END IF/);
+  assert.match(examples[2].pseudocode,/WHILE i < 3\n        ADD i TO total\n        INCREASE i BY 1\n    END WHILE\n    OUTPUT total/);
 });

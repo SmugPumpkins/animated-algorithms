@@ -52,25 +52,28 @@ export function flowchartMarkup(slide, index) {
   const roles = [...new Set(diagram.nodes.map(node => node.role))];
   return `<div class="lesson-flow-panel" ${slide.flowExample ? 'data-flow-player' : ''}>
     ${slide.flowExample ? '<div class="code-toolbar"><span class="code-language">Flowchart</span><div><button type="button" data-flow="run" class="run-code">▶ Run</button><button type="button" data-flow="step">Step</button><button type="button" data-flow="stop" disabled>■ Stop</button><button type="button" data-flow="reset">Reset</button></div></div>' : ''}
-    <div class="lesson-flow-visual"><svg class="flowchart lesson-flowchart" viewBox="0 0 ${diagram.width} ${diagram.height}" role="img" aria-label="${escapeHtml(slide.title)} flowchart"><defs><marker id="${marker}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z"/></marker></defs><g class="flow-edges">${diagram.edges.map(edge => `<path d="${escapeHtml(edge.path)}" marker-end="url(#${marker})"/>${edge.label ? `<text class="edge-label" x="${edge.x}" y="${edge.y}">${escapeHtml(edge.label)}</text>` : ''}`).join('')}</g>${diagram.nodes.map(nodeMarkup).join('')}</svg></div>
+    <div class="lesson-flow-visual"><svg class="flowchart lesson-flowchart" viewBox="0 0 ${diagram.width} ${diagram.height}" role="img" aria-label="${escapeHtml(slide.title)} flowchart"><defs><marker id="${marker}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z"/></marker></defs><g class="flow-edges${diagram.edgeWeight === 'strong' ? ' flow-edges-strong' : ''}">${diagram.edges.map(edge => `<path d="${escapeHtml(edge.path)}" marker-end="url(#${marker})"/>${edge.label ? `<text class="edge-label" x="${edge.x}" y="${edge.y}">${escapeHtml(edge.label)}</text>` : ''}`).join('')}</g>${diagram.nodes.map(nodeMarkup).join('')}</svg></div>
     ${roles.length ? flowLegend(roles) : ''}
-    ${slide.flowExample ? '<p class="flow-step-status" aria-live="polite">Press Run or Step to follow the algorithm.</p>' : ''}
+    ${slide.flowExample ? `<div class="flow-step-status" aria-live="polite"><span class="flow-step-action">Press Run or Step to follow the algorithm.</span><span class="flow-step-count" aria-label="Steps completed">0 / ${flowchartSteps(slide.flowExample).length}</span></div>` : ''}
   </div>`;
 }
 
 export function mountFlowchart(root, example) {
   const steps = flowchartSteps(example), buttons = Object.fromEntries([...root.querySelectorAll('[data-flow]')].map(button => [button.dataset.flow, button]));
-  const status = root.querySelector('.flow-step-status');
+  const action = root.querySelector('.flow-step-action');
+  const count = root.querySelector('.flow-step-count');
   let position = -1, timer = null;
   function stop() { clearInterval(timer); timer = null; buttons.stop.disabled = true; buttons.run.disabled = false; buttons.step.disabled = false; }
   function advance() {
     if (position >= steps.length - 1) return stop();
     const step = steps[++position];
     root.querySelectorAll('[data-node]').forEach(node => node.classList.toggle('active', node.dataset.node === step.node));
-    status.textContent = `${position + 1} / ${steps.length} · ${step.text}`;
+    action.textContent = step.text;
+    action.classList.add('inline-code');
+    count.textContent = `${position + 1} / ${steps.length}`;
     if (position === steps.length - 1) stop();
   }
-  function reset() { stop(); position = -1; root.querySelectorAll('.active').forEach(node => node.classList.remove('active')); status.textContent = 'Press Run or Step to follow the algorithm.'; }
+  function reset() { stop(); position = -1; root.querySelectorAll('.active').forEach(node => node.classList.remove('active')); action.textContent = 'Press Run or Step to follow the algorithm.'; action.classList.remove('inline-code'); count.textContent = `0 / ${steps.length}`; }
   const abort = new AbortController();
   buttons.run.addEventListener('click', () => { if (position === steps.length - 1) reset(); advance(); if (position < steps.length - 1) { timer = setInterval(advance, 1000); buttons.run.disabled = true; buttons.step.disabled = true; buttons.stop.disabled = false; } }, {signal:abort.signal});
   buttons.step.addEventListener('click', () => { stop(); if (position === steps.length - 1) reset(); advance(); }, {signal:abort.signal});

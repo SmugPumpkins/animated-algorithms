@@ -1,0 +1,18 @@
+[
+  {
+    "page": 1,
+    "text": "Structured\nProgramming\nPart 3: Structuring Algorithms\nwith Pseudocode\nBy the end of this lesson, you should be able to:\n\u2022\nExplain how flowcharts represent algorithms\nvisually.\n\u2022\nIdentify the common symbols used in\nprogramming flowcharts.\n\u2022\nRepresent sequence, selection, and iteration\nusing flowcharts."
+  },
+  {
+    "page": 2,
+    "text": "Pseudocode\nPseudocode: An informal way of describing an algorithm using plain language\nthat resembles programming code but is not written in a specific\nprogramming language.\nPSEUDOCODE IS NOT CODE\n\u2022 Pseudocode should be written as plain language to allow you to simplify\nyour thinking.\n\u2022 Pseudocode should be able to be translated to any programming\nlanguage.\n\u2022 If your pseudocode looks the same as your Python code, then you are\ndoing something wrong."
+  },
+  {
+    "page": 3,
+    "text": "Keywords in Pseudocode\nShows the beginning of pseudocode. Used for ITERATION control structures.\nSTART FOR\nMust include a specific pattern for iterating.\nShows the end of pseudocode. Shows the end of a FOR ITERATION control structure.\nEND END FOR\nShows when a user is providing input. Used for ITERATION control structures.\nINPUT Typically followed by a variable name. WHILE Must include a condition to evaluate.\nContinues to iterate as long as the condition isTrue.\nShows when data is displayed to the user. Shows the end of a WHILE ITERATION control structure.\nOUTPUT END WHILE\nUsed for SELECTIONcontrol structures. Used to declare customfunctions.\nIF Must include a condition. FUNCTION Must include a function name.\nMay include function parameters.\nOptional for IF blocks. Used to show the end of a FUNCTION that has been\nEND\nUsed for secondary conditions in SELECTION control declared.\nELIF\nstructures.\nFUNCTION\nMust include a condition.\nOptional for IF blocks. Optional for functions.\nUsed for the final option in SELECTION control Used to show a value that is being returned.\nELSE structures. RETURN If being used, must come before END FUNCTION.\nDoes not include a condition. Logic that comes after RETURN in a FUNCTION block will\nnot run.\nShows the end of a SELECTION control structure.\nEND IF Must follow after all IF, ELIF, and ELSE sections of a\nsingle block of code."
+  },
+  {
+    "page": 4,
+    "text": "Pseudocode is Indented to Show Hierarchy\nSTART\nJust like in Python and many\nother programming languages,\npseudocode uses indentation to\nINPUT name\nhelp clarify what code is nested\ninside other blocks of code.\nmessage = \"Hello\" + name\nOUTPUT message\nEND"
+  }
+]

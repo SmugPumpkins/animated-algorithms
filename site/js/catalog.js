@@ -43,6 +43,10 @@ export const modules = [
       id: 'flowcharts', number: 4, title: 'Visualizing Algorithms with Flowcharts',
       description: 'Flowchart symbols and step-by-step diagrams for sequence, selection and iteration.',
       slideCount: 14, href: './lessons/cse1110/flowcharts/',
+    }, {
+      id: 'pseudocode', number: 5, title: 'Structuring Algorithms with Pseudocode',
+      description: 'Plain-language algorithms, pseudocode keywords, control structures and indentation.',
+      slideCount: 11, href: './lessons/cse1110/pseudocode/',
     }]),
   moduleEntry('CSE 1120', 'Structured Programming 2',
     'Add decisions, repetition and blocks to structured programs.',

@@ -22,7 +22,7 @@
       "Different symbols have different meanings."
     ],
     "diagram": {
-      "width": 820,
+      "width": 890,
       "height": 560,
       "nodes": [
         {
@@ -223,7 +223,8 @@
         {
           "path": "M100 230H650"
         }
-      ]
+      ],
+      "edgeWeight": "strong"
     },
     "denseText": true
   },
