@@ -1,0 +1,290 @@
+[
+  {
+    "title": "Data Structures",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 3: Dictionaries",
+    "bullets": [
+      "Using key-value pairs instead of indices to store grouped data."
+    ]
+  },
+  {
+    "title": "Dictionaries and Key Value Pairs",
+    "kind": "code",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A dictionary is a data structure that stores information as key-value pairs.",
+      "Each key acts as a unique name used to access its associated value instead of using a numerical index.",
+      "Values can be different data types and can be added, removed, or changed after the dictionary is created.",
+      "Dictionaries are useful when each piece of data has a meaningful label."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}",
+    "expectedOutput": "",
+    "inlineCode": [],
+    "denseText": true
+  },
+  {
+    "title": "Creating a Dictionary",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "A dictionary is created using curly brackets {} to surround its contents.",
+      "Inside the {}, each item is written as a key-value pair, with a colon (:) separating the key from its value.",
+      "Multiple key-value pairs are separated by commas (,).",
+      "An empty dictionary can be created using just {}."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}",
+    "expectedOutput": "",
+    "inlineCode": [
+      "{}",
+      "(:)",
+      "(,)"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Accessing Values with Keys",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Values in a dictionary are accessed using their key instead of a numerical index.",
+      "Place the key inside square brackets [] after the dictionary's variable name.",
+      "Python then returns the value associated with that key.",
+      "Each key in a dictionary must be unique."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nprint(student[\"name\"])\nprint(student[\"grade\"])",
+    "expectedOutput": "Alice\n11\n",
+    "inlineCode": [
+      "[]"
+    ],
+    "denseText": true,
+    "initialOutput": "Alice\n11\n",
+    "compactCode": true
+  },
+  {
+    "title": "Changing Values with Keys",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "Dictionary values can be changed by accessing an existing key and assigning it a new value.",
+      "The key is placed inside square brackets [], followed by the assignment operator = and the new value.",
+      "This changes the value associated with that key while leaving the rest of the dictionary unchanged."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nstudent[\"average\"] = 92.0\nprint(student)",
+    "expectedOutput": "{'name': 'Alice', 'grade': 11, 'average': 92.0}\n",
+    "inlineCode": [
+      "[]",
+      "="
+    ],
+    "denseText": true,
+    "initialOutput": "{'name': 'Alice', 'grade': 11, 'average': 92.0}\n",
+    "compactCode": true,
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Adding New Key-Value Pairs",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "A new key-value pair can be added to a dictionary by placing a new key inside square brackets [] and assigning it a value.",
+      "If the key does not already exist, Python creates a new key-value pair in the dictionary.",
+      "If the key already exists, its current value will be replaced instead.",
+      "This makes dictionaries easy to expand as new information becomes available."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11\n}\n\nstudent[\"average\"] = 87.5\n\nprint(student)",
+    "expectedOutput": "{'name': 'Alice', 'grade': 11, 'average': 87.5}\n",
+    "inlineCode": [
+      "[]"
+    ],
+    "denseText": true,
+    "initialOutput": "{'name': 'Alice', 'grade': 11, 'average': 87.5}\n",
+    "compactCode": true,
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Removing Items – pop()",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "The pop() method removes a key-value pair from a dictionary using its key.",
+      "It also returns the value that was removed, allowing it to be stored or used elsewhere.",
+      "This is useful when you know which key you want to remove."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nremoved = student.pop(\"average\")\nprint(removed)\nprint(student)",
+    "expectedOutput": "87.5\n{'name': 'Alice', 'grade': 11}\n",
+    "inlineCode": [
+      "pop()"
+    ],
+    "denseText": true,
+    "initialOutput": "87.5\n{'name': 'Alice', 'grade': 11}\n",
+    "compactCode": true
+  },
+  {
+    "title": "Removing Items – popitem()",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "The popitem() method removes the last key-value pair added to a dictionary.",
+      "It returns the removed key and value together as a tuple.",
+      "This is useful when you want to remove the most recently added item without specifying its key."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nremoved = student.popitem()\nprint(removed)\nprint(student)",
+    "expectedOutput": "('average', 87.5)\n{'name': 'Alice', 'grade': 11}\n",
+    "inlineCode": [
+      "popitem()"
+    ],
+    "denseText": true,
+    "initialOutput": "('average', 87.5)\n{'name': 'Alice', 'grade': 11}\n",
+    "compactCode": true
+  },
+  {
+    "title": "Removing Items – clear()",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "The clear() method removes all key-value pairs from a dictionary.",
+      "The dictionary still exists afterward, but it is empty.",
+      "This is useful when you want to reset a dictionary and continue using the same variable."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11\n}\n\nstudent.clear()\n\nprint(student)",
+    "expectedOutput": "{}\n",
+    "inlineCode": [
+      "clear()"
+    ],
+    "denseText": true,
+    "initialOutput": "{}\n",
+    "compactCode": true
+  },
+  {
+    "title": "Checking Length with len()",
+    "kind": "code",
+    "sourcePage": 10,
+    "paragraphs": [
+      "The len() function returns the number of key-value pairs stored in a dictionary.",
+      "Each pair counts as one item.",
+      "This is useful when you need to know how many pieces of information are stored."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nprint(len(student))",
+    "expectedOutput": "3\n",
+    "inlineCode": [
+      "len()"
+    ],
+    "denseText": true,
+    "initialOutput": "3\n"
+  },
+  {
+    "title": "Dictionary Specific Methods – get()",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "The get() method retrieves the value associated with a specified key.",
+      "Unlike square brackets [], it does not cause an error if the key does not exist.",
+      "You can also provide a default value to return when the key is missing."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11\n}\nprint(student.get(\"name\"))\n\n# Setting a default value\nprint(student.get(\"average\", \"N/A\"))",
+    "expectedOutput": "Alice\nN/A\n",
+    "inlineCode": [
+      "get()",
+      "[]"
+    ],
+    "denseText": true,
+    "initialOutput": "Alice\nN/A\n",
+    "compactCode": true
+  },
+  {
+    "title": "Dictionary Specific Methods – setdefault()",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "The setdefault() method checks whether a key already exists in a dictionary.",
+      "If the key exists, its current value is returned; if it does not exist, the key is added with a specified default value.",
+      "This is useful when you want to ensure that a dictionary contains a particular key without replacing an existing value."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11\n}\n\nstudent.setdefault(\"average\", 0)\n\nprint(student)",
+    "expectedOutput": "{'name': 'Alice', 'grade': 11, 'average': 0}\n",
+    "inlineCode": [
+      "setdefault()"
+    ],
+    "denseText": true,
+    "initialOutput": "{'name': 'Alice', 'grade': 11, 'average': 0}\n",
+    "compactCode": true,
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Dictionary Specific Methods – keys()",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "The keys() method provides access to all of the keys stored in a dictionary.",
+      "It is commonly used when you want to traverse the labels or names used by the dictionary.",
+      "The keys can be accessed with a for loop."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nfor key in student.keys():\n    print(key)",
+    "expectedOutput": "name\ngrade\naverage\n",
+    "inlineCode": [
+      "keys()",
+      "for"
+    ],
+    "denseText": true,
+    "initialOutput": "name\ngrade\naverage\n",
+    "compactCode": true
+  },
+  {
+    "title": "Dictionary Specific Methods – values()",
+    "kind": "code",
+    "sourcePage": 14,
+    "paragraphs": [
+      "The values() method provides access to all of the values stored in a dictionary.",
+      "It is useful when you only need the stored data and do not need the keys.",
+      "The values can be traversed with a for loop."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nfor value in student.values():\n    print(value)",
+    "expectedOutput": "Alice\n11\n87.5\n",
+    "inlineCode": [
+      "values()",
+      "for"
+    ],
+    "denseText": true,
+    "initialOutput": "Alice\n11\n87.5\n",
+    "compactCode": true
+  },
+  {
+    "title": "Dictionary Specific Methods – items()",
+    "kind": "code",
+    "sourcePage": 15,
+    "paragraphs": [
+      "The items() method provides access to both the keys and values stored in a dictionary.",
+      "Each key-value pair can be unpacked into two variables while traversing the dictionary.",
+      "This is useful when you need to work with both parts of each dictionary entry."
+    ],
+    "code": "student = {\n    \"name\": \"Alice\",\n    \"grade\": 11,\n    \"average\": 87.5\n}\n\nfor key, value in student.items():\n    print(f\"key: {key}, value: {value}\")",
+    "expectedOutput": "key: name, value: Alice\nkey: grade, value: 11\nkey: average, value: 87.5\n",
+    "inlineCode": [
+      "items()"
+    ],
+    "denseText": true,
+    "initialOutput": "key: name, value: Alice\nkey: grade, value: 11\nkey: average, value: 87.5\n",
+    "compactCode": true,
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Copy vs Reference",
+    "kind": "code",
+    "sourcePage": 16,
+    "paragraphs": [
+      "When you assign an existing dictionary to another variable, Python does not create a new dictionary.",
+      "Instead, the new variable becomes a reference to the same dictionary, meaning both variables point to the same data in memory and changes made through either variable affect both.",
+      "Using the copy() method creates a separate dictionary that can be changed without changing the original.",
+      "This is useful when you want to work with a modified version of a dictionary while keeping the original unchanged."
+    ],
+    "code": "original = {\"name\": \"Alice\", \"grade\": 11}\nreference = original\ncopied = original.copy()\nreference[\"grade\"] = 12\ncopied[\"name\"] = \"Bob\"\n\nprint(f\"Original: {original}\")\nprint(f\"Reference: {reference}\")\nprint(f\"Copy: {copied}\")",
+    "expectedOutput": "Original: {'name': 'Alice', 'grade': 12}\nReference: {'name': 'Alice', 'grade': 12}\nCopy: {'name': 'Bob', 'grade': 11}\n",
+    "inlineCode": [
+      "copy()"
+    ],
+    "denseText": true,
+    "initialOutput": "Original: {'name': 'Alice', 'grade': 12}\nReference: {'name': 'Alice', 'grade': 12}\nCopy: {'name': 'Bob', 'grade': 11}\n",
+    "compactCode": true,
+    "layout": "long-explanation"
+  }
+]

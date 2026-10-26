@@ -1,0 +1,66 @@
+[
+  {
+    "page": 1,
+    "text": "Data Structures\nPart 3: Dictionaries\nUsing key-value pairs instead of\nindices to store grouped data."
+  },
+  {
+    "page": 2,
+    "text": "Dictionaries and Key Value Pairs\nA dictionary is a data structure\nstudent = {\nthat stores information as key-\nvalue pairs.\n\"name\": \"Alice\",\nEach key acts as a unique name\nused to access its associated\nvalue instead of using a \"grade\": 11,\nnumerical index.\n\"average\": 87.5\nValues can be different data\ntypes and can be added,\nremoved, or changed after the\n}\ndictionary is created.\nDictionaries are useful when each\npiece of data has a meaningful\nlabel."
+  },
+  {
+    "page": 3,
+    "text": "Creating a Dictionary\nA dictionary is created using\nstudent = {\ncurly brackets {} to surround its\ncontents.\n\"name\": \"Alice\",\nInside the {}, each item is\nwritten as a key-value pair, with\n\"grade\": 11,\na colon (:) separating the key\nfrom its value.\n\"average\": 87.5\nMultiple key-value pairs are\nseparated by commas (,). }\nAn empty dictionary can be\ncreated using just {}."
+  },
+  {
+    "page": 4,
+    "text": "Accessing Values with Keys\nstudent = {\nValues in a dictionary are\n\"name\": \"Alice\",\naccessed using their key\n\"grade\": 11,\ninstead of a numerical index.\n\"average\": 87.5\n}\nPlace the key inside square\nbrackets [] after the dictionary's\nprint(student[\"name\"])\nvariable name. print(student[\"grade\"])\nPython then returns the value\nassociated with that key.\nOUTPUT\nAlice\nEach key in a dictionary must be\n11\nunique."
+  },
+  {
+    "page": 5,
+    "text": "Changing Values with Keys\nDictionary values can be student = {\nchanged by accessing an \"name\": \"Alice\",\nexisting key and assigning it a \"grade\": 11,\nnew value.\n\"average\": 87.5\n}\nThe key is placed inside square\nbrackets [], followed by the student[\"average\"] = 92.0\nassignment operator = and the print(student)\nnew value.\nThis changes the value OUTPUT\n{'name': 'Alice', 'grade': 11, 'average': 92.0}\nassociated with that key while\nleaving the rest of the dictionary\nunchanged."
+  },
+  {
+    "page": 6,
+    "text": "Adding New Key-Value Pairs\nstudent = {\nA new key-value pair can be\n\"name\": \"Alice\",\nadded to a dictionary by placing\n\"grade\": 11\na new key inside square brackets\n}\n[] and assigning it a value.\nstudent[\"average\"] = 87.5\nIf the key does not already exist,\nPython creates a new key-value\nprint(student)\npair in the dictionary.\nIf the key already exists, its current\nvalue will be replaced instead. OUTPUT\n{'name': 'Alice', 'grade': 11, 'average': 87.5}\nThis makes dictionaries easy to\nexpand as new information\nbecomes available."
+  },
+  {
+    "page": 7,
+    "text": "pop()\nRemoving Items \u2013\nThe pop() method removes a student = {\n\"name\": \"Alice\",\nkey-value pair from a dictionary\n\"grade\": 11,\nusing its key. \"average\": 87.5\n}\nIt also returns the value that\nremoved = student.pop(\"average\")\nwas removed, allowing it to be\nstored or used elsewhere.\nprint(removed)\nprint(student)\nThis is useful when you know\nwhich key you want to remove.\nOUTPUT\n87.5\n{'name': 'Alice', 'grade': 11}"
+  },
+  {
+    "page": 8,
+    "text": "popitem()\nRemoving Items \u2013\nThe popitem() method removes student = {\n\"name\": \"Alice\",\nthe last key-value pair added to\n\"grade\": 11,\na dictionary.\n\"average\": 87.5\n}\nIt returns the removed key and\nvalue together as a tuple.\nremoved = student.popitem()\nThis is useful when you want to\nprint(removed)\nremove the most recently\nprint(student)\nadded item without specifying\nits key.\nOUTPUT\n('average', 87.5)\n{'name': 'Alice', 'grade': 11}"
+  },
+  {
+    "page": 9,
+    "text": "clear()\nRemoving Items \u2013\nThe clear() method removes student = {\n\"name\": \"Alice\",\nall key-value pairs from a\n\"grade\": 11\ndictionary.\n}\nThe dictionary still exists\nstudent.clear()\nafterward, but it is empty.\nThis is useful when you want to print(student)\nreset a dictionary and continue\nusing the same variable.\nOUTPUT\n{}"
+  },
+  {
+    "page": 10,
+    "text": "len()\nChecking Length with\nThe len() function returns the student = {\nnumber of key-value pairs \"name\": \"Alice\",\nstored in a dictionary. \"grade\": 11,\n\"average\": 87.5\nEach pair counts as one item.\n}\nThis is useful when you need to\nknow how many pieces of\nprint(len(student))\ninformation are stored.\nOUTPUT\n3"
+  },
+  {
+    "page": 11,
+    "text": "get()\nDictionary Specific Methods \u2013\nThe get() method retrieves the student = {\n\"name\": \"Alice\",\nvalue associated with a\n\"grade\": 11\nspecified key. }\nUnlike square brackets [], it print(student.get(\"name\"))\ndoes not cause an error if the\n# Setting a default value\nkey does not exist.\nprint(student.get(\"average\", \"N/A\"))\nYou can also provide a default\nvalue to return when the key is\nmissing. OUTPUT\nAlice\nN/A"
+  },
+  {
+    "page": 12,
+    "text": "setdefault()\nDictionary Specific Methods \u2013\nThe setdefault() method checks student = {\n\"name\": \"Alice\",\nwhether a key already exists in a\n\"grade\": 11\ndictionary.\n}\nIf the key exists, its current value is\nreturned; if it does not exist, the student.setdefault(\"average\", 0)\nkey is added with a specified\ndefault value. print(student)\nThis is useful when you want to\nensure that a dictionary contains\nOUTPUT\na particular key without replacing\n{'name': 'Alice', 'grade': 11, 'average': 0}\nan existing value."
+  },
+  {
+    "page": 13,
+    "text": "keys()\nDictionary Specific Methods \u2013\nThe keys() method provides student = {\n\"name\": \"Alice\",\naccess to all of the keys stored\n\"grade\": 11,\nin a dictionary.\n\"average\": 87.5\nIt is commonly used when you }\nwant to traverse the labels or\nfor key in student.keys():\nnames used by the dictionary.\nprint(key)\nThe keys can be accessed with\na for loop.\nOUTPUT\nname\ngrade\naverage"
+  },
+  {
+    "page": 14,
+    "text": "values()\nDictionary Specific Methods \u2013\nThe values() method provides student = {\n\"name\": \"Alice\",\naccess to all of the values\n\"grade\": 11,\nstored in a dictionary.\n\"average\": 87.5\nIt is useful when you only need }\nthe stored data and do not\nfor value in student.values():\nneed the keys.\nprint(value)\nThe values can be traversed\nwith a for loop.\nOUTPUT\nAlice\n11\n87.5"
+  },
+  {
+    "page": 15,
+    "text": "items()\nDictionary Specific Methods \u2013\nThe items() method provides student = {\naccess to both the keys and \"name\": \"Alice\",\nvalues stored in a dictionary. \"grade\": 11,\n\"average\": 87.5\nEach key-value pair can be\n}\nunpacked into two variables\nwhile traversing the dictionary.\nfor key, value in student.items():\nprint(f\"key: {key}, value: {value}\")\nThis is useful when you need to\nwork with both parts of each\ndictionary entry.\nOUTPUT\nkey: name, value: Alice\nkey: grade, value: 11\nkey: average, value: 87.5"
+  },
+  {
+    "page": 16,
+    "text": "Copy vs Reference\noriginal = {\"name\": \"Alice\", \"grade\": 11}\nWhen you assign an existing dictionary\nto another variable, Python does not\nreference = original\ncreate a new dictionary.\ncopied = original.copy()\nInstead, the new variable becomes a\nreference[\"grade\"] = 12\nreference to the same dictionary, copied[\"name\"] = \"Bob\"\nmeaning both variables point to the\nprint(f\"Original: {original}\")\nsame data in memory and changes\nprint(f\"Reference: {reference}\")\nmade through either variable affect\nprint(f\"Copy: {copied}\")\nboth.\nUsing the copy() method creates a\nseparate dictionary that can be OUTPUT\nchanged without changing the original. Original: {'name': 'Alice', 'grade': 12}\nReference: {'name': 'Alice', 'grade': 12}\nThis is useful when you want to work\nCopy: {'name': 'Bob', 'grade': 11}\nwith a modified version of a dictionary\nwhile keeping the original unchanged."
+  }
+]

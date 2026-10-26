@@ -65,3 +65,9 @@ All examples support Run and Step, including mutations, negative indices, loops,
 ## Tuples (CSE 2120, lesson 3)
 
 The five-slide Data Structures Part 2 deck retains its wording and order, with extracted text in `tuples-source.json`. All four code examples support Run and Step. The nested list can change while its containing tuple remains immutable; the final example raises a real AttributeError when attempting to append directly to the tuple. Output starts empty until execution.
+
+## Dictionaries (CSE 2120, lesson 4)
+
+All 16 source slides retain their wording and order; `dictionaries-source.json` records the extracted PDF text. Editable examples run and step through key-value access, changes, removal methods, defaults, traversal and copying. The final example shows reference mutations affecting both names while the copied dictionary remains independent. Terminals start empty and compute actual output.
+
+`layout: "long-explanation"` gives lengthy prose an equal-width column, 22px text (above the 16pt minimum), and compact code/output. The final dictionary comparison uses this layout to keep its full explanation visible.

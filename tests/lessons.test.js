@@ -279,3 +279,32 @@ test('stepping retains tuple type while its nested list changes', async () => {
   assert.equal(data.type, 'tuple');
   assert.equal(data.value, "('Alice', [0, 1, 2, 3])");
 });
+
+const dictionarySlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/dictionaries/slides.json'), 'utf8'));
+const dictionarySource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/dictionaries-source.json'), 'utf8'));
+test('Dictionaries retains all 16 source slides, explanations, code and output', () => {
+  assert.equal(dictionarySlides.length, 16);
+  dictionarySlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(dictionarySource[index].text), `Source content differs on page ${index + 1}`);
+  });
+});
+
+test('all dictionary methods and traversal examples run and step with real expected output', async () => {
+  for (const slide of dictionarySlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(slide.code, [], mode);
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('dictionary references share mutations while copied values remain independent', async () => {
+  const result = await runPython(dictionarySlides[15].code, [], 'step');
+  const mutation = result.steps.find(step => step.line === 5);
+  const value = name => mutation.variables.find(item => item.name === name).value;
+  assert.equal(value('original'), "{'name': 'Alice', 'grade': 12}");
+  assert.equal(value('reference'), value('original'));
+  assert.equal(value('copied'), "{'name': 'Bob', 'grade': 11}");
+});

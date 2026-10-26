@@ -63,6 +63,10 @@ export const modules = [
       id: 'tuples', number: 3, title: 'Tuples',
       description: 'Ordered collections, tuple traversal, immutability and mutable objects inside tuples.',
       slideCount: 5, href: './lessons/cse2120/tuples/',
+    }, {
+      id: 'dictionaries', number: 4, title: 'Dictionaries',
+      description: 'Key-value pairs, dictionary methods, traversal, copying and references.',
+      slideCount: 16, href: './lessons/cse2120/dictionaries/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',
