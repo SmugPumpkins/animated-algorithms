@@ -96,7 +96,7 @@ All six slides retain source wording and sequence, with extracted text in `paral
 
 The teacher moved string manipulation into Data Structures. This 15-slide plain-text-file deck is therefore **Lesson 1 / Part 1** in Files & File Structures 1, even though its PDF cover says Part 2. Keep subsequent file lessons numbered from this revised sequence. All other source wording and code are retained in order; `reading-writing-appending-source.json` records extracted text.
 
-`dataFiles` defines editable virtual text files (`name`, `content`, optional `exists: false`). The Python worker executes `open` in r/w/a mode in an isolated in-memory filesystem. File creation, truncation and each write update the visible file panel while stepping; terminal output remains empty until execution. Run uses the panel's current contents, so running append twice appends twice. Reset restores the original code, file contents and existence. Every slide/run has an independent worker; virtual files never access the computer's filesystem. Example files use Alex/Sam/Jordan; the final processing example starts with whitespace and inconsistent capitalization to make its changes visible.
+`dataFiles` defines editable virtual text files (`name`, `content`, optional `exists: false`). The Python worker executes `open` in r/w/a mode in an isolated in-memory filesystem. File creation, truncation and each write update the visible file panel while stepping; terminal output remains empty until execution. Run uses the panel's current contents. Completed examples require Reset before another execution; Reset restores the source file contents. Reset restores the original code, file contents and existence. Every slide/run has an independent worker; virtual files never access the computer's filesystem. Example files use Alex/Sam/Jordan; the final processing example starts with whitespace and inconsistent capitalization to make its changes visible.
 
 The virtual filesystem uses Skulpt's nonreadopen/fileopen/filewrite hooks, preserving final lines without newlines. It supports the lesson's introductory text modes; binary files, directory operations and full CPython filesystem behavior are outside this implementation. Tests verify source fidelity with the Part 1 exception, real output and resulting file contents in both execution modes, missing reads and creation on append.
 
@@ -156,3 +156,15 @@ Conditions, comparisons, negation and if/elif/else examples use the shared live 
 
 
 The selection flowchart has a Celsius number input (default 25; fixed WARM threshold 21). Editing it stops playback, clears the active step, updates the process label and recomputes the trace. Exactly 21 follows the False/sweater branch; decimal and negative values are supported. Empty/invalid input disables playback and provides an accessible explanation. Reset keeps the chosen temperature; leaving the slide stops playback and page cleanup removes the input listener.
+
+
+## Nesting Selection Structures and Logical Operators (CSE 1120, lessons 2 and 3)
+
+The teacher explicitly authorized revising and splitting the older Advanced Selection Structures deck. Lesson 2 has seven slides on nested checks and indentation. Lesson 3 has nine slides on Boolean operators, truth tables, grouping and chained ranges. `advanced-selection-source.json` records the original 15-page text. Wording and examples are deliberately simplified, so these lessons do not use verbatim-source assertions. Each ends with its own wrap-up and blank assignment row.
+
+Use one simple idea per sentence. Explain alternatives in separate sentences. Keep examples short and focused. Nesting adds an inner-False case alongside the source's outer-False case. The grouping examples use simple Boolean ticket/pass/staff values; changing parentheses visibly changes the result. The teacher requested the open range `0 < x < 10`, with `x = 5` as its initial example. Tests cover all examples in Run and Step, skipped nested checks, indentation, every Boolean combination, grouping and excluded range endpoints.
+
+`truthTables` supplies an operator, headers and Boolean rows. A `truth-tables` slide displays two native accessible tables. The `logical-example` layout places one table below the explanation beside runnable code. Inline terms retain the shared orange style.
+
+
+Stepping includes a final completion step. After the last Python statement, its highlight and final values remain visible with “Last statement complete · Step to finish”. The next Step clears the line highlight and shows Finished without executing more code. Run and Step then stay disabled until Reset. Run mode finishes directly in that state. Reset clears output and restores the original example. Finished examples cannot silently restart through buttons or Ctrl/Cmd+Enter.

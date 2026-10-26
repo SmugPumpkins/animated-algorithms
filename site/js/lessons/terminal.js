@@ -132,7 +132,7 @@ export function mountPlayground(root, slide) {
   }
   const terminal = $('.terminal-pane'), output = $('.terminal-output'), inputRow = $('.terminal-input-row');
   const status = $('.execution-status'), variables = $('.runtime-variables');
-  let worker = null, watchdog = null, running = false, paused = false, stepMode = false, activeLine = null;
+  let worker = null, watchdog = null, running = false, paused = false, stepMode = false, activeLine = null, completionPending = false, completed = false;
   function setActiveLine(line, filename = entryFile) {
     activeFile = filename || entryFile; activeLine = line;
     if (line) openFile(activeFile); updateHighlight();
@@ -188,7 +188,15 @@ export function mountPlayground(root, slide) {
     scrollTerminal();
   }
 
+  function finish() {
+    completionPending = false; completed = true;
+    setActiveLine(null);
+    status.textContent = output.textContent ? 'Finished' : 'Finished · no printed output';
+    buttons.run.disabled = true; buttons.step.disabled = true; buttons.stop.disabled = true;
+  }
   function run(mode = 'run') {
+    if (completed) return;
+    if (completionPending) { finish(); return; }
     if (paused && worker) {
       paused = false; stepMode = mode === 'step';
       status.textContent = stepMode ? 'Stepping' : 'Running';
@@ -232,8 +240,14 @@ export function mountPlayground(root, slide) {
           scrollTerminal();
         } else if (data.type === 'complete') {
           renderVariables(data.variables);
-          if (stepMode) setActiveLine(data.line, data.filename);
-          stop(output.textContent ? 'Finished' : 'Finished · no printed output', stepMode);
+          if (stepMode) {
+            setActiveLine(data.line, data.filename);
+            stop('Last statement complete · Step to finish', true);
+            completionPending = true;
+          } else {
+            stop('Finished');
+            finish();
+          }
         } else if (data.type === 'error') {
           append(`${output.textContent && !output.textContent.endsWith('\n') ? '\n' : ''}${data.message}\n`);
           stop('Error');
@@ -247,7 +261,9 @@ export function mountPlayground(root, slide) {
   }
 
   function reset() {
-    stop(); activeLine = null; activeFile = entryFile;
+    stop(); completionPending = false; completed = false;
+    buttons.run.disabled = false; buttons.step.disabled = false;
+    activeLine = null; activeFile = entryFile;
     const originals = slide.files || [{ name: entryFile, code: slide.code }];
     for (const field of editors) {
       field.value = originals.find(file => file.name === field.dataset.file).code;

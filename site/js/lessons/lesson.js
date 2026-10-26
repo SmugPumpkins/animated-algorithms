@@ -1,6 +1,6 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
-import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-textfiles';
+import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-finish-step';
 import { loadAssignment, assignmentMarkup } from './assignments.js?v=20261026-wrapups';
 import { flowchartMarkup, mountFlowchart } from './flowchart.js?v=20261026-temperature';
 
@@ -29,6 +29,7 @@ function slideMarkup(slide, index) {
     return `<g class="flow-node" data-node="cycle-${i}" data-role="${escapeHtml(node.role)}" transform="translate(${x} ${y})"><rect width="210" height="90" rx="12"/><text x="105" y="37" text-anchor="middle"><tspan x="105">${escapeHtml(lines[0])}</tspan><tspan x="105" dy="28">${escapeHtml(lines[1] || '')}</tspan></text></g>`;
   }).join('')}</svg>` : '';
   const title = `<h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>${inlineCode(slide.title, slide.inlineCode)}${slide.sourceUrl ? `<a class="lesson-source" href="${escapeHtml(slide.sourceUrl)}" target="_blank" rel="noopener">GitHub source ↗</a>` : ''}</h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>`;
+  const truthTables = slide.truthTables ? `<div class="lesson-truth-tables ${slide.truthTables.length > 1 ? 'two-truth-tables' : ''}">${slide.truthTables.map(table => `<table class="lesson-truth-table"><caption><span class="inline-code">${escapeHtml(table.operator)}</span></caption><thead><tr>${table.headers.map(header => `<th scope="col">${inlineCode(header,[table.operator, 'A and B', 'A or B'])}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map(value => `<td><span class="inline-code">${escapeHtml(value)}</span></td>`).join('')}</tr>`).join('')}</tbody></table>`).join('')}</div>` : '';
   const paragraphs = (slide.paragraphs || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('')
     + (slide.bodyBullets ? `<ul class="lesson-body-list">${slide.bodyBullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul>` : '')
     + (slide.afterBullets || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('');
@@ -37,7 +38,9 @@ function slideMarkup(slide, index) {
   const indexGrid = slide.indexGrid ? `<table class="lesson-index-grid" aria-label="Row and column indices"><tbody>${slide.indexGrid.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
   const annotations = (slide.annotations || []).map(note => `<div><h3>${escapeHtml(note.title)}</h3><p>${inlineCode(note.text, slide.inlineCode)}</p></div>`).join('');
   const documentation = slide.documentation;
-  const contents = slide.kind === 'reference-table'
+  const contents = slide.kind === 'truth-tables'
+    ? `${title}<div class="source-body wide-caption">${paragraphs}</div>${truthTables}`
+    : slide.kind === 'reference-table'
     ? `${title}<div class="slide-columns reference-table-layout"><div class="source-body">${paragraphs}</div><table class="lesson-reference-table"><thead><tr>${slide.headers.map(header => `<th scope="col">${escapeHtml(header)}</th>`).join('')}</tr></thead><tbody>${slide.rows.map(row => `<tr>${row.map((cell,i) => i === 0 ? `<th scope="row">${escapeHtml(cell)}</th>` : `<td><span class="inline-code">${escapeHtml(cell)}</span></td>`).join('')}</tr>`).join('')}</tbody></table></div>`
     : slide.kind === 'keyword-table'
     ? `${title}<p class="keyword-group">${escapeHtml(slide.group)}</p><table class="pseudocode-keywords"><tbody>${slide.keywords.map(row => `<tr><th scope="row"><span class="inline-code">${escapeHtml(row.keyword)}</span></th><td>${row.explanations.map(text => `<p>${inlineCode(text,slide.inlineCode)}</p>`).join('')}</td></tr>`).join('')}</tbody></table>`
@@ -65,7 +68,7 @@ function slideMarkup(slide, index) {
     ? `<div class="cover-layout"><div class="cover-title">${title}</div><div class="source-body objectives"><p>${inlineCode(slide.intro, slide.inlineCode)}</p>${slide.objectiveLead ? `<p>${inlineCode(slide.objectiveLead, slide.inlineCode)}</p>` : ''}<ul>${slide.bullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul></div></div>`
     : slide.kind === 'closing'
       ? `<div class="closing-layout">${title}<div class="source-body">${paragraphs}</div></div>`
-      : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}${stages}${indexGrid}</div>${playgroundMarkup(slide)}</div>`;
+      : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}${stages}${indexGrid}${truthTables}</div>${playgroundMarkup(slide)}</div>`;
   return `<section class="lesson-slide ${slide.kind}-slide ${slide.layout ? `layout-${escapeHtml(slide.layout)}` : ''} ${slide.denseText ? 'dense-text' : ''}" id="slide-${index + 1}" data-source-page="${slide.sourcePage}" aria-label="Slide ${index + 1}: ${escapeHtml(slide.title)}"><div class="slide-content">${contents}</div></section>`;
 }
 

@@ -1,0 +1,131 @@
+[
+  {
+    "title": "Nesting Selection Structures",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Selection Structures: Nesting",
+    "bullets": [
+      "Place one if statement inside another code block.",
+      "Trace the outer and inner conditions.",
+      "Use indentation to show which block contains each instruction."
+    ],
+    "inlineCode": [
+      "if"
+    ]
+  },
+  {
+    "title": "Nested if Statements",
+    "kind": "code",
+    "sourcePage": 2,
+    "paragraphs": [
+      "Nesting places one if statement inside another code block.",
+      "A nested if can be inside an if, elif, or else block.",
+      "The outer if checks age >= 16. The inner if checks has_license.",
+      "Here, both conditions are True. The message is displayed."
+    ],
+    "code": "age = 16\nhas_license = True\n\nif age >= 16:\n    if has_license:\n        print(\"You can drive.\")",
+    "expectedOutput": "You can drive.\n",
+    "initialOutput": "You can drive.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "if",
+      "age >= 16",
+      "has_license",
+      "True",
+      "elif",
+      "else"
+    ]
+  },
+  {
+    "title": "When the Outer Condition Is False",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "Python checks the outer condition first.",
+      "Here, age >= 16 is False. Python skips the entire outer block.",
+      "The inner condition is never checked. No message is displayed."
+    ],
+    "code": "age = 15\nhas_license = True\n\nif age >= 16:\n    if has_license:\n        print(\"You can drive.\")",
+    "expectedOutput": "",
+    "initialOutput": "",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "age >= 16",
+      "False"
+    ]
+  },
+  {
+    "title": "When the Inner Condition Is False",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "The outer condition is True. Python enters its block.",
+      "The inner condition is False. Python skips the print instruction inside that block.",
+      "No message is displayed."
+    ],
+    "code": "age = 16\nhas_license = False\n\nif age >= 16:\n    if has_license:\n        print(\"You can drive.\")",
+    "expectedOutput": "",
+    "initialOutput": "",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "True",
+      "False",
+      "print"
+    ]
+  },
+  {
+    "title": "Indentation Defines the Block",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "Indented instructions belong to a code block.",
+      "The final print has one level of indentation. It belongs to the outer if block.",
+      "Here, age >= 16 is False. The final message is skipped."
+    ],
+    "code": "age = 15\nhas_license = True\n\nif age >= 16:\n    if has_license:\n        print(\"You can drive.\")\n    print(\"License check complete.\")",
+    "expectedOutput": "",
+    "initialOutput": "",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "print",
+      "if",
+      "age >= 16",
+      "False"
+    ]
+  },
+  {
+    "title": "After the Nested Block",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "The final print now starts at the left margin. It is outside both if blocks.",
+      "Python reaches this instruction after the selection structure.",
+      "The final message is displayed when age is 15."
+    ],
+    "code": "age = 15\nhas_license = True\n\nif age >= 16:\n    if has_license:\n        print(\"You can drive.\")\n\nprint(\"License check complete.\")",
+    "expectedOutput": "License check complete.\n",
+    "initialOutput": "License check complete.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "print",
+      "if",
+      "age"
+    ]
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "Nesting places a selection structure inside another code block.",
+      "Python reaches an inner condition only after entering its containing block.",
+      "Indentation shows which instructions belong to each block.",
+      "Instructions outside the selection structure run after that structure finishes."
+    ]
+  }
+]

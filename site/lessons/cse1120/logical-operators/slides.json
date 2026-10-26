@@ -1,0 +1,302 @@
+[
+  {
+    "title": "Logical Operators",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Selection Structures: Combining Conditions",
+    "bullets": [
+      "Combine Boolean conditions using logical operators.",
+      "Use truth tables to trace the results.",
+      "Group conditions with parentheses.",
+      "Check a range with 0 < x < 10."
+    ],
+    "inlineCode": [
+      "and",
+      "or",
+      "0 < x < 10"
+    ]
+  },
+  {
+    "title": "Combining Conditions",
+    "kind": "text",
+    "sourcePage": 9,
+    "paragraphs": [
+      "A logical operator combines Boolean conditions into one expression.",
+      "The and operator requires every condition to be True.",
+      "The or operator requires at least one condition to be True.",
+      "The combined result can be used as the condition in an if statement."
+    ],
+    "inlineCode": [
+      "and",
+      "or",
+      "True",
+      "if"
+    ]
+  },
+  {
+    "title": "Truth Tables",
+    "kind": "truth-tables",
+    "sourcePage": 10,
+    "paragraphs": [
+      "A truth table shows every combination of Boolean inputs.",
+      "Each row shows the result for one combination."
+    ],
+    "truthTables": [
+      {
+        "operator": "and",
+        "headers": [
+          "A",
+          "B",
+          "A and B"
+        ],
+        "rows": [
+          [
+            "True",
+            "True",
+            "True"
+          ],
+          [
+            "True",
+            "False",
+            "False"
+          ],
+          [
+            "False",
+            "True",
+            "False"
+          ],
+          [
+            "False",
+            "False",
+            "False"
+          ]
+        ]
+      },
+      {
+        "operator": "or",
+        "headers": [
+          "A",
+          "B",
+          "A or B"
+        ],
+        "rows": [
+          [
+            "True",
+            "True",
+            "True"
+          ],
+          [
+            "True",
+            "False",
+            "True"
+          ],
+          [
+            "False",
+            "True",
+            "True"
+          ],
+          [
+            "False",
+            "False",
+            "False"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "title": "The and Operator",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "The and operator gives True when both conditions are True.",
+      "Here, has_ticket and has_id are both True. The entry message is displayed.",
+      "Change either value to False to try the other branch."
+    ],
+    "code": "has_ticket = True\nhas_id = True\n\nif has_ticket and has_id:\n    print(\"Entry allowed.\")\nelse:\n    print(\"Entry denied.\")",
+    "expectedOutput": "Entry allowed.\n",
+    "initialOutput": "Entry allowed.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "and",
+      "True",
+      "False",
+      "has_ticket",
+      "has_id"
+    ],
+    "truthTables": [
+      {
+        "operator": "and",
+        "headers": [
+          "A",
+          "B",
+          "A and B"
+        ],
+        "rows": [
+          [
+            "True",
+            "True",
+            "True"
+          ],
+          [
+            "True",
+            "False",
+            "False"
+          ],
+          [
+            "False",
+            "True",
+            "False"
+          ],
+          [
+            "False",
+            "False",
+            "False"
+          ]
+        ]
+      }
+    ],
+    "layout": "logical-example"
+  },
+  {
+    "title": "The or Operator",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "The or operator gives True when at least one condition is True.",
+      "Here, is_holiday is True. The first message is displayed.",
+      "The result is False only when both conditions are False."
+    ],
+    "code": "is_weekend = False\nis_holiday = True\n\nif is_weekend or is_holiday:\n    print(\"No school today!\")\nelse:\n    print(\"Time for school!\")",
+    "expectedOutput": "No school today!\n",
+    "initialOutput": "No school today!",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "or",
+      "True",
+      "False",
+      "is_holiday"
+    ],
+    "truthTables": [
+      {
+        "operator": "or",
+        "headers": [
+          "A",
+          "B",
+          "A or B"
+        ],
+        "rows": [
+          [
+            "True",
+            "True",
+            "True"
+          ],
+          [
+            "True",
+            "False",
+            "True"
+          ],
+          [
+            "False",
+            "True",
+            "True"
+          ],
+          [
+            "False",
+            "False",
+            "False"
+          ]
+        ]
+      }
+    ],
+    "layout": "logical-example"
+  },
+  {
+    "title": "Grouping Conditions with Parentheses",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "Parentheses show how conditions are grouped.",
+      "The grouped expression has_ticket and has_pass is False.",
+      "The is_staff value is True. The or expression gives True. Access is granted."
+    ],
+    "code": "has_ticket = False\nhas_pass = True\nis_staff = True\n\nif (has_ticket and has_pass) or is_staff:\n    print(\"Access granted.\")\nelse:\n    print(\"Access denied.\")",
+    "expectedOutput": "Access granted.\n",
+    "initialOutput": "Access granted.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "has_ticket and has_pass",
+      "False",
+      "or",
+      "is_staff",
+      "True"
+    ],
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Changing the Grouping",
+    "kind": "code",
+    "sourcePage": 14,
+    "paragraphs": [
+      "Here, has_pass or is_staff is grouped together. That group is True.",
+      "The outer and also requires has_ticket to be True.",
+      "Here, has_ticket is False. Access is denied."
+    ],
+    "code": "has_ticket = False\nhas_pass = True\nis_staff = True\n\nif has_ticket and (has_pass or is_staff):\n    print(\"Access granted.\")\nelse:\n    print(\"Access denied.\")",
+    "expectedOutput": "Access denied.\n",
+    "initialOutput": "Access denied.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "has_pass or is_staff",
+      "True",
+      "and",
+      "has_ticket",
+      "False"
+    ],
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Checking a Number Between Values",
+    "kind": "code",
+    "sourcePage": 15,
+    "paragraphs": [
+      "The condition 0 < x < 10 checks an open range.",
+      "The value must be greater than 0. The value must also be less than 10.",
+      "The values 0 and 10 are excluded. Here, x is 5. Each check displays Valid."
+    ],
+    "code": "x = 5\n\n# Using and\nif x > 0 and x < 10:\n    print(\"Valid\")\n\n# Chained comparison\nif 0 < x < 10:\n    print(\"Valid\")",
+    "expectedOutput": "Valid\nValid\n",
+    "initialOutput": "Valid\nValid",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "0 < x < 10",
+      "x",
+      "Valid"
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "Use and when every Boolean condition must be True.",
+      "Use or when at least one Boolean condition must be True.",
+      "Use a truth table to check each combination of inputs.",
+      "Use parentheses to make condition grouping clear.",
+      "Use 0 < x < 10 to check an open range. The endpoints are excluded."
+    ],
+    "inlineCode": [
+      "and",
+      "or",
+      "True",
+      "0 < x < 10",
+      "x"
+    ]
+  }
+]

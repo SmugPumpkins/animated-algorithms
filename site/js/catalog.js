@@ -54,6 +54,14 @@ export const modules = [
       id: 'conditions-and-if-statements', number: 1, title: 'Conditions and If Statements',
       description: 'Boolean conditions, comparison operators, negation and ordered if/elif/else branches.',
       slideCount: 13, href: './lessons/cse1120/conditions-and-if-statements/',
+    }, {
+      id: 'nesting-selection-structures', number: 2, title: 'Nesting Selection Structures',
+      description: 'Outer and inner conditions, skipped blocks and indentation.',
+      slideCount: 7, href: './lessons/cse1120/nesting-selection-structures/',
+    }, {
+      id: 'logical-operators', number: 3, title: 'Logical Operators',
+      description: 'Boolean and/or conditions, truth tables, parentheses and chained comparisons.',
+      slideCount: 9, href: './lessons/cse1120/logical-operators/',
     }]),
   moduleEntry('CSE 1240', 'Robotics Programming 1',
     'Design and debug programs that control robots.',

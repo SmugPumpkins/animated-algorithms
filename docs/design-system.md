@@ -107,3 +107,9 @@ Inside editable Python blocks, decorators use yellow, string escape sequences us
 Omit CTS Computer Science eyebrow labels, redundant topic tags, activity counts/class summaries and card action footers. The whole card is its link. Class headings on the home page link directly to their course pages. Keep module topics in the main single-column list; put program-of-studies links at the bottom in the page footer. Every page, including slideshows, includes a Nathan Forsyth copyright. Reserve a compact footer row in slideshow layouts so it does not overlap controls.
 
 Every slideshow ends with a concise, point-form Wrap Up (3–5 bullets). Reuse an existing wrap-up rather than adding a duplicate. The final slide includes an assignment next step driven by `site/assignments.csv`; use “Start your assignment →” for configured repository links and a plain coming-soon message for blank links. Full assignment outlines remain in their GitHub repositories. See `docs/lessons/README.md` for semester updates.
+
+
+When the teacher authorizes revising lesson wording, use short sentences with one clear idea each. Explain alternatives in separate sentences. Prefer small code examples that focus on the concept being taught. This revision guidance does not override the default requirement to preserve supplied wording without authorization.
+
+
+Code stepping ends with a separate completion step that clears the executing-line highlight. Keep finished output and variables visible. Require Reset before restarting a finished example; Step must never silently return to the first line.

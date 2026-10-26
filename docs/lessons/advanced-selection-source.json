@@ -1,0 +1,62 @@
+[
+  {
+    "page": 1,
+    "text": "Selection Structures\nPart 2\nSelection structures allow a program to make decisions based\non conditions. Instead of always executing every line of code in\norder, a selection structure lets the program choose between\ndifferent paths."
+  },
+  {
+    "page": 2,
+    "text": "Nesting Selection Structures\nage = 16\nOne way to extend the power of\nselection structures is through has_license = True\nnesting.\nif age >= 16:\nA nested conditional statement\nif has_license:\noccurs when an if statement is\nprint(\"You can drive.\")\nplaced inside the code block of\nanother if, elif, or else\nstatement.\nThis allows a program to make\nmore complex decisions by\nchecking additional conditions\nonly when certain criteria have\nalready been met."
+  },
+  {
+    "page": 3,
+    "text": "Nesting Selection Structures continued...\nage = 16\nWhen a conditional statement is\nnested inside another conditional has_license = True\nstatement, the inner condition is\nonly evaluated if the outer\nif age >= 16:\ncondition evaluates to True.\nif has_license:\nIf the outer condition evaluates to print(\"You can drive.\")\nFalse, the entire nested code\nblock is skipped.\nThis can improve efficiency by\navoiding unnecessary condition\nchecks and can make complex\ndecision-making easier to\norganize."
+  },
+  {
+    "page": 4,
+    "text": "Nesting Selection Structures continued...\nage = 16\nIn this example, the condition\nhas_license = True\nhas_license is only checked if\nage >= 16 evaluates to True.\nif age >= 16:\nSince both conditions are True,\nif has_license:\nthe program prints\nprint(\"You can drive.\")\n\"You can drive.\".\nOUTPUT\nYou can drive."
+  },
+  {
+    "page": 5,
+    "text": "Nesting Selection Structures continued...\nage = 15\nIf the outer condition evaluates\nto False, the nested condition is has_license = True\nnever checked.\nif age >= 16:\nEven though has_license is True,\nif has_license:\nnothing is printed.\nprint(\"You can drive.\")\nBecause age >= 16 evaluates to\nFalse, Python skips the entire\nnested code block without\nchecking the inner condition. OUTPUT"
+  },
+  {
+    "page": 6,
+    "text": "Nesting Selection Structures continued...\nage = 15\nWhen nesting conditional statements,\nhas_license = True\nit is important to carefully organize\nyour code blocks.\nif age >= 16:\nIn Python, code blocks are defined by if has_license:\nindentation, while many other print(\"You can drive.\")\nprogramming languages use curly print(\"License check complete.\")\nbrackets ({}) to group statements\ntogether.\nIncorrect indentation or misplaced\nbrackets can change the logic of a\nprogram or cause syntax errors.\nConsider the following example."
+  },
+  {
+    "page": 7,
+    "text": "Nesting Selection Structures continued...\nage = 15\nConsider the following example.\nhas_license = True\nThe message\nif age >= 16:\n\"License check complete.\" only\nif has_license:\nprints when age >= 16 because print(\"You can drive.\")\nprint(\"License check complete.\")\nit is still inside the outer if\nstatement's code block.\nA programmer might incorrectly\nassume it will always print."
+  },
+  {
+    "page": 8,
+    "text": "Nesting Selection Structures continued...\nage = 15\nIf the code is organized correctly, the\nhas_license = True\nmessage can be moved outside the\nouter code block.\nif age >= 16:\nNow \"License check complete.\" will\nif has_license:\nalways be displayed, regardless of\nprint(\"You can drive.\")\nthe person's age.\nThis example demonstrates how a\nprint(\"License check complete.\")\nsingle level of indentation can\nsignificantly change a program's\nbehavior.\nAs nested structures become more\ncomplex, careful organization of code\nblocks becomes increasingly\nimportant."
+  },
+  {
+    "page": 9,
+    "text": "Combining Conditions\nSometimes a single condition is not enough to describe the logic we want.\nIn these situations, multiple conditions can be combined to create more\ncomplex decisions.\nPython provides the and and or operators to combine conditions into a\nsingle expression."
+  },
+  {
+    "page": 10,
+    "text": "Truth Tables\nTruth Table: A table that shows the result of a logical operation for every\npossible combination of inputs.\nBefore learning these operators, it is helpful to understand how they behave\nusing a truth table. A truth table shows the result of a logical operation for\nevery possible combination of inputs.\nAND OR\nCondition A Condition B A and B Condition A Condition B A or B\nTrue True True True True True\nTrue False False True False True\nFalse True False False True True\nFalse False False False False False"
+  },
+  {
+    "page": 11,
+    "text": "and\nThe Operator\nThe and operator is used when all\nage = 16\nconditions must be True before a\nhas_license = True\ncode block should execute.\nIn this example, both conditions\nif age >= 16 and has_license:\nmust evaluate to True before the\nprint(\"You can drive.\")\nmessage is displayed.\nelse:\nprint(\"Do not drive!\")\nCondition A Condition B A and B\nTrue True True\nOUTPUT\nYou can drive.\nTrue False False\nFalse True False\nFalse False False"
+  },
+  {
+    "page": 12,
+    "text": "or\nThe Operator\nThe or operator is used when at\nis_weekend = False\nleast one condition must be True\nis_holiday = True\nbefore a code block should\nexecute.\nif is_weekend or is_holiday:\nIn this example, the message is\nprint(\"No school today!\")\ndisplayed because one of the\nelse:\nconditions is True.\nprint(\"Time for school!\")\nCondition A Condition B A or B\nOUTPUT\nTrue True True\nNo school today!\nTrue False True\nFalse True True\nFalse False False"
+  },
+  {
+    "page": 13,
+    "text": "Combining Conditions with Brackets\nBrackets can be used to group age = 15\nconditions together.\nhas_permission = True\nThis allows complex conditions is_staff = False\nto be evaluated in a specific\norder.\nif (age >= 16 and has_permission) or is_staff:\nThe brackets force Python to print(\"Access granted.\")\nevaluate\nage >= 16 and has_permission\nfirst before evaluating the\nor is_staff portion of the\ncondition."
+  },
+  {
+    "page": 14,
+    "text": "Combining Conditions with Brackets continued...\nIf brackets are placed incorrectly,\nage = 15\nthe program may behave\nhas_permission = True\ndifferently than intended.\nis_staff = False\nAlthough these conditions contain\nthe same pieces, the grouping is\ndifferent. if age >= 16 and (has_permission or is_staff):\nprint(\"Access granted.\")\nIn the first example, staff members\nare always granted access. In the\nsecond example, a user must be at\nleast 16 years old regardless of\nwhether they are staff.\nSmall changes to bracket\nplacement can significantly change\nthe meaning of a condition."
+  },
+  {
+    "page": 15,
+    "text": "Checking a Number Between Values\nWhen checking if a number falls x = 10\nbetween two values, Python\nprovides a simplified syntax.\n# Chaining with 'and'\nInstead of combining two\ncomparisons with and, the if x > 0 and x < 17:\ncomparisons can be chained\nprint(\"Valid\")\ntogether.\nBoth versions produce the same\n# Simplified syntax\nresult, but the chained\ncomparison is often easier to if 0 < x < 17:\nread and more closely matches\nprint(\"Valid\")\nthe way the condition would be\nwritten in mathematics."
+  }
+]

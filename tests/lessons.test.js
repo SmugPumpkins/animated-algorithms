@@ -1,4 +1,4 @@
-import { escapeHtml, highlightPython, highlightLines } from '../site/js/lessons/terminal.js';
+import { escapeHtml, highlightPython, highlightLines, mountPlayground } from '../site/js/lessons/terminal.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -709,4 +709,101 @@ test('editing flowchart temperature resets playback, stops timers and validates 
   edit('');assert.ok(buttons.find(b=>b.dataset.flow==='run').disabled);click('step');assert.equal(active.size,0);assert.match(action.textContent,/valid temperature/);
   edit('-5');assert.equal(buttons.find(b=>b.dataset.flow==='run').disabled,false);click('reset');assert.equal(temperature.value,'-5');
   player.destroy();edit('30');assert.match(label.textContent,/-5/);
+});
+
+const nestingSlides = JSON.parse(readFileSync(path.join(root,'site/lessons/cse1120/nesting-selection-structures/slides.json'),'utf8'));
+const logicalSlides = JSON.parse(readFileSync(path.join(root,'site/lessons/cse1120/logical-operators/slides.json'),'utf8'));
+test('revised selection deck separates nesting and logical operators into complete lessons', () => {
+  assert.equal(nestingSlides.length,7);
+  assert.equal(logicalSlides.length,9);
+  assert.ok(nestingSlides.filter(slide=>slide.code).every(slide=>! /\b(and|or)\b/.test(slide.code)));
+  assert.ok(logicalSlides.some(slide=>slide.code?.includes('if 0 < x < 10:')));
+  assert.equal(nestingSlides.at(-1).kind,'wrapup');
+  assert.equal(logicalSlides.at(-1).kind,'wrapup');
+});
+test('all revised nesting and logical examples execute and step with their stated results', async () => {
+  for (const slide of [...nestingSlides,...logicalSlides].filter(slide=>slide.code)) {
+    for (const mode of ['run','step']) {
+      assert.equal((await runPython(slide.code,[],mode)).output,slide.expectedOutput,`${slide.title}: ${mode}`);
+    }
+  }
+});
+test('nested checks skip unreachable conditions and indentation controls the final print', async () => {
+  const outerFalse = await runPython(nestingSlides[2].code,[],'step');
+  assert.equal(outerFalse.output,'');
+  assert.ok(!outerFalse.steps.some(step=>step.line===5));
+  const innerFalse = await runPython(nestingSlides[3].code,[],'step');
+  assert.equal(innerFalse.line,5);
+  assert.equal(innerFalse.output,'');
+  assert.equal((await runPython(nestingSlides[4].code)).output,'');
+  assert.equal((await runPython(nestingSlides[5].code)).output,'License check complete.\n');
+  const edited = nestingSlides[4].code.replace('age = 15','age = 16').replace('has_license = True','has_license = False');
+  assert.equal((await runPython(edited,[],'step')).output,'License check complete.\n');
+});
+test('truth tables agree with Python for every Boolean input pair', async () => {
+  for (const table of logicalSlides[2].truthTables) {
+    for (const [a,b,result] of table.rows) {
+      assert.equal((await runPython(`print(${a} ${table.operator} ${b})`)).output,result+'\n');
+    }
+  }
+  for (const [slide,vars] of [[logicalSlides[3],['has_ticket','has_id']],[logicalSlides[4],['is_weekend','is_holiday']]]) {
+    for (const a of [true,false]) for (const b of [true,false]) {
+      const value = bool=>bool ? 'True' : 'False';
+      const code = slide.code.replace(new RegExp(`${vars[0]} = (True|False)`),`${vars[0]} = ${value(a)}`).replace(new RegExp(`${vars[1]} = (True|False)`),`${vars[1]} = ${value(b)}`);
+      const yes = slide===logicalSlides[3] ? a && b : a || b;
+      const expected = slide===logicalSlides[3] ? (yes ? 'Entry allowed.' : 'Entry denied.') : (yes ? 'No school today!' : 'Time for school!');
+      assert.equal((await runPython(code,[],'step')).output,expected+'\n');
+    }
+  }
+});
+test('parentheses change the staff access result and chained ranges exclude endpoints', async () => {
+  assert.equal((await runPython(logicalSlides[5].code)).output,'Access granted.\n');
+  assert.equal((await runPython(logicalSlides[6].code)).output,'Access denied.\n');
+  for (const x of [-1,0,0.5,1,5,9.99,10,11]) {
+    const code = logicalSlides[7].code.replace('x = 5',`x = ${x}`);
+    for (const mode of ['run','step']) assert.equal((await runPython(code,[],mode)).output,x>0&&x<10 ? 'Valid\nValid\n' : '');
+  }
+});
+
+test('editor stepping has a final null step and cannot restart until Reset', t => {
+  const workers = [];
+  const oldWorker = globalThis.Worker, oldStyle = globalThis.getComputedStyle;
+  globalThis.Worker = class {
+    constructor(){workers.push(this);}
+    postMessage(message){this.message=message;}
+    terminate(){this.terminated=true;}
+  };
+  globalThis.getComputedStyle = ()=>({lineHeight:'24px',paddingTop:'0px'});
+  t.after(()=>{if(oldWorker===undefined)delete globalThis.Worker;else globalThis.Worker=oldWorker;if(oldStyle===undefined)delete globalThis.getComputedStyle;else globalThis.getComputedStyle=oldStyle;});
+  const buttons = ['run','step','stop','reset'].map(action=>Object.assign(new EventTarget(),{dataset:{action},disabled:false}));
+  const code = {innerHTML:''};
+  const editor = Object.assign(new EventTarget(),{value:'print("Done")',dataset:{file:'main.py'},scrollTop:0,scrollLeft:0,clientHeight:200,previousElementSibling:{querySelector(){return code;},scrollTop:0,scrollLeft:0}});
+  const status = {textContent:''}, output = {textContent:''};
+  const variables = {hidden:true,replaceChildren(){}};
+  const input = Object.assign(new EventTarget(),{hidden:true});
+  const terminal = {hidden:false}, screen = {scrollTop:0,scrollHeight:0};
+  const root = Object.assign(new EventTarget(),{
+    classList:{add(){},toggle(){}},
+    querySelector(selector){return {'.terminal-pane':terminal,'.terminal-output':output,'.terminal-input-row':input,'.execution-status':status,'.runtime-variables':variables,'.terminal-screen':screen}[selector];},
+    querySelectorAll(selector){return selector==='[data-action]' ? buttons : selector==='.code-editor' ? [editor] : [];}
+  });
+  const controller = mountPlayground(root,{code:'print("Done")',initialOutput:''});
+  t.after(()=>controller.destroy());
+  const click = action=>buttons.find(button=>button.dataset.action===action).dispatchEvent(new Event('click'));
+  click('step');assert.equal(workers.length,1);
+  workers[0].onmessage({data:{type:'output',text:'Done\n'}});
+  workers[0].onmessage({data:{type:'complete',line:1,filename:'main.py',variables:[]}});
+  assert.match(status.textContent,/Step to finish/);
+  assert.match(code.innerHTML,/executing-line/);
+  assert.equal(buttons.find(button=>button.dataset.action==='step').disabled,false);
+  click('step');assert.equal(status.textContent,'Finished');assert.doesNotMatch(code.innerHTML,/executing-line/);
+  assert.equal(output.textContent,'Done\n');assert.equal(workers.length,1);
+  assert.ok(buttons.find(button=>button.dataset.action==='step').disabled);
+  click('step');click('run');assert.equal(workers.length,1);
+  click('reset');assert.equal(status.textContent,'Ready');assert.equal(output.textContent,'');
+  assert.equal(buttons.find(button=>button.dataset.action==='run').disabled,false);
+  click('run');assert.equal(workers.length,2);
+  workers[1].onmessage({data:{type:'complete',line:1,filename:'main.py',variables:[]}});
+  assert.match(status.textContent,/Finished/);assert.doesNotMatch(code.innerHTML,/executing-line/);
+  click('run');assert.equal(workers.length,2);
 });
