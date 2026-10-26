@@ -809,3 +809,63 @@ test('editor stepping has a final null step and cannot restart until Reset', t =
   assert.match(status.textContent,/Finished/);assert.doesNotMatch(code.innerHTML,/executing-line/);
   click('run');assert.equal(workers.length,2);
 });
+
+const forSlides = JSON.parse(readFileSync(path.join(root,'site/lessons/cse1120/for-loops/slides.json'),'utf8'));
+const advancedForSlides = JSON.parse(readFileSync(path.join(root,'site/lessons/cse1120/advanced-for-loops/slides.json'),'utf8'));
+test('for-loop lessons separate basic iteration from the requested advanced topics', () => {
+  assert.equal(forSlides.length,13);assert.equal(advancedForSlides.length,10);
+  const basicCode = forSlides.map(slide=>slide.code||'').join('\n');
+  assert.doesNotMatch(basicCode,/\b(enumerate|zip|break|continue|while)\b/);
+  for(const keyword of ['enumerate','zip','break','continue']) assert.ok(advancedForSlides.some(slide=>slide.code?.includes(keyword)));
+  assert.ok(advancedForSlides.filter(slide=>slide.code).every(slide=>! /\bwhile\b/.test(slide.code)));
+});
+test('every basic and advanced for-loop example runs and steps with actual expected output', async () => {
+  for(const slide of [...forSlides,...advancedForSlides].filter(slide=>slide.code)) {
+    for(const mode of ['run','step']) assert.equal((await runPython(slide.code,[],mode)).output,slide.expectedOutput,`${slide.title}: ${mode}`);
+  }
+});
+test('edited ranges respect start, excluded stop, step direction and empty iteration', async () => {
+  for(const mode of ['run','step']) {
+    assert.equal((await runPython(forSlides[3].code.replace('range(5)','range(0)'),[],mode)).output,'');
+    assert.equal((await runPython(forSlides[5].code.replace('range(5, 10)','range(2, 5)'),[],mode)).output,'2\n3\n4\n');
+    assert.equal((await runPython(forSlides[6].code.replace('range(0, 21, 5)','range(1, 8, 3)'),[],mode)).output,'1\n4\n7\n');
+    assert.equal((await runPython(forSlides[7].code.replace('range(5, 0, -1)','range(5, -1, -2)'),[],mode)).output,'5\n3\n1\n');
+    assert.equal((await runPython(forSlides[7].code.replace('range(5, 0, -1)','range(0, 5, -1)'),[],mode)).output,'');
+  }
+  await assert.rejects(runPython('for number in range(0, 5, 0):\n    print(number)'),/ValueError/);
+});
+test('direct iteration handles strings, empty lists and per-item selection without mutating names', async () => {
+  assert.equal((await runPython(forSlides[8].code.replace('"Hello"','"CS"'),[],'step')).output,'C\nS\n');
+  assert.equal((await runPython(forSlides[9].code.replace('["apple", "banana", "orange"]','[]'))).output,'');
+  assert.equal((await runPython(forSlides[10].code.replace('[72, 91, 85, 64]','[79, 80, 81]'),[],'step')).output,'80\n81\n');
+  const names = await runPython(forSlides[11].code,[],'step');
+  assert.match(names.variables.find(item=>item.name==='names').value,/Nathan/);
+});
+test('enumerate counts and zip pairs respond to edited items and different lengths', async () => {
+  for(const mode of ['run','step']) {
+    assert.equal((await runPython(advancedForSlides[2].code.replace('["Alex", "Sam", "Jordan"]','["A", "B"]'),[],mode)).output,'0 A\n1 B\n');
+    assert.equal((await runPython(advancedForSlides[3].code.replace('start=1','start=5'),[],mode)).output,'5 Alex\n6 Sam\n7 Jordan\n');
+    assert.equal((await runPython(advancedForSlides[4].code.replace('[82, 91]','[82]'),[],mode)).output,'Alex 82\n');
+    assert.equal((await runPython(advancedForSlides[4].code.replace('[82, 91]','[]'),[],mode)).output,'');
+  }
+});
+test('nested loop tracing restarts the inner counter and break exits only its containing loop', async () => {
+  const result = await runPython(advancedForSlides[1].code,[],'step');
+  assert.equal(result.output,'0 0\n0 1\n1 0\n1 1\n2 0\n2 1\n');
+  const seen = result.steps.map(step=>Object.fromEntries(step.variables.map(item=>[item.name,item.value])));
+  assert.ok(seen.some(vars=>vars.row==='0'&&vars.column==='1'));
+  assert.ok(seen.some(vars=>vars.row==='1'&&vars.column==='0'));
+  assert.equal((await runPython(advancedForSlides[8].code,[],'step')).output,'0 0\n1 0\n');
+});
+test('break and continue affect the selected for-loop iteration and preserve following code', async () => {
+  for(const mode of ['run','step']) {
+    const stopped = await runPython(advancedForSlides[5].code,[],mode);
+    assert.equal(stopped.output,'0\n1\n2\nLoop complete.\n');
+    assert.equal(stopped.variables.find(item=>item.name==='number').value,'3');
+    assert.equal((await runPython(advancedForSlides[5].code.replace('number == 3','number == 0'),[],mode)).output,'Loop complete.\n');
+    const search = await runPython(advancedForSlides[6].code,[],mode);
+    assert.equal(search.variables.find(item=>item.name==='name').displayValue,'Charlie');
+    assert.equal((await runPython(advancedForSlides[6].code.replace('if name == "Charlie":','if name == "Zoe":'),[],mode)).output,'Search complete.\n');
+    assert.equal((await runPython(advancedForSlides[7].code.replace('number == 2','number == 0'),[],mode)).output,'1\n2\n3\n4\nLoop complete.\n');
+  }
+});

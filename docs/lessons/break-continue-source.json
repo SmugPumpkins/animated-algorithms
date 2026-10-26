@@ -1,0 +1,22 @@
+[
+  {
+    "page": 1,
+    "text": "Iteration Structures\nPart 3: Break and\nContinue\nWhen using loops, there may be cases where you want\nmore direct control over when the loop ends or\nskipping parts of loops."
+  },
+  {
+    "page": 2,
+    "text": "Continue\nThe continue keyword can be used in\nfor i in range(5):\nboth for loops and while loops.\nWhen a continue statement is\nif i == 2:\nencountered, the current iteration\nimmediately ends and the loop moves\ncontinue\non to the next iteration.\nWhen i is equal to 2, the continue\nprint(i)\nstatement causes the loop to skip the\nremaining code in that iteration.\nThe loop then proceeds directly to the\nOUTPUT\nnext iteration.\n0\nThe continue keyword is useful when 1\ncertain iterations should be ignored 3\nwhile allowing the rest of the loop to\n4\ncontinue normally."
+  },
+  {
+    "page": 3,
+    "text": "Break\nThe break keyword immediately for i in range(10):\nends a loop.\nif i == 5:\nWhen a break statement is break\nencountered, the current\nprint(i)\niteration ends and all remaining\niterations are skipped.\nprint(\"For loop complete!\")\nExecution continues with the\nfirst statement after the loop.\nOUTPUT\n0\n1\n2\n3\n4\nFor loop complete!"
+  },
+  {
+    "page": 4,
+    "text": "Break \u2013 For Loops\nIn a for loop, break is useful names = [\"Alice\", \"Bob\", \"Charlie\", \"David\"]\nwhen the loop has already\nfor name in names:\nachieved its purpose and there\nif name == \"Charlie\":\nis no need to continue\nprint(\"Found Charlie!\")\nprocessing additional values.\nbreak\nThe loop stops as soon as\nprint(\"For loop complete.\")\n\"Charlie\" is found because\nthere is no need to continue\nsearching.\nOUTPUT\nFound Charlie!\nFor loop complete."
+  },
+  {
+    "page": 5,
+    "text": "Break \u2013 While Loops\nIn a while loop, break is useful when a while True:\nloop should continue until one of command = input(\"> \")\nseveral possible conditions occurs.\nif command == \"quit\":\nBy placing a break statement inside a\nbreak\nconditional statement, the loop can\nbe exited whenever a specific\nprint(\"Quitting...\")\ncondition is met.\nThis pattern is common when the\nstopping condition cannot easily be\nOUTPUT\nexpressed in the loop condition itself,\n>\nor when multiple different conditions\nquit\nmay cause the loop to end.\nQuitting..."
+  }
+]

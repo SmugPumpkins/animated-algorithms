@@ -1,0 +1,66 @@
+[
+  {
+    "page": 1,
+    "text": "Iteration Structures\nPart 1: For Loops\nFor loops execute a block of code a\nset number of times, or for each\ninstance in a set of data."
+  },
+  {
+    "page": 2,
+    "text": "Iteration Structure Overview\nInstead of writing the same statements over and over, an iteration structure\ncan execute the same code repeatedly based on a condition or a collection\nof values.\nEach repetition of the loop is called an iteration.\nIteration structures are useful whenever a task needs to be performed more\nthan once.\nThey are commonly implemented using statements such as for and while.\nWithout iteration structures, many common programming tasks would\nrequire significantly more code and be much harder to maintain.\nLearning to use iteration structures effectively is an important step toward\nautomating repetitive tasks and solving more complex problems."
+  },
+  {
+    "page": 3,
+    "text": "For Loops\nFor Loop: An iteration structure that repeats a code block for each value\nin a sequence.\nA for loop is an iteration structure that repeats a code block for each\nvalue in a sequence.\nIt is commonly used when the number of iterations is known in advance\nor when processing every item in a collection.\nBecause for loops automatically move from one value to the next, they\nare often simpler to use than other loop types."
+  },
+  {
+    "page": 4,
+    "text": "For Loops \u2013 Repeating a Certain Number of Times\nWhen you need to repeat a\nfor _ in range(5):\ncode block a specific number of\ntimes, a for loop can be used\nprint(\"Hello\")\nwith the range() function.\nIf the current iteration number is\nnot needed, it is common to use\n_ as the loop variable.\nThis pattern is useful when you\nwant code to repeat, but you do OUTPUT\nHello\nnot care which iteration is\nHello\ncurrently executing.\nHello\nHello\nHello"
+  },
+  {
+    "page": 5,
+    "text": "For Loops \u2013 Using Range Values\nWhen you need to know which\nfor i in range(5):\niteration is currently executing, it\nis common to use a variable such\nas i with the range() function. print(i)\nThe variable i is short for index\nand is one of the most common\nvariable names used in loops.\nNotice that range(5) starts\ncounting at 0 and stops at 4,\nwhich is one less than the value\nOUTPUT\npassed to range().\n0\n1\nThis means that range(n)\n2\nproduces n values, starting from\n3\n0. 4"
+  },
+  {
+    "page": 6,
+    "text": "For Loops \u2013 Ranges That Don\u2019t Start From 0\nThe range() function can accept\nfor i in range(5, 10):\nmultiple parameters.\nWhen two parameters are provided,\nprint(i)\nthe first parameter specifies the\nstarting value and the second\nparameter specifies the ending value.\nWith two parameters,\nrange(start, stop) begins counting\nat the start value and continues up to,\nOUTPUT\nbut not including, the stop value.\n5\n6\nIn this example, the loop starts at 5\n7\nand stops before reaching 10. 8\n9"
+  },
+  {
+    "page": 7,
+    "text": "For Loops \u2013 Ranges With Different Steps\nThe range() function can also\nfor i in range(0, 21, 5):\naccept three parameters.\nWhen three parameters are\nprint(i)\nprovided, they represent the\nstarting value, ending value,\nand step size.\nThe third parameter controls\nhow much the value changes\nafter each iteration.\nOUTPUT\nIn this example, the value\n0\nincreases by 5 each time 5\n10\ninstead of the default step size\n15\nof 1.\n20"
+  },
+  {
+    "page": 8,
+    "text": "For Loops \u2013 Counting Backwards\nThree-parameter ranges can\nfor i in range(5, 0, -1):\nalso be used to count\nbackwards by using a negative\nprint(i)\nstep size.\nWhen counting backwards, the\nstarting value must be larger\nthan the ending value.\nOUTPUT\n5\n4\n3\n2\n1"
+  },
+  {
+    "page": 9,
+    "text": "For Loops \u2013 Iterating Over Strings\nWhen iterating over an iterable such as\nfor character in \"Hello\":\na string, the for loop uses a slightly\ndifferent syntax.\nprint(character)\nInstead of using range(), the loop is\ngiven the iterable directly.\nStrings are iterable objects, which character is\nmeans they can be processed one the for loop\ncharacter at a time. variable in this\ncase\nDuring each iteration, the loop variable\nstores the current character rather than\nOUTPUT\na number.\nH\ne\nBecause of this, it is common to choose\nl\na variable name that describes the type\nl\nof data being processed, such as\no\ncharacter, letter, or char."
+  },
+  {
+    "page": 10,
+    "text": "For Loops \u2013 Iterating Over Lists\nLists and tuples can be iterated\nfruits = [\"apple\", \"banana\", \"orange\"]\nover directly using a for loop\nfruit is the for\nWhen using this pattern, the\nloop variable in\nfor fruit in fruits:\nloop variable represents the this case\ncurrent object being processed\nprint(fruit)\nrather than its index.\nBy default, this type of loop does\nnot track the index of each item.\nOUTPUT\nIt only provides access to the\napple\nobjects contained within the\nbanana\niterable.\norange"
+  },
+  {
+    "page": 11,
+    "text": "For Loops \u2013 Iterating Over Lists continued...\nThis pattern is useful when\ngrades = [72, 91, 85, 64]\nchecking every item against a\ncondition.\nfor grade in grades:\nif grade >= 80:\nprint(grade)\nOUTPUT\n91\n85"
+  },
+  {
+    "page": 12,
+    "text": "For Loops \u2013 Iterating Over Lists continued...\nIt is also useful when performing\nnames = [\"Nathan\", \"Sarah\", \"Bob\"]\nthe same function on every item\nin a collection.\nfor name in names:\nprint(name.upper())\nOUTPUT\nNATHAN\nSARAH\nBOB"
+  },
+  {
+    "page": 13,
+    "text": "For Loops \u2013 Enumerating Over Lists\nThe enumerate() function allows grades = [82, 67, 91, 58, 74]\na for loop to access both the\ncurrent object and its index.\nfor index, grade in enumerate(grades):\nThis is useful when you need the\nif grade < 70:\nitem itself as well as its position\nprint(f\"Student {index} needs support\")\nwithin the iterable.\nUsing enumerate() is useful\nwhen the index is needed for a\nlater operation. OUTPUT\nStudent 1 needs support\nStudent 3 needs support"
+  },
+  {
+    "page": 14,
+    "text": "For Loops \u2013 Using Zip For Multiple Lists\nWhen related data is stored across\nfruits = [\"apple\", \"banana\", \"orange\"]\nmultiple lists, the zip() function can\nstock = [12, 8, 15]\nbe used to iterate over them at the\nprices = [0.99, 0.59, 1.29]\nsame time.\nThis allows a loop to access items\nfor fruit, quantity, price in zip(fruits, stock, prices):\nfrom each list that share the same\nindex. print(f\"{fruit}: {quantity} in stock at ${price} each\")\nIn the loop header, fruit stores\nvalues from the fruits list, quantity\nstores values from the stock list, and\nprice stores values from the prices\nOUTPUT\nlist.\napple: 12 in stock at $0.99 each\nDuring each iteration, Python takes\nbanana: 8 in stock at $0.59 each\none item from each list and assigns\norange: 15 in stock at $1.29 each\nthem to their corresponding\nvariables."
+  },
+  {
+    "page": 15,
+    "text": "For Loops \u2013 Nesting Loops in Loops\nfor loops can be nested inside\nfor i in range(3):\none another to perform more\ncomplex iterations.\nfor j in range(2):\nWhen a nested loop is\nencountered, the innermost print(f\"i: {i} | j: {j}\")\nloop completes all of its\niterations before the next\niteration of the outer loop\nbegins.\nNotice that the inner loop (j) OUTPUT\ncompletes both of its iterations i: 0 | j: 0\ni: 0 | j: 1\nbefore the outer loop (i)\ni: 1 | j: 0\nadvances to its next value. i: 1 | j: 1\ni: 2 | j: 0\ni: 2 | j: 1"
+  },
+  {
+    "page": 16,
+    "text": "For Loops \u2013 Nesting Loops in Loops continued...\nWhen using nested loops, common\nfor i in range(3):\nvariable names are i, j, and k,\nrepresenting the first, second, and\nfor j in range(2):\nthird levels of nesting respectively.\nWhile more descriptive names can be print(f\"i: {i} | j: {j}\")\nused, these short names are widely\nrecognized in programming.\nNested loops are particularly useful\nwhen working with more complex\ndata structures such as two-\nOUTPUT\ndimensional arrays, grids, tables, or\ni: 0 | j: 0\nmatrices, where multiple levels of\ni: 0 | j: 1\niteration are required to access every i: 1 | j: 0\ni: 1 | j: 1\nvalue.\ni: 2 | j: 0\ni: 2 | j: 1"
+  }
+]

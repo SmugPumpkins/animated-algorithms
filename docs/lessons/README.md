@@ -172,3 +172,12 @@ Stepping includes a final completion step. After the last Python statement, its 
 Truth-table headers style only the operator in `A and B` / `A or B` as orange inline code. The chained-comparison slide focuses on syntax and evaluates `0 < x < 10`, `10 > x > 0` and `0 <= x < 10` with editable input values. Tests check strict, reversed and partially inclusive boundaries in Run and Step.
 
 Lesson slide JSON requests carry the shared renderer version and revalidate their cache. Bump the lesson script version when publishing content/layout updates so previously visited lessons load the matching slide content.
+
+
+## For Loops and Advanced For Loops (CSE 1120, lessons 4 and 5)
+
+The teacher authorized rewriting the rougher source slides and splitting the for-loop material. For Loops has 13 slides on iteration, range(start, stop, step), strings, lists and per-item processing. Advanced For Loops has 10 slides on nesting, enumerate, zip, break and continue. Each has its own wrap-up and blank assignment row. The original extracted text is retained in `for-loops-source.json` and `break-continue-source.json`; slide `sourceDeck` and `sourcePage` fields identify the source of revised content. New cover, wrap-up and nested-break examples use null source pages.
+
+Explanations use short sentences with one idea each. Code uses descriptive variables, small collections and compact output. Enumerating, zipping and nested for loops appear only in the advanced lesson. The break/continue material is specific to for loops; the source's while-loop example is deliberately excluded. The advanced lesson adds a start=1 enumerate example, explains zip's shortest-iterable behavior, and demonstrates that break inside an inner loop leaves the outer loop running. Code uses the shared always-editable Run/Step/Stop/Reset playground, empty initial output and final completion step.
+
+Tests execute every example in Run and Step. Additional cases cover range bounds/directions/empty ranges, a zero-step error, direct iteration, unchanged source lists, enumerate offsets, zip truncation, inner counter restarts, break scope, early search termination and skipped continue iterations.

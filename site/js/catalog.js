@@ -62,6 +62,14 @@ export const modules = [
       id: 'logical-operators', number: 3, title: 'Logical Operators',
       description: 'Boolean and/or conditions, truth tables, parentheses and chained comparisons.',
       slideCount: 9, href: './lessons/cse1120/logical-operators/',
+    }, {
+      id: 'for-loops', number: 4, title: 'For Loops',
+      description: 'Iteration, range values, step sizes and processing strings and lists.',
+      slideCount: 13, href: './lessons/cse1120/for-loops/',
+    }, {
+      id: 'advanced-for-loops', number: 5, title: 'Advanced For Loops',
+      description: 'Nested loops, enumerate, zip, break and continue in for loops.',
+      slideCount: 10, href: './lessons/cse1120/advanced-for-loops/',
     }]),
   moduleEntry('CSE 1240', 'Robotics Programming 1',
     'Design and debug programs that control robots.',

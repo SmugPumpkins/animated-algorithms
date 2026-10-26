@@ -1,0 +1,247 @@
+[
+  {
+    "title": "For Loops",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Iteration Structures: The Basics",
+    "bullets": [
+      "Explain what an iteration is.",
+      "Repeat instructions with range.",
+      "Use start, stop and step values.",
+      "Process the items in a string or list."
+    ],
+    "inlineCode": [
+      "range"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Iteration Structures",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "An iteration structure repeats a block of code.",
+      "Each repetition is called an iteration.",
+      "Loops are useful when a task needs to happen more than once.",
+      "Python provides for loops and while loops. This lesson focuses on for loops."
+    ],
+    "inlineCode": [
+      "for",
+      "while"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "How a for Loop Works",
+    "kind": "text",
+    "sourcePage": 3,
+    "paragraphs": [
+      "A for loop processes one value at a time from an iterable.",
+      "An iterable provides values that a loop can visit. Strings, lists and ranges are examples.",
+      "Python assigns the next value to the loop variable. It then runs the indented block.",
+      "The loop finishes when there are no values left."
+    ],
+    "inlineCode": [
+      "for"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Repeating a Set Number of Times",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Use range(5) to repeat the block five times.",
+      "The indented print runs once during each iteration.",
+      "The loop variable _ receives each value. The underscore signals that this example does not use the value."
+    ],
+    "code": "for _ in range(5):\n    print(\"Hello\")",
+    "expectedOutput": "Hello\nHello\nHello\nHello\nHello\n",
+    "initialOutput": "Hello\nHello\nHello\nHello\nHello",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "range(5)",
+      "print",
+      "_"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Using Range Values",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "The loop variable stores the current value.",
+      "range(5) provides 0, 1, 2, 3 and 4. It starts at 0. It excludes 5.",
+      "Here, number is displayed during each iteration."
+    ],
+    "code": "for number in range(5):\n    print(number)",
+    "expectedOutput": "0\n1\n2\n3\n4\n",
+    "initialOutput": "0\n1\n2\n3\n4",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "range(5)",
+      "number"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Choosing a Start and Stop",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "range(start, stop) lets you choose the first value.",
+      "The start value is included. The stop value is excluded.",
+      "range(5, 10) provides the values 5 through 9."
+    ],
+    "code": "for number in range(5, 10):\n    print(number)",
+    "expectedOutput": "5\n6\n7\n8\n9\n",
+    "initialOutput": "5\n6\n7\n8\n9",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "range(start, stop)",
+      "range(5, 10)"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Choosing a Step Size",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "range(start, stop, step) controls how the value changes.",
+      "The default step is 1. Here, the step is 5.",
+      "range(0, 21, 5) provides 0, 5, 10, 15 and 20. The stop value is still excluded."
+    ],
+    "code": "for number in range(0, 21, 5):\n    print(number)",
+    "expectedOutput": "0\n5\n10\n15\n20\n",
+    "initialOutput": "0\n5\n10\n15\n20",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "range(start, stop, step)",
+      "range(0, 21, 5)"
+    ],
+    "layout": "long-explanation",
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Counting Backwards",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "A negative step makes the values decrease.",
+      "range(5, 0, -1) provides 5, 4, 3, 2 and 1. It excludes 0.",
+      "The step must move toward the stop value. A step of 0 is invalid."
+    ],
+    "code": "for number in range(5, 0, -1):\n    print(number)",
+    "expectedOutput": "5\n4\n3\n2\n1\n",
+    "initialOutput": "5\n4\n3\n2\n1",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "range(5, 0, -1)"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Looping Over a String",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "A string can be visited one character at a time.",
+      "The loop variable character stores the current character.",
+      "The print instruction displays that character. A descriptive variable name makes its purpose clear."
+    ],
+    "code": "for character in \"Hello\":\n    print(character)",
+    "expectedOutput": "H\ne\nl\nl\no\n",
+    "initialOutput": "H\ne\nl\nl\no",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "character",
+      "print"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Looping Over a List",
+    "kind": "code",
+    "sourcePage": 10,
+    "paragraphs": [
+      "A for loop can visit the items in a list directly. Tuples can also be used.",
+      "The variable fruit stores the current item. This pattern does not provide its index.",
+      "The items are visited in their stored order."
+    ],
+    "code": "fruits = [\"apple\", \"banana\", \"orange\"]\n\nfor fruit in fruits:\n    print(fruit)",
+    "expectedOutput": "apple\nbanana\norange\n",
+    "initialOutput": "apple\nbanana\norange",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "for",
+      "fruit"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Checking Each Item",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "A condition can be checked during each iteration.",
+      "Here, the if statement checks the current grade.",
+      "Only grades of 80 or higher are displayed. The loop still visits every grade."
+    ],
+    "code": "grades = [72, 91, 85, 64]\n\nfor grade in grades:\n    if grade >= 80:\n        print(grade)",
+    "expectedOutput": "91\n85\n",
+    "initialOutput": "91\n85",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "if",
+      "grade"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Processing Each Item",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "The same operation can be applied to each item.",
+      "Here, upper() creates an uppercase version of the current name.",
+      "That version is displayed. The original list is unchanged."
+    ],
+    "code": "names = [\"Nathan\", \"Sarah\", \"Bob\"]\n\nfor name in names:\n    print(name.upper())",
+    "expectedOutput": "NATHAN\nSARAH\nBOB\n",
+    "initialOutput": "NATHAN\nSARAH\nBOB",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "upper()"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "An iteration is one repetition of a loop.",
+      "A for loop processes one value at a time.",
+      "Use range to generate integer values. Its stop value is excluded.",
+      "Choose a negative step to count backwards.",
+      "Visit strings and lists directly to process their items."
+    ],
+    "inlineCode": [
+      "for",
+      "range"
+    ]
+  }
+]

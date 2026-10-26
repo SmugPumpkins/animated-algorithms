@@ -1,0 +1,209 @@
+[
+  {
+    "title": "Advanced For Loops",
+    "kind": "cover",
+    "sourcePage": null,
+    "intro": "Iteration Structures: Working with For Loops",
+    "bullets": [
+      "Trace nested for loops.",
+      "Read item positions with enumerate.",
+      "Pair related items with zip.",
+      "End a for loop with break.",
+      "Skip an iteration with continue."
+    ],
+    "inlineCode": [
+      "for",
+      "enumerate",
+      "zip",
+      "break",
+      "continue"
+    ]
+  },
+  {
+    "title": "Nesting for Loops",
+    "kind": "code",
+    "sourcePage": 15,
+    "paragraphs": [
+      "A for loop can be placed inside another for loop.",
+      "The inner loop completes all iterations at the current outer value. The outer loop then advances.",
+      "Here, each row visits columns 0 and 1. The inner loop restarts when the row changes."
+    ],
+    "code": "for row in range(3):\n    for column in range(2):\n        print(row, column)",
+    "expectedOutput": "0 0\n0 1\n1 0\n1 1\n2 0\n2 1\n",
+    "initialOutput": "0 0\n0 1\n1 0\n1 1\n2 0\n2 1",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "for",
+      "row",
+      "column"
+    ],
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Reading Positions with enumerate",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "enumerate provides a position and an item during each iteration.",
+      "The variable index receives the position. The variable name receives the item.",
+      "The default starting position is 0."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\n\nfor index, name in enumerate(names):\n    print(index, name)",
+    "expectedOutput": "0 Alex\n1 Sam\n2 Jordan\n",
+    "initialOutput": "0 Alex\n1 Sam\n2 Jordan",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "enumerate",
+      "index",
+      "name"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Choosing Where the Count Starts",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "The start argument changes the first count from enumerate.",
+      "Here, start=1 numbers the items from 1.",
+      "This changes the count shown by enumerate. It does not change the positions in the original list."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\n\nfor number, name in enumerate(names, start=1):\n    print(number, name)",
+    "expectedOutput": "1 Alex\n2 Sam\n3 Jordan\n",
+    "initialOutput": "1 Alex\n2 Sam\n3 Jordan",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "start",
+      "enumerate",
+      "start=1"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Pairing Items with zip",
+    "kind": "code",
+    "sourcePage": 14,
+    "paragraphs": [
+      "zip takes one item from each iterable during an iteration.",
+      "Here, each name is paired with the grade at the same position.",
+      "zip stops when the shortest iterable runs out of items."
+    ],
+    "code": "names = [\"Alex\", \"Sam\"]\ngrades = [82, 91]\n\nfor name, grade in zip(names, grades):\n    print(name, grade)",
+    "expectedOutput": "Alex 82\nSam 91\n",
+    "initialOutput": "Alex 82\nSam 91",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "zip"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "for-loops"
+  },
+  {
+    "title": "Ending a for Loop with break",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "break ends the loop immediately.",
+      "Here, the loop stops when number reaches 3. That value is not displayed.",
+      "Python continues with the first instruction after the loop."
+    ],
+    "code": "for number in range(5):\n    if number == 3:\n        break\n    print(number)\n\nprint(\"Loop complete.\")",
+    "expectedOutput": "0\n1\n2\nLoop complete.\n",
+    "initialOutput": "0\n1\n2\nLoop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "for",
+      "break",
+      "number"
+    ],
+    "sourceDeck": "break-continue"
+  },
+  {
+    "title": "Stopping a Search",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "A search can stop when its target is found.",
+      "Here, break runs after Charlie is found. The loop does not visit David.",
+      "The final message is outside the loop. It is displayed after the search ends."
+    ],
+    "code": "names = [\"Alice\", \"Bob\", \"Charlie\", \"David\"]\n\nfor name in names:\n    if name == \"Charlie\":\n        print(\"Found Charlie!\")\n        break\n\nprint(\"Search complete.\")",
+    "expectedOutput": "Found Charlie!\nSearch complete.\n",
+    "initialOutput": "Found Charlie!\nSearch complete.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "break",
+      "Charlie",
+      "David"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "break-continue"
+  },
+  {
+    "title": "Skipping an Iteration with continue",
+    "kind": "code",
+    "sourcePage": 2,
+    "paragraphs": [
+      "continue skips the remaining instructions in the current iteration.",
+      "The for loop then takes its next value.",
+      "Here, number is not displayed when it is 2. The values 3 and 4 are still displayed."
+    ],
+    "code": "for number in range(5):\n    if number == 2:\n        continue\n    print(number)\n\nprint(\"Loop complete.\")",
+    "expectedOutput": "0\n1\n3\n4\nLoop complete.\n",
+    "initialOutput": "0\n1\n3\n4\nLoop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "continue",
+      "for",
+      "number"
+    ],
+    "sourceDeck": "break-continue"
+  },
+  {
+    "title": "break Inside Nested Loops",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "A break inside the inner loop ends only that loop.",
+      "The outer loop continues with its next value.",
+      "Here, each row displays only column 0. The inner loop ends when column reaches 1."
+    ],
+    "code": "for row in range(2):\n    for column in range(3):\n        if column == 1:\n            break\n        print(row, column)",
+    "expectedOutput": "0 0\n1 0\n",
+    "initialOutput": "0 0\n1 0",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "break",
+      "row",
+      "column"
+    ]
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "A nested loop completes its inner iterations for each outer value.",
+      "Use enumerate to receive a position and an item.",
+      "Use zip to visit related items together. It stops at the shortest iterable.",
+      "Use break to end the nearest containing loop.",
+      "Use continue to skip the rest of the current iteration."
+    ],
+    "inlineCode": [
+      "enumerate",
+      "zip",
+      "break",
+      "continue"
+    ]
+  }
+]
