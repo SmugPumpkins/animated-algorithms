@@ -67,6 +67,10 @@ export const modules = [
       id: 'dictionaries', number: 4, title: 'Dictionaries',
       description: 'Key-value pairs, dictionary methods, traversal, copying and references.',
       slideCount: 16, href: './lessons/cse2120/dictionaries/',
+    }, {
+      id: 'data-classes', number: 5, title: 'Data Classes',
+      description: 'Declared fields, type annotations, instances and dot notation.',
+      slideCount: 9, href: './lessons/cse2120/data-classes/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',

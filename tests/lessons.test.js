@@ -308,3 +308,51 @@ test('dictionary references share mutations while copied values remain independe
   assert.equal(value('reference'), value('original'));
   assert.equal(value('copied'), "{'name': 'Bob', 'grade': 11}");
 });
+
+const dataClassSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/data-classes/slides.json'), 'utf8'));
+const dataClassSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/data-classes-source.json'), 'utf8'));
+test('Data Classes retains all nine original slides, explanations, code and output', () => {
+  assert.equal(dataClassSlides.length, 9);
+  dataClassSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(dataClassSource[index].text), `Source differs on page ${index + 1}`);
+  });
+});
+
+test('all data class examples run and step, including constructors and field updates', async () => {
+  for (const slide of dataClassSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(slide.code, [], mode);
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('data class instances appear as typed variables and remain independent', async () => {
+  const code = dataClassSlides[5].code + '\nstudent1.grade = 10\nprint(student1)\nprint(student2)';
+  for (const mode of ['run', 'step']) {
+    const result = await runPython(code, [], mode);
+    assert.equal(result.output, "Student(name='Alice', grade=10)\nStudent(name='Bob', grade=12)\n");
+    assert.equal(result.variables.find(item => item.name === 'student1').type, 'Student');
+    assert.equal(result.variables.find(item => item.name === 'student2').value, "Student(name='Bob', grade=12)");
+  }
+});
+
+test('editable data classes support defaults, keywords, equality and constructor errors', async () => {
+  const base = 'from dataclasses import dataclass\n@dataclass\nclass Record:\n    name: str\n    score: int = 0\n';
+  const result = await runPython(base + 'a = Record(name="A")\nb = Record("A", score=0)\nprint(a == b)\na.score = "not enforced"\nprint(a)');
+  assert.equal(result.output, "True\nRecord(name='A', score='not enforced')\n");
+  for (const call of ['Record()', 'Record("A", name="B")', 'Record("A", extra=2)', 'Record("A", 1, 2)']) {
+    await assert.rejects(runPython(base + call), /TypeError/);
+  }
+});
+
+test('annotation lowering preserves strings and source lines during stepping', async () => {
+  const text = '"""\nclass Example:\n    name: str\n"""';
+  const code = 'from dataclasses import dataclass\nsample = ' + text + '\n@dataclass\nclass Example:\n    name: str\nitem = Example("A")\nprint(sample)\nprint(item)';
+  const result = await runPython(code, [], 'step');
+  assert.equal(result.output, "\nclass Example:\n    name: str\n\nExample(name='A')\n");
+  const assignment = result.steps.find(step => step.line === 10);
+  assert.equal(assignment.variables.find(item => item.name === 'item').value, "Example(name='A')");
+});

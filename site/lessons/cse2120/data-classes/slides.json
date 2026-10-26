@@ -1,0 +1,141 @@
+[
+  {
+    "title": "Data Structures",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 4: Data Classes",
+    "bullets": [
+      "Similar to dictionaries, but trading flexibility for consistency and better code completion."
+    ]
+  },
+  {
+    "title": "Data Classes",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A data class is a class designed primarily to store a related collection of data.",
+      "Unlike dictionaries, data classes define exactly which fields an object is expected to have, reducing mistakes caused by misspelled or inconsistent dictionary keys.",
+      "Type annotations can also describe what type of data should be stored in each field, making the structure easier to understand and allowing development tools to identify some mistakes.",
+      "Data classes are especially useful when your program repeatedly works with the same type of structured data."
+    ]
+  },
+  {
+    "title": "Importing dataclass",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "Data classes are provided by Python's built-in dataclasses module.",
+      "The dataclass decorator can be imported using from dataclasses import dataclass.",
+      "Once imported, @dataclass can be used when defining a class."
+    ],
+    "code": "from dataclasses import dataclass",
+    "expectedOutput": "",
+    "inlineCode": [
+      "dataclasses",
+      "dataclass",
+      "from dataclasses import dataclass",
+      "@dataclass"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Creating a Data Class with @dataclass",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "A data class is created by placing the @dataclass decorator directly above a class definition.",
+      "The decorator tells Python to automatically create common class functionality based on the fields you define.",
+      "For example, Python automatically creates the constructor needed to give those fields their initial values."
+    ],
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Student:\n    name: str\n    grade: int",
+    "expectedOutput": "",
+    "inlineCode": [
+      "@dataclass"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Defining Fields",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "Fields are the individual pieces of data that each instance of a data class stores.",
+      "Each field is defined with a name followed by a type annotation, such as name: str or grade: int.",
+      "Type annotations clearly communicate what type of value is expected for each field and can help code editors and type-checking tools identify mistakes."
+    ],
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Student:\n    name: str\n    grade: int\n    average: float",
+    "expectedOutput": "",
+    "inlineCode": [
+      "name: str",
+      "grade: int"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Dataclasses Are Templates",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "A data class functions as a template that describes what information should be stored for a particular type of data.",
+      "Every instance created from the data class follows the same structure while storing its own values.",
+      "This makes data classes useful when a program needs to keep track of many records containing the same kinds of information."
+    ],
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Student:\n    name: str\n    grade: int\n\nstudent1 = Student(\"Alice\", 11)\nstudent2 = Student(\"Bob\", 12)",
+    "expectedOutput": "",
+    "inlineCode": [],
+    "denseText": true,
+    "compactCode": true
+  },
+  {
+    "title": "Creating Instances",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "Once a data class has been defined, you can create instances of it just like a regular class.",
+      "Values are provided for the fields when the instance is created, usually in the same order that the fields were defined.",
+      "Each instance is a separate object containing its own data."
+    ],
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Student:\n    name: str\n    grade: int\n\nstudent = Student(\"Alice\", 11)\nprint(student)",
+    "expectedOutput": "Student(name='Alice', grade=11)\n",
+    "inlineCode": [],
+    "denseText": true,
+    "initialOutput": "Student(name='Alice', grade=11)\n",
+    "compactCode": true
+  },
+  {
+    "title": "Accessing Fields with Dot Notation",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "The fields stored in a data class instance can be accessed using dot notation.",
+      "Write the instance variable followed by a period . and the name of the field you want to access.",
+      "This provides a clear way to retrieve individual pieces of data from an instance."
+    ],
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Student:\n    name: str\n    grade: int\nstudent = Student(\"Alice\", 11)\nprint(student.name)\nprint(student.grade)",
+    "expectedOutput": "Alice\n11\n",
+    "inlineCode": [
+      "."
+    ],
+    "denseText": true,
+    "initialOutput": "Alice\n11\n",
+    "compactCode": true
+  },
+  {
+    "title": "Changing Fields with Dot Notation",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "By default, the fields of a data class can be changed after an instance has been created.",
+      "Use dot notation to access the field and the assignment operator = to give it a new value.",
+      "This changes the field for that specific instance without affecting other instances of the data class."
+    ],
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Student:\n    name: str\n    grade: int\nstudent = Student(\"Alice\", 11)\nstudent.grade = 12\nprint(student)",
+    "expectedOutput": "Student(name='Alice', grade=12)\n",
+    "inlineCode": [
+      "="
+    ],
+    "denseText": true,
+    "initialOutput": "Student(name='Alice', grade=12)\n",
+    "compactCode": true
+  }
+]

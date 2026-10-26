@@ -1,11 +1,18 @@
 /* One disposable worker per run isolates the interpreter and allows Stop to
    interrupt loops immediately, including while waiting for terminal input. */
 importScripts('../../vendor/skulpt/skulpt.min.js', '../../vendor/skulpt/skulpt-stdlib.js');
+importScripts('./dataclasses-compat.js');
 
 let acceptInput = null, advanceStep = null, stepping = false, currentLine = null, currentFile = null;
 function variablesFor(scope) {
   return Object.entries(scope || {})
-    .filter(([name, value]) => !name.startsWith('__') && value && ['str', 'int', 'float', 'bool', 'list', 'dict', 'tuple', 'NoneType'].includes(value.tp$name))
+    .filter(([name, value]) => {
+      if (name.startsWith('__') || !value) return false;
+      if (['str', 'int', 'float', 'bool', 'list', 'dict', 'tuple', 'NoneType'].includes(value.tp$name)) return true;
+      if (Sk.builtin.checkClass(value)) return false;
+      try { return !!Sk.abstr.gattr(value, new Sk.builtin.str('__dataclass_fields__'), false); }
+      catch { return false; }
+    })
     .map(([name, value]) => {
       const representation = Sk.misceval.objectRepr(value);
       return { name: Sk.unfixReserved(name), type: value.tp$name, value: typeof representation === 'string' ? representation : representation.v,
@@ -48,8 +55,9 @@ self.onmessage = async ({ data }) => {
     },
     read(filename) {
       const localName = Object.keys(files).find(name => filename === name || filename.endsWith('/' + name));
-      if (localName) return files[localName];
+      if (localName) return prepareClassAnnotations(files[localName]);
       const contents = Sk.builtinFiles?.files?.[filename];
+      if (filename === 'src/lib/dataclasses.py') return dataclassesModule;
       if (contents === undefined) throw new Error(`Module not available: ${filename}`);
       return contents;
     },
@@ -63,7 +71,7 @@ self.onmessage = async ({ data }) => {
   });
   try {
     const module = await Sk.misceval.asyncToPromise(
-      () => Sk.importMainWithBody(entryFile.replace(/\.py$/, ''), false, data.code, true),
+      () => Sk.importMainWithBody(entryFile.replace(/\.py$/, ''), false, prepareClassAnnotations(data.code), true),
       { 'Sk.debug': suspension => {
         if (!stepping) return;
         let frame = suspension;

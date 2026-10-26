@@ -1,0 +1,38 @@
+[
+  {
+    "page": 1,
+    "text": "Data Structures\nPart 4: Data Classes\nSimilar to dictionaries, but\ntrading flexibility for consistency\nand better code completion."
+  },
+  {
+    "page": 2,
+    "text": "Data Classes\nA data class is a class designed primarily to store a related collection of\ndata.\nUnlike dictionaries, data classes define exactly which fields an object is\nexpected to have, reducing mistakes caused by misspelled or\ninconsistent dictionary keys.\nType annotations can also describe what type of data should be stored in\neach field, making the structure easier to understand and allowing\ndevelopment tools to identify some mistakes.\nData classes are especially useful when your program repeatedly works\nwith the same type of structured data."
+  },
+  {
+    "page": 3,
+    "text": "dataclass\nImporting\nData classes are provided by\nfrom dataclasses import dataclass\nPython's built-in dataclasses\nmodule.\nThe dataclass decorator can be\nimported using\nfrom dataclasses import dataclass.\nOnce imported, @dataclass can\nbe used when defining a class."
+  },
+  {
+    "page": 4,
+    "text": "@dataclass\nCreating a Data Class with\nA data class is created by\nfrom dataclasses import dataclass\nplacing the @dataclass\ndecorator directly above a\nclass definition.\n@dataclass\nThe decorator tells Python to\nautomatically create common\nclass Student:\nclass functionality based on the\nfields you define. name: str\nFor example, Python\ngrade: int\nautomatically creates the\nconstructor needed to give\nthose fields their initial values."
+  },
+  {
+    "page": 5,
+    "text": "Defining Fields\nFields are the individual pieces of\nfrom dataclasses import dataclass\ndata that each instance of a data\nclass stores.\nEach field is defined with a name\n@dataclass\nfollowed by a type annotation,\nsuch as name: str or grade: int.\nclass Student:\nType annotations clearly\ncommunicate what type of value name: str\nis expected for each field and can\ngrade: int\nhelp code editors and\ntype-checking tools identify\naverage: float\nmistakes."
+  },
+  {
+    "page": 6,
+    "text": "Dataclasses Are Templates\nA data class functions as a from dataclasses import dataclass\ntemplate that describes what\ninformation should be stored for a\nparticular type of data.\n@dataclass\nEvery instance created from the class Student:\ndata class follows the same\nname: str\nstructure while storing its own\nvalues. grade: int\nThis makes data classes useful\nwhen a program needs to keep\nstudent1 = Student(\"Alice\", 11)\ntrack of many records containing\nthe same kinds of information. student2 = Student(\"Bob\", 12)"
+  },
+  {
+    "page": 7,
+    "text": "Creating Instances\nfrom dataclasses import dataclass\nOnce a data class has been\ndefined, you can create\n@dataclass\ninstances of it just like a regular class Student:\nname: str\nclass.\ngrade: int\nValues are provided for the\nstudent = Student(\"Alice\", 11)\nfields when the instance is\ncreated, usually in the same print(student)\norder that the fields were\ndefined.\nOUTPUT\nEach instance is a separate Student(name='Alice', grade=11)\nobject containing its own data."
+  },
+  {
+    "page": 8,
+    "text": "Accessing Fields with Dot Notation\nfrom dataclasses import dataclass\nThe fields stored in a data class\ninstance can be accessed using\n@dataclass\nclass Student:\ndot notation.\nname: str\ngrade: int\nWrite the instance variable\nfollowed by a period . and the student = Student(\"Alice\", 11)\nname of the field you want to\nprint(student.name)\nprint(student.grade)\naccess.\nThis provides a clear way to\nretrieve individual pieces of OUTPUT\ndata from an instance. Alice\n11"
+  },
+  {
+    "page": 9,
+    "text": "Changing Fields with Dot Notation\nfrom dataclasses import dataclass\nBy default, the fields of a data\nclass can be changed after an\n@dataclass\nclass Student:\ninstance has been created.\nname: str\ngrade: int\nUse dot notation to access the\nfield and the assignment student = Student(\"Alice\", 11)\noperator = to give it a new value.\nstudent.grade = 12\nThis changes the field for that print(student)\nspecific instance without\naffecting other instances of the OUTPUT\ndata class. Student(name='Alice', grade=12)"
+  }
+]

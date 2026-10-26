@@ -147,7 +147,7 @@ export function mountPlayground(root, slide) {
     status.textContent = stepMode ? 'Stepping' : 'Running';
     buttons.run.disabled = true; buttons.step.disabled = true; buttons.stop.disabled = false;
     try {
-      worker = new Worker(new URL('./python-worker.js?v=20261026-modules', import.meta.url));
+      worker = new Worker(new URL('./python-worker.js?v=20261026-dataclasses', import.meta.url));
       const activeWorker = worker;
       worker.onmessage = ({ data }) => {
         if (worker !== activeWorker) return;
