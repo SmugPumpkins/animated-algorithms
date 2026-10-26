@@ -15,4 +15,4 @@ const server=http.createServer(async(req,res)=>{
   } catch {res.writeHead(404);res.end('Not found');}
 });
 const port=Number(process.env.PORT||4173);
-server.listen(port,'127.0.0.1',()=>console.log(`Animated Algorithms: http://127.0.0.1:${port}`));
+server.listen(port,'127.0.0.1',()=>console.log(`Learn CS: http://127.0.0.1:${port}`));

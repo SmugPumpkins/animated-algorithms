@@ -1,4 +1,4 @@
-name: Publish algorithm library
+name: Publish Learn CS
 on:
   push:
     branches: [main]

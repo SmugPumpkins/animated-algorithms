@@ -1,4 +1,4 @@
-# Animated Algorithms
+# Learn CS
 
 A classroom library of interactive CTS Computer Science demonstrations, organized into two classes:
 
@@ -35,13 +35,13 @@ Buttons and a speed selector support touch and mouse input. Changing the selecto
 
 ## Publish to GitHub Pages
 
-Target repository: https://github.com/SmugPumpkins/animated-algorithms
+Target repository: https://github.com/SmugPumpkins/learn-cs
 
 1. Push this project to the repository's `main` branch.
 2. In **Settings → Pages → Build and deployment**, choose **GitHub Actions** as the source.
 3. The **Publish algorithm library** workflow tests the code, then publishes `site/`. If needed, start it manually from **Actions → Publish algorithm library → Run workflow**.
 
-Expected URL after successful deployment: https://SmugPumpkins.github.io/animated-algorithms/
+Expected URL after successful deployment: https://SmugPumpkins.github.io/learn-cs/
 
 Relative asset URLs and hash-based navigation support project subdirectories and refreshes without server routing. Only `site/` is uploaded. Deployment follows [GitHub's official Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 

@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#101827"/><path d="M18 18v27h28m-9-9 9 9-9 9" fill="none" stroke="#b8ed72" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">Learn CS</title>
+  <defs>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.2"/></filter>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="12" fill="#0c0c1d" stroke="#3d3559"/>
+  <g fill="none" stroke-width="5" stroke-linecap="square" stroke-linejoin="bevel">
+    <g opacity=".45" filter="url(#glow)"><path d="M28 20H15l-5 5v14l5 5h13" stroke="#4de8f4"/><path d="M54 20H40l-5 5v4l5 3h9l5 4v4l-5 4H35" stroke="#ff6adf"/></g>
+    <path d="M28 20H15l-5 5v14l5 5h13" stroke="#4de8f4"/>
+    <path d="M54 20H40l-5 5v4l5 3h9l5 4v4l-5 4H35" stroke="#ff6adf"/>
+  </g>
+</svg>

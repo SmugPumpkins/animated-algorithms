@@ -59,7 +59,7 @@ async function render() {
   window.scrollTo(0, 0);
 
   if (parts.length === 0) {
-    document.title = 'Animated Algorithms · Course library';
+    document.title = 'Learn CS · Course library';
     main.innerHTML = `<section class="hero learning-hero">
       <div class="hero-content">
         <h1>Computer science.<br><span>Step by step.</span></h1>
@@ -85,14 +85,14 @@ async function render() {
     textObserver.observe(textBlock);
     cleanup = () => textObserver.disconnect();
   } else if (parts[0] === 'courses' && course && parts.length === 2) {
-    document.title = `${course.title} · Animated Algorithms`;
+    document.title = `${course.title} · Learn CS`;
     main.innerHTML = `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Classes</a><span>/</span><span>${course.title}</span></nav>
       <section class="module-intro class-intro"><h1>${course.title}</h1><p>${course.description}</p>
 
       </section><div class="library">${courseSection(course, true)}</div>`;
     showCurriculum();
   } else if (parts[0] === 'modules' && module && parts.length === 2) {
-    document.title = `${module.code} · Animated Algorithms`;
+    document.title = `${module.code} · Learn CS`;
     main.innerHTML = `${breadcrumb(module)}
       <section class="module-intro"><p class="eyebrow">${module.code}</p><h1>${module.title}</h1><p>${module.description}</p></section>
       <section class="course-overview"><h2>Module topics</h2><ul class="course-topics">${(module.curriculumTopics || module.topics).map(topic => `<li>${topic}</li>`).join('')}</ul></section>
@@ -115,7 +115,7 @@ async function render() {
       console.error(error);
     }
   } else {
-    document.title = 'Page not found · Animated Algorithms';
+    document.title = 'Page not found · Learn CS';
     main.innerHTML = '<section class="module-intro"><h1>That page isn’t in the library.</h1><p><a href="#/">Return to classes →</a></p></section>';
   }
 }
