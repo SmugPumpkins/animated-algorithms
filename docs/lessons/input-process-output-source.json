@@ -1,0 +1,70 @@
+[
+  {
+    "page": 1,
+    "text": "Input, Process, Output\nThe basic\nbreakdown of any\ncomputation!"
+  },
+  {
+    "page": 2,
+    "text": "Input, Process, and Output\nMost programs can be broken into three main parts:\ninput, process, and output.\nInput is information that enters the program,\nprocess is what the program does with that\ninformation, and output is the result produced.\nThis is called the Input-Process-Output (IPO)\nModel."
+  },
+  {
+    "page": 3,
+    "text": "Planning with IPO Charts\nAn IPO Chart identifies what information a program needs, what it will do with that information, and what result it\nwill produce.\nIPO charts help organize a program before any code is written.\nEach section describes the purpose of that stage rather than the exact Python syntax.\nINPUT PROCESS OUTPUT\n\u2022 \u2022 \u2022\nUser enters their Store the name Display a greeting\nname"
+  },
+  {
+    "page": 4,
+    "text": "Input - User Input\nInput is information provided input(\"What is your name? \")\nto a program so it can\nperform a task.\nPrograms can receive input\nfrom many sources,\nincluding keyboards, sensors,\ncameras, and files.\nIn Python, input() is used to\ncollect text entered by the\nuser in the terminal.\nOUTPUT\nThe program waits at\nWhat is your name? Mr. Forsyth\ninput() until the user types a\nresponse and presses Enter.\nPrompt Typed by user"
+  },
+  {
+    "page": 5,
+    "text": "Input - Input Prompts\ninput(\"Enter your favourite colour: \")\nThe string inside\ninput() is called the\nprompt.\nIt is displayed before\nPython waits for the\nuser's response.\nA clear prompt tells\nthe user exactly what OUTPUT\nEnter your favourite colour: Orange\ninformation they\nshould enter.\nPrompt Typed by user"
+  },
+  {
+    "page": 6,
+    "text": "Input - Storing User Input\nThe value returned by name = input(\"What is your name? \")\ninput() can be assigned\nprint(name)\nto a variable.\nThis allows the program\nto remember the user's\nresponse and use it\nlater.\nThe variable stores\nOUTPUT\nwhatever text the user\nWhat is your name? Mr. Forsyth\nentered.\nMr. Forsyth"
+  },
+  {
+    "page": 7,
+    "text": "Process \u2013 Using Input in Your Program\nA process is an action\nperformed on data, such\nas a calculation,\nnumber = input(\"Enter a number: \") Input\nmodification, or decision.\nAfter receiving input, a\nprogram can process\nnumber = int(number)\nProcess\nthat information and then doubled = number * 2\ndisplay a result.\nThe example code in this\nprint(f\"Double your number is {doubled}.\")\nslide includes some Output\nconcepts covered later in\nthese slides."
+  },
+  {
+    "page": 8,
+    "text": "Process - User Input Is a String\nThe input() function name = input(\"What is your name? \")\nalways returns a string,\neven when the user types\nprint(name)\na number.\nThis means \"5\" and 5 are\ndifferent values: \"5\" is text,\nwhile 5 is an integer.\nIf Python tries to use the\nstring \"5\" in a\nmathematical operation, it\nOUTPUT\ncan cause an error\nEnter a number: 5\nbecause it is not being\nTypeError: can only concatenate str (not \"int\") to str\ntreated as a number."
+  },
+  {
+    "page": 9,
+    "text": "int float\nProcess - Casting Input to or\nCasting converts a whole_number = input(\"Enter a whole number: \")\nwhole_number = int(whole_number)\nvalue from one datatype\nprint(whole_number)\nto another.\nint() converts a string\ninto a whole number. decimal_number = input(\"Enter a decimal number: \")\ndecimal_number = float(decimal_number)\nfloat() converts a string\nprint(decimal_number * 2)\ninto a decimal number.\nThis allows numeric user\nOUTPUT\nEnter a whole number: 5\ninput to be used in\n5\ncalculations.\nEnter a decimal number: 2.5\n5.0"
+  },
+  {
+    "page": 10,
+    "text": "print()\nOutput with\nOutput is information name = \"Alex\"\nscore = 10\nproduced by a\nprogram.\nprint(name)\nIn Python, print() is\nprint(score)\ncommonly used to\ndisplay output in the\nterminal.\nIt can display strings, OUTPUT\nAlex\nvariables, numbers,\nand other values. 10"
+  },
+  {
+    "page": 11,
+    "text": "Output - Combining Strings with Concatenation\nConcatenation means name = \"Alex\"\nscore = 10\njoining strings together\nusing +.\nprint(\"Player: \" + name + \" Score: \" + str(score))\nBecause concatenation\njoins strings, other\ndatatypes must first be\nconverted using str().\nThis works well for\nsimple messages, but\nOUTPUT\nlarger statements can\nPlayer: Alex Score: 10\nbecome difficult to read."
+  },
+  {
+    "page": 12,
+    "text": "Output - Combining Output with Commas\nMultiple values can be placed name = \"Alex\"\ninside print() by separating\nscore = 10\nthem with commas.\nPython automatically adds a print(\"Player:\", name, \"Score:\", score)\nspace between the values and\ncan display different datatypes\ntogether.\nThis is a simple way to combine\ntext and variables.\nThe downside to using commas\nis that it always adds a space\nOUTPUT\nbetween your values.\nPlayer: Alex Score: 10"
+  },
+  {
+    "page": 13,
+    "text": "Output - Formatted Strings\nA formatted string, or f-string, name = \"Alex\"\nallows variables and score = 10\nexpressions to be inserted\ndirectly into a string.\nprint(f\"Player: {name} | Score: {score}\")\nAdd f before the opening\nquotation mark and place\nvalues inside curly brackets {}.\nF-strings are usually the\nclearest way to create output\ncontaining several variables.\nThey can also include numbers\nOUTPUT\nwithout converting them to\nPlayer: Alex | Score: 10\nstrings first."
+  },
+  {
+    "page": 14,
+    "text": "Formatting Text - Escape Characters\nAn escape character changes message = \"Alex said, \\\"Hello!\\\"\"\nhow Python interprets the\ncharacter that follows it.\nprint(message)\nPython uses the backslash \\ as\nits escape character. Notice that the\nescaped quotation\n(Make sure you don\u2019t get\nmarks change to\nconfused with the forward slash\norange!\ncharacter / which is not an\nescape character).\nThis allows special characters,\nsuch as quotation marks, to be\nOUTPUT\nplaced inside strings without\nAlex said, \"Hello!\"\nending the string early."
+  },
+  {
+    "page": 15,
+    "text": "\\n\nFormatting Text - The Newline Character\n\\n creates a new line print(\"First Line\\nSecond Line\")\ninside a string.\nIt can be used in\nnormal strings,\nformatted strings, or\ninput prompts.\nThis is useful when\noutput needs to be OUTPUT\nFirst Line\nsplit across multiple\nSecond Line\nlines."
+  },
+  {
+    "page": 16,
+    "text": "\\n\nPro Tip: Using in an Input Prompt\nname = input(\"Enter your name:\\n\")\nA newline can also be\nplaced inside the\nprint(f\"Hello, {name}!\")\nprompt used by\ninput().\nThis moves the user's\ntyping position onto\nthe next line.\nIt can make longer OUTPUT\nEnter your name:\nprompts easier to\nMr. Forsyth\nread.\nHello, Mr. Forsyth!"
+  },
+  {
+    "page": 17,
+    "text": "IPO Wrap Up\nPython programs commonly follow the Input-Process-\nOutput (IPO) model.\ninput() collects information from the user and always\nreturns that information as a string, so numeric input may\nneed to be cast with int() or float().\nprint() displays output, and values can be combined using\ncommas, concatenation, or f-strings, with f-strings usually\nproviding the clearest formatting.\nEscape sequences such as \\n and \\\" can also be used to\ncontrol how strings are displayed."
+  }
+]

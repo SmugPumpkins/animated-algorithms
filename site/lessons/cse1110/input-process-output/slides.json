@@ -1,0 +1,343 @@
+[
+  {
+    "title": "Input, Process, Output",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "The basic breakdown of any computation!",
+    "bullets": []
+  },
+  {
+    "title": "Input, Process, and Output",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "Most programs can be broken into three main parts: input, process, and output.",
+      "Input is information that enters the program, process is what the program does with that information, and output is the result produced.",
+      "This is called the Input-Process-Output (IPO) Model."
+    ]
+  },
+  {
+    "title": "Planning with IPO Charts",
+    "kind": "text",
+    "sourcePage": 3,
+    "paragraphs": [
+      "An IPO Chart identifies what information a program needs, what it will do with that information, and what result it will produce.",
+      "IPO charts help organize a program before any code is written.",
+      "Each section describes the purpose of that stage rather than the exact Python syntax."
+    ],
+    "ipoChart": {
+      "headers": [
+        "INPUT",
+        "PROCESS",
+        "OUTPUT"
+      ],
+      "cells": [
+        "User enters their name",
+        "Store the name",
+        "Display a greeting"
+      ]
+    }
+  },
+  {
+    "title": "Input - User Input",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Input is information provided to a program so it can perform a task.",
+      "Programs can receive input from many sources, including keyboards, sensors, cameras, and files.",
+      "In Python, input() is used to collect text entered by the user in the terminal.",
+      "The program waits at input() until the user types a response and presses Enter."
+    ],
+    "code": "input(\"What is your name? \")",
+    "expectedOutput": "What is your name? Mr. Forsyth\n",
+    "testInputs": [
+      "Mr. Forsyth"
+    ],
+    "inlineCode": [
+      "input()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "What is your name? Mr. Forsyth\n",
+    "terminalNote": "Prompt · Typed by user"
+  },
+  {
+    "title": "Input - Input Prompts",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "The string inside input() is called the prompt.",
+      "It is displayed before Python waits for the user's response.",
+      "A clear prompt tells the user exactly what information they should enter."
+    ],
+    "code": "input(\"Enter your favourite colour: \")",
+    "expectedOutput": "Enter your favourite colour: Orange\n",
+    "testInputs": [
+      "Orange"
+    ],
+    "inlineCode": [
+      "input()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Enter your favourite colour: Orange\n",
+    "terminalNote": "Prompt · Typed by user"
+  },
+  {
+    "title": "Input - Storing User Input",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "The value returned by input() can be assigned to a variable.",
+      "This allows the program to remember the user's response and use it later.",
+      "The variable stores whatever text the user entered."
+    ],
+    "code": "name = input(\"What is your name? \")\n\nprint(name)",
+    "expectedOutput": "What is your name? Mr. Forsyth\nMr. Forsyth\n",
+    "testInputs": [
+      "Mr. Forsyth"
+    ],
+    "inlineCode": [
+      "input()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "What is your name? Mr. Forsyth\nMr. Forsyth\n"
+  },
+  {
+    "title": "Process – Using Input in Your Program",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "A process is an action performed on data, such as a calculation, modification, or decision.",
+      "After receiving input, a program can process that information and then display a result.",
+      "The example code in this slide includes some concepts covered later in these slides."
+    ],
+    "code": "number = input(\"Enter a number: \")\n\nnumber = int(number)\ndoubled = number * 2\n\nprint(f\"Double your number is {doubled}.\")",
+    "expectedOutput": "Enter a number: 5\nDouble your number is 10.\n",
+    "testInputs": [
+      "5"
+    ],
+    "inlineCode": [],
+    "denseText": true,
+    "compactCode": true,
+    "stageLabels": [
+      "Input",
+      "Process",
+      "Output"
+    ]
+  },
+  {
+    "title": "Process - User Input Is a String",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "The input() function always returns a string, even when the user types a number.",
+      "This means \"5\" and 5 are different values: \"5\" is text, while 5 is an integer.",
+      "If Python tries to use the string \"5\" in a mathematical operation, it can cause an error because it is not being treated as a number."
+    ],
+    "code": "number = input(\"Enter a number: \")\nprint(number + 1)",
+    "testInputs": [
+      "5"
+    ],
+    "inlineCode": [
+      "input()",
+      "\"5\"",
+      "5"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Enter a number: 5\nTypeError: can only concatenate str (not \"int\") to str\n",
+    "expectedError": "TypeError"
+  },
+  {
+    "title": "Process - Casting Input to int or float",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "Casting converts a value from one datatype to another.",
+      "int() converts a string into a whole number.",
+      "float() converts a string into a decimal number.",
+      "This allows numeric user input to be used in calculations."
+    ],
+    "code": "whole_number = input(\"Enter a whole number: \")\nwhole_number = int(whole_number)\nprint(whole_number)\n\ndecimal_number = input(\"Enter a decimal number: \")\ndecimal_number = float(decimal_number)\nprint(decimal_number * 2)",
+    "expectedOutput": "Enter a whole number: 5\n5\nEnter a decimal number: 2.5\n5.0\n",
+    "testInputs": [
+      "5",
+      "2.5"
+    ],
+    "inlineCode": [
+      "int",
+      "float",
+      "int()",
+      "float()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Enter a whole number: 5\n5\nEnter a decimal number: 2.5\n5.0\n"
+  },
+  {
+    "title": "Output with print()",
+    "kind": "code",
+    "sourcePage": 10,
+    "paragraphs": [
+      "Output is information produced by a program.",
+      "In Python, print() is commonly used to display output in the terminal.",
+      "It can display strings, variables, numbers, and other values."
+    ],
+    "code": "name = \"Alex\"\nscore = 10\n\nprint(name)\nprint(score)",
+    "expectedOutput": "Alex\n10\n",
+    "testInputs": [],
+    "inlineCode": [
+      "print()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Alex\n10\n"
+  },
+  {
+    "title": "Output - Combining Strings with Concatenation",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "Concatenation means joining strings together using +.",
+      "Because concatenation joins strings, other datatypes must first be converted using str().",
+      "This works well for simple messages, but larger statements can become difficult to read."
+    ],
+    "code": "name = \"Alex\"\nscore = 10\n\nprint(\"Player: \" + name + \" Score: \" + str(score))",
+    "expectedOutput": "Player: Alex Score: 10\n",
+    "testInputs": [],
+    "inlineCode": [
+      "+",
+      "str()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Player: Alex Score: 10\n",
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Output - Combining Output with Commas",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "Multiple values can be placed inside print() by separating them with commas.",
+      "Python automatically adds a space between the values and can display different datatypes together.",
+      "This is a simple way to combine text and variables.",
+      "The downside to using commas is that it always adds a space between your values."
+    ],
+    "code": "name = \"Alex\"\nscore = 10\n\nprint(\"Player:\", name, \"Score:\", score)",
+    "expectedOutput": "Player: Alex Score: 10\n",
+    "testInputs": [],
+    "inlineCode": [
+      "print()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Player: Alex Score: 10\n"
+  },
+  {
+    "title": "Output - Formatted Strings",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "A formatted string, or f-string, allows variables and expressions to be inserted directly into a string.",
+      "Add f before the opening quotation mark and place values inside curly brackets {}.",
+      "F-strings are usually the clearest way to create output containing several variables.",
+      "They can also include numbers without converting them to strings first."
+    ],
+    "code": "name = \"Alex\"\nscore = 10\n\nprint(f\"Player: {name} | Score: {score}\")",
+    "expectedOutput": "Player: Alex | Score: 10\n",
+    "testInputs": [],
+    "inlineCode": [
+      "f",
+      "{}"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Player: Alex | Score: 10\n"
+  },
+  {
+    "title": "Formatting Text - Escape Characters",
+    "kind": "code",
+    "sourcePage": 14,
+    "paragraphs": [
+      "An escape character changes how Python interprets the character that follows it.",
+      "Python uses the backslash \\ as its escape character.",
+      "(Make sure you don’t get confused with the forward slash character / which is not an escape character).",
+      "This allows special characters, such as quotation marks, to be placed inside strings without ending the string early.",
+      "Notice that the escaped quotation marks change to orange!"
+    ],
+    "code": "message = \"Alex said, \\\"Hello!\\\"\"\n\nprint(message)",
+    "expectedOutput": "Alex said, \"Hello!\"\n",
+    "testInputs": [],
+    "inlineCode": [
+      "\\",
+      "/"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Alex said, \"Hello!\"\n",
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Formatting Text - The Newline Character \\n",
+    "kind": "code",
+    "sourcePage": 15,
+    "paragraphs": [
+      "\\n creates a new line inside a string.",
+      "It can be used in normal strings, formatted strings, or input prompts.",
+      "This is useful when output needs to be split across multiple lines."
+    ],
+    "code": "print(\"First Line\\nSecond Line\")",
+    "expectedOutput": "First Line\nSecond Line\n",
+    "testInputs": [],
+    "inlineCode": [
+      "\\n"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "First Line\nSecond Line\n"
+  },
+  {
+    "title": "Pro Tip: Using \\n in an Input Prompt",
+    "kind": "code",
+    "sourcePage": 16,
+    "paragraphs": [
+      "A newline can also be placed inside the prompt used by input().",
+      "This moves the user's typing position onto the next line.",
+      "It can make longer prompts easier to read."
+    ],
+    "code": "name = input(\"Enter your name:\\n\")\n\nprint(f\"Hello, {name}!\")",
+    "expectedOutput": "Enter your name:\nMr. Forsyth\nHello, Mr. Forsyth!\n",
+    "testInputs": [
+      "Mr. Forsyth"
+    ],
+    "inlineCode": [
+      "\\n",
+      "input()"
+    ],
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "Enter your name:\nMr. Forsyth\nHello, Mr. Forsyth!\n"
+  },
+  {
+    "title": "IPO Wrap Up",
+    "kind": "text",
+    "sourcePage": 17,
+    "paragraphs": [
+      "Python programs commonly follow the Input-Process-Output (IPO) model.",
+      "input() collects information from the user and always returns that information as a string, so numeric input may need to be cast with int() or float().",
+      "print() displays output, and values can be combined using commas, concatenation, or f-strings, with f-strings usually providing the clearest formatting.",
+      "Escape sequences such as \\n and \\\" can also be used to control how strings are displayed."
+    ],
+    "inlineCode": [
+      "input()",
+      "int()",
+      "float()",
+      "print()",
+      "\\n",
+      "\\\""
+    ]
+  }
+]

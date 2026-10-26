@@ -101,3 +101,9 @@ The teacher moved string manipulation into Data Structures. This 15-slide plain-
 The virtual filesystem uses Skulpt's nonreadopen/fileopen/filewrite hooks, preserving final lines without newlines. It supports the lesson's introductory text modes; binary files, directory operations and full CPython filesystem behavior are outside this implementation. Tests verify source fidelity with the Part 1 exception, real output and resulting file contents in both execution modes, missing reads and creation on append.
 
 `kind: "cycle"` presents the read-process-write cycle as native SVG using shared flowchart roles and colors. The wide final code example puts its virtual file beside the editor. Path callouts remain complete paragraphs in a compact explanation layout.
+
+## Input, Process, Output (CSE 1110, lesson 2)
+
+The 17-slide deck retains its wording and order, with extracted PDF text in `input-process-output-source.json`. The teacher explicitly approved correcting slide 8's mismatched name-input code to `number = input("Enter a number: ")` followed by `print(number + 1)`, so its actual TypeError matches the explanation. The source terminal image's wording is retained in the source fixture; execution displays the interpreter's genuine error message.
+
+All other code examples are transcribed from the source and support real terminal input, Run and Step. Tests cover every example in both modes, numeric casting, newline prompts, escape sequences and the corrected error. `ipoChart` supplies headers and one row of purpose descriptions for a native accessible planning table. Optional `stageLabels` retains the Input/Process/Output labels alongside the processing example. Source prompt/user annotations appear as a compact terminal note; the terminal always starts empty.

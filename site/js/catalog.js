@@ -31,6 +31,10 @@ export const modules = [
       id: 'introduction-to-python', number: 1, title: 'Introduction to Python',
       description: 'Python datatypes, variables and console output.',
       slideCount: 16, href: './lessons/cse1110/introduction-to-python/',
+    }, {
+      id: 'input-process-output', number: 2, title: 'Input, Process, Output',
+      description: 'IPO planning, real terminal input, numeric casting, output formatting and escape characters.',
+      slideCount: 17, href: './lessons/cse1110/input-process-output/',
     }]),
   moduleEntry('CSE 1120', 'Structured Programming 2',
     'Add decisions, repetition and blocks to structured programs.',

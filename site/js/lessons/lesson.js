@@ -28,6 +28,8 @@ function slideMarkup(slide, index) {
   }).join('')}</svg>` : '';
   const title = `<h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>${inlineCode(slide.title, slide.inlineCode)}${slide.sourceUrl ? `<a class="lesson-source" href="${escapeHtml(slide.sourceUrl)}" target="_blank" rel="noopener">GitHub source ↗</a>` : ''}</h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>`;
   const paragraphs = (slide.paragraphs || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('');
+  const stages = slide.stageLabels ? `<ol class="ipo-stages" aria-label="Program stages">${slide.stageLabels.map(label => `<li>${escapeHtml(label)}</li>`).join('')}</ol>` : '';
+  const ipoChart = slide.ipoChart ? `<table class="ipo-chart"><thead><tr>${slide.ipoChart.headers.map(header => `<th scope="col">${escapeHtml(header)}</th>`).join('')}</tr></thead><tbody><tr>${slide.ipoChart.cells.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr></tbody></table>` : '';
   const indexGrid = slide.indexGrid ? `<table class="lesson-index-grid" aria-label="Row and column indices"><tbody>${slide.indexGrid.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
   const annotations = (slide.annotations || []).map(note => `<div><h3>${escapeHtml(note.title)}</h3><p>${inlineCode(note.text, slide.inlineCode)}</p></div>`).join('');
   const documentation = slide.documentation;
@@ -37,6 +39,8 @@ function slideMarkup(slide, index) {
       ? `${title}<div class="source-body wide-caption">${paragraphs}</div><div class="documentation-layout">${playgroundMarkup(slide)}<aside class="documentation-preview" aria-label="Function documentation"><pre>${escapeHtml(documentation.signature)}</pre><p>${escapeHtml(documentation.description)}</p><h3>Params:</h3><dl>${documentation.parameters.map(parameter => `<dt><span class="inline-code">${escapeHtml(parameter.name)}</span></dt><dd>${escapeHtml(parameter.description)}</dd>`).join('')}</dl><p><strong>Returns:</strong> ${escapeHtml(documentation.returns)}</p></aside></div>`
     : slide.kind === 'cycle'
     ? `${title}<div class="slide-columns"><div class="source-body">${paragraphs}</div>${cycle}</div>`
+    : slide.ipoChart
+    ? `${title}<div class="ipo-layout"><div class="source-body">${paragraphs}</div>${ipoChart}</div>`
     : slide.kind === 'text'
     ? `${title}<div class="source-body text-layout">${paragraphs}</div>`
     : slide.layout === 'wide' || slide.layout === 'annotated'
@@ -45,7 +49,7 @@ function slideMarkup(slide, index) {
     ? `<div class="cover-layout"><div class="cover-title">${title}</div><div class="source-body objectives"><p>${inlineCode(slide.intro, slide.inlineCode)}</p><ul>${slide.bullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul></div></div>`
     : slide.kind === 'closing'
       ? `<div class="closing-layout">${title}<div class="source-body">${paragraphs}</div></div>`
-      : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}${indexGrid}</div>${playgroundMarkup(slide)}</div>`;
+      : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}${stages}${indexGrid}</div>${playgroundMarkup(slide)}</div>`;
   return `<section class="lesson-slide ${slide.kind}-slide ${slide.layout ? `layout-${escapeHtml(slide.layout)}` : ''} ${slide.denseText ? 'dense-text' : ''}" id="slide-${index + 1}" data-source-page="${slide.sourcePage}" aria-label="Slide ${index + 1}: ${escapeHtml(slide.title)}"><div class="slide-content">${contents}</div></section>`;
 }
 

@@ -475,3 +475,35 @@ test('virtual files retain unterminated last lines, reject missing reads and iso
   }
   assert.equal((await runPython(read, [], 'run', 'step', {dataFiles:{'students.txt':'Original\n'}})).output, "['Original\\n']\n");
 });
+
+const ipoSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1110/input-process-output/slides.json'), 'utf8'));
+const ipoSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/input-process-output-source.json'), 'utf8'));
+test('IPO lesson retains 17 source slides and the approved slide 8 code correction', () => {
+  assert.equal(ipoSlides.length, 17);
+  ipoSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', ...(slide.stageLabels || []), ...(slide.ipoChart?.headers || []), ...(slide.ipoChart?.cells || []), slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : '', slide.terminalNote || ''].join('\n');
+    const original = index === 7 ? ipoSource[index].text.replace('name = input("What is your name? ")', 'number = input("Enter a number: ")').replace('print(name)', 'print(number + 1)') : ipoSource[index].text;
+    assert.deepEqual(words(text), words(original), `Source differs on slide ${index + 1}`);
+  });
+});
+
+test('IPO examples run and step with genuine input, formatting, escapes and TypeError', async () => {
+  for (const slide of ipoSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const execution = runPython(slide.code, slide.testInputs, mode);
+      if (slide.expectedError) await assert.rejects(execution, new RegExp(slide.expectedError));
+      else assert.equal((await execution).output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('IPO casting and newline prompts accept new responses and retain correct types', async () => {
+  const cast = await runPython(ipoSlides[8].code, ['12', '3.25'], 'step');
+  assert.equal(cast.output, 'Enter a whole number: 12\n12\nEnter a decimal number: 3.25\n6.5\n');
+  assert.equal(cast.variables.find(item => item.name === 'whole_number').type, 'int');
+  assert.equal(cast.variables.find(item => item.name === 'decimal_number').type, 'float');
+  const greeting = await runPython(ipoSlides[15].code, ['Ada'], 'step');
+  assert.equal(greeting.output, 'Enter your name:\nAda\nHello, Ada!\n');
+  assert.equal(greeting.promptCount, 1);
+});
