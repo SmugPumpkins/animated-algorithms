@@ -92,4 +92,4 @@ Outside slideshows, the visible Readable font toggle switches all text, includin
 
 Lesson output starts empty and appears only after Run. Reset clears output and restores the original example.
 
-Slideshow navigation stays minimal: module link, lesson title, a selector that always displays “Select slide”, and Fullscreen. Do not add Overview or Reading view. Python examples are always editable with live syntax highlighting; expose only Run, Stop and Reset.
+Slideshow navigation stays minimal: module link, lesson title, a selector that always displays “Select slide”, and Fullscreen. Do not add Overview or Reading view. Python examples are always editable with live syntax highlighting; expose only Run, Step, Stop and Reset.

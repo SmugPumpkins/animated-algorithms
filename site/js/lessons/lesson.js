@@ -1,6 +1,6 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
-import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-simple';
+import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-step';
 
 const $ = selector => document.querySelector(selector);
 function inlineCode(text, tokens = []) {
