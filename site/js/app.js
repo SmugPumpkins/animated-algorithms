@@ -77,6 +77,18 @@ async function render() {
       ${courses.map(course => courseSection(course)).join('')}
       ${curriculumSource}
     </section>`;
+    const textBlock = main.querySelector('.hero-content');
+    const flowchart = main.querySelector('.learning-flow');
+    const sizeFlowchart = () => {
+      // The SVG is 400 by 560; its width keeps its height within 1.5 times
+      // the whole text block, including the eyebrow, heading and paragraph.
+      const maximumHeight = textBlock.getBoundingClientRect().height * 1.5;
+      flowchart.style.setProperty('--learning-flow-width', `${maximumHeight * 400 / 560}px`);
+    };
+    sizeFlowchart();
+    const textObserver = new ResizeObserver(sizeFlowchart);
+    textObserver.observe(textBlock);
+    cleanup = () => textObserver.disconnect();
   } else if (parts[0] === 'courses' && course && parts.length === 2) {
     document.title = `${course.title} · Animated Algorithms`;
     main.innerHTML = `<nav class="breadcrumb" aria-label="Breadcrumb"><a href="#/">Classes</a><span>/</span><span>${course.title}</span></nav>
