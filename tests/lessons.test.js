@@ -679,3 +679,34 @@ test('edited conditions exercise boundaries, skipped blocks and first-match orde
     assert.equal((await runPython(examples[1].code,[],mode)).output,'C\n');
   }
 });
+
+test('selection flowchart uses editable Celsius values on both sides of the threshold', async () => {
+  const {flowchartSteps} = await import('../site/js/lessons/flowchart.js');
+  for (const [temperature,branch] of [[25,'hot'],[21,'sweater'],[20,'sweater'],[-10,'sweater'],[21.5,'hot']]) {
+    const steps = flowchartSteps('selection',{temperature});
+    assert.equal(steps[3].node,branch);
+    assert.match(steps[1].text,new RegExp(`= ${temperature} and WARM = 21`));
+  }
+  assert.throws(()=>flowchartSteps('selection',{temperature:NaN}),/finite/);
+});
+test('editing flowchart temperature resets playback, stops timers and validates input', async t => {
+  const {mountFlowchart} = await import('../site/js/lessons/flowchart.js');
+  t.mock.timers.enable({apis:['setInterval']});
+  const buttons = ['run','step','stop','reset'].map(name=>Object.assign(new EventTarget(),{dataset:{flow:name},disabled:false}));
+  const action = {textContent:'',classList:{add(){},remove(){}}}, count = {textContent:''};
+  const temperature = Object.assign(new EventTarget(),{value:'25',valueAsNumber:25,setAttribute(){}});
+  const label = {textContent:'',setAttribute(){}};
+  const active = new Set();
+  const nodes = ['start','values','check','hot','sweater','end'].map(id=>({dataset:{node:id},classList:{toggle(name,on){if(on)active.add(id);else active.delete(id);},remove(){active.delete(id);}}}));
+  const root = {querySelector(selector){return selector === '.flow-step-action' ? action : selector === '.flow-step-count' ? count : selector === '[data-flow-temperature]' ? temperature : label;},querySelectorAll(selector){return selector === '[data-flow]' ? buttons : nodes;}};
+  const player = mountFlowchart(root,'selection');
+  const click = name=>buttons.find(b=>b.dataset.flow===name).dispatchEvent(new Event('click'));
+  const edit = value=>{temperature.value=value;temperature.valueAsNumber=value==='' ? NaN : Number(value);temperature.dispatchEvent(new Event('input'));};
+  click('run');t.mock.timers.tick(1000);assert.ok(active.has('values'));
+  edit('20');t.mock.timers.tick(5000);assert.equal(count.textContent,'0 / 5');assert.equal(active.size,0);assert.match(label.textContent,/20/);
+  for(let i=0;i<4;i++)click('step');assert.ok(active.has('sweater'));assert.match(action.textContent,/Grab a sweater/);
+  edit('21.5');for(let i=0;i<4;i++)click('step');assert.ok(active.has('hot'));
+  edit('');assert.ok(buttons.find(b=>b.dataset.flow==='run').disabled);click('step');assert.equal(active.size,0);assert.match(action.textContent,/valid temperature/);
+  edit('-5');assert.equal(buttons.find(b=>b.dataset.flow==='run').disabled,false);click('reset');assert.equal(temperature.value,'-5');
+  player.destroy();edit('30');assert.match(label.textContent,/-5/);
+});
