@@ -55,6 +55,10 @@ export const modules = [
       id: 'manipulating-strings', number: 1, title: 'Manipulating Strings',
       description: 'String methods for capitalization, whitespace, splitting, replacing, joining and numeric conversion.',
       slideCount: 9, href: './lessons/cse2120/manipulating-strings/',
+    }, {
+      id: 'lists', number: 2, title: 'Lists',
+      description: 'Creating, indexing, modifying, traversing and copying Python lists.',
+      slideCount: 21, href: './lessons/cse2120/lists/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',

@@ -1,0 +1,326 @@
+[
+  {
+    "title": "Data Structures",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 1: Lists",
+    "bullets": [
+      "Storing groups of data together in a single variable."
+    ]
+  },
+  {
+    "title": "Lists",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "List: A data structure that stores multiple values in a specific order within a single variable.",
+      "Lists are useful when working with large amounts of similar or related data.",
+      "Lists are iterables, meaning they can easily be iterated over.",
+      "Iterating over a list allows you to perform some kind of computation using every element of the list, with relatively little code."
+    ]
+  },
+  {
+    "title": "Creating Lists",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "Lists are created in Python using the square bracket [] symbols.",
+      "A list can be created by setting a variable equal to a sequence of values contained in a pair of square brackets [].",
+      "Values are separated by commas (,).",
+      "Any data can be added to a list, including a mix of different datatypes."
+    ],
+    "code": "# A list of ints\nmy_numbers = [0, 1, 2, 3, 4, 5]\n\n# A list of strings\nmy_strings = [\"this\", \"is\", \"a\", \"list\"]\n\n# A mixed list\nmy_list = [7, \"hello world\", 10.5, True]",
+    "expectedOutput": "",
+    "inlineCode": [
+      "[]",
+      "(,)"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Creating Lists continued...",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Alternatively, you can also create lists with items on their own line.",
+      "This can make code easier to read and debug later, depending on the length and contents of the list."
+    ],
+    "code": "shopping_list = [\n    \"eggs\",\n    \"milk\",\n    \"cheese\",\n    \"bread\",\n    \"bananas\"\n]",
+    "expectedOutput": ""
+  },
+  {
+    "title": "Accessing List Values",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "To access a value of a list, you need to use its index.",
+      "In virtually every programming language, indices start counting from 0 (this is to save on memory).",
+      "You can access a value from a list by using the following syntax:",
+      "list_name[index]"
+    ],
+    "code": "shopping_list = [\"eggs\", \"milk\", \"bread\"]\n\n# Print the first value\nprint(shopping_list[0])\n# Print the second value\nprint(shopping_list[1])\n# Print the second value\nprint(shopping_list[2])",
+    "initialOutput": "eggs\nmilk\nbread\n",
+    "expectedOutput": "eggs\nmilk\nbread\n",
+    "inlineCode": [
+      "0",
+      "list_name[index]"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Accessing List Values continued...",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "If you try and access an index out of range, you will get an error.",
+      "Python does not allow you to access indices that are out of range."
+    ],
+    "code": "shopping_list = [\n    \"eggs\",\n    \"milk\",\n    \"bread\"\n]\n# Index 3 is out of range\nprint(shopping_list[3])",
+    "initialOutput": "IndexError: list index out of range\n",
+    "expectedError": "IndexError",
+    "compactCode": true
+  },
+  {
+    "title": "Accessing List Values continued...",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "Accessing an index can also be used to reassign the value located at that index.",
+      "When you assign a value to an index, the value in the list at that index changes to the newly assigned value."
+    ],
+    "code": "shopping_list = [\n    \"eggs\",\n    \"milk\",\n    \"bread\"\n]\nshopping_list[1] = \"cheese\"\n\nprint(shopping_list)",
+    "initialOutput": "['eggs', 'cheese', 'bread']\n",
+    "expectedOutput": "['eggs', 'cheese', 'bread']\n",
+    "compactCode": true
+  },
+  {
+    "title": "Negative Indices",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "Negative indices let you access items starting from the end of a list instead of the beginning.",
+      "An index of -1 accesses the last item, -2 accesses the second-last item, and so on.",
+      "This is useful when you need to access items near the end without knowing the length of the list."
+    ],
+    "code": "colors = [\"red\", \"green\", \"blue\", \"yellow\"]\n\nprint(colors[-1])\nprint(colors[-2])",
+    "initialOutput": "yellow\nblue\n",
+    "expectedOutput": "yellow\nblue\n",
+    "inlineCode": [
+      "-1",
+      "-2"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Adding Items to Lists – append()",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "append() adds a single item to the end of a list.",
+      "It is useful when you are building a list and want to add new values one at a time."
+    ],
+    "code": "colors = [\"red\", \"green\"]\n\ncolors.append(\"blue\")\n\nprint(colors)",
+    "initialOutput": "['red', 'green', 'blue']\n",
+    "expectedOutput": "['red', 'green', 'blue']\n",
+    "inlineCode": [
+      "append()"
+    ]
+  },
+  {
+    "title": "Adding Items to Lists – insert()",
+    "kind": "code",
+    "sourcePage": 10,
+    "paragraphs": [
+      "insert() adds an item at a specific index in a list.",
+      "Items at and after that index are shifted back to make room for the new item."
+    ],
+    "code": "shopping_list = [\n    \"apples\",\n    \"bananas\",\n    \"milk\",\n    \"oranges\"\n]\nshopping_list.insert(0, \"bread\")\nprint(shopping_list)",
+    "initialOutput": "['bread', 'apples', 'bananas', 'milk', 'oranges']\n",
+    "expectedOutput": "['bread', 'apples', 'bananas', 'milk', 'oranges']\n",
+    "inlineCode": [
+      "insert()"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Adding Items to Lists – extend()",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "extend() adds all the items from another collection to the end of a list.",
+      "It is useful for combining the contents of two lists without creating a nested list."
+    ],
+    "code": "colors = [\"red\", \"green\"]\nmore_colors = [\"blue\", \"yellow\"]\n\ncolors.extend(more_colors)\n\nprint(colors)",
+    "initialOutput": "['red', 'green', 'blue', 'yellow']\n",
+    "expectedOutput": "['red', 'green', 'blue', 'yellow']\n",
+    "inlineCode": [
+      "extend()"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Removing Items from Lists – remove()",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "remove() searches for a value and removes the first matching item from the list.",
+      "It is useful when you know the value you want to remove rather than its index."
+    ],
+    "code": "colors = [\"red\", \"green\", \"blue\"]\n\ncolors.remove(\"green\")\n\nprint(colors)",
+    "initialOutput": "['red', 'blue']\n",
+    "expectedOutput": "['red', 'blue']\n",
+    "inlineCode": [
+      "remove()"
+    ]
+  },
+  {
+    "title": "Removing Items from Lists – pop()",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "pop() removes an item from a list and returns the removed value.",
+      "By default, it removes the last item, but you can provide an index to remove an item from another position."
+    ],
+    "code": "shopping_list = [\"apples\", \"bananas\", \"milk\", \"oranges\"]\nlast_item = shopping_list.pop()\nfirst_item = shopping_list.pop(0)\n\nprint(shopping_list)\nprint(last_item)\nprint(first_item)",
+    "initialOutput": "['bananas', 'milk']\noranges\napples\n",
+    "expectedOutput": "['bananas', 'milk']\noranges\napples\n",
+    "inlineCode": [
+      "pop()"
+    ],
+    "layout": "code-emphasis"
+  },
+  {
+    "title": "Removing Items from Lists – clear()",
+    "kind": "code",
+    "sourcePage": 14,
+    "paragraphs": [
+      "clear() removes every item from a list, leaving the list empty.",
+      "It is useful when you want to reset a list while continuing to use the same list variable."
+    ],
+    "code": "colors = [\"red\", \"green\", \"blue\"]\n\ncolors.clear()\n\nprint(colors)",
+    "initialOutput": "[]\n",
+    "expectedOutput": "[]\n",
+    "inlineCode": [
+      "clear()"
+    ]
+  },
+  {
+    "title": "Empty Lists",
+    "kind": "code",
+    "sourcePage": 15,
+    "paragraphs": [
+      "An empty list is a list that starts with no items and can have values added to it later.",
+      "Empty lists are useful when you do not know what values the list will contain when the program begins.",
+      "For example, a program might start with an empty list and add values as they are entered, calculated, or discovered while the program runs."
+    ],
+    "code": "my_list = []",
+    "expectedOutput": "",
+    "denseText": true
+  },
+  {
+    "title": "List Length with len()",
+    "kind": "code",
+    "sourcePage": 16,
+    "paragraphs": [
+      "len() returns the number of items stored in a list.",
+      "It is useful when you need to know how many values are in the list, such as when displaying a count or controlling a loop.",
+      "The value returned by len() is an integer."
+    ],
+    "code": "colors = [\n    \"red\",\n    \"green\",\n    \"blue\"\n]\n\nprint(len(colors))",
+    "initialOutput": "3\n",
+    "expectedOutput": "3\n",
+    "inlineCode": [
+      "len()"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Checking Membership with in",
+    "kind": "code",
+    "sourcePage": 17,
+    "paragraphs": [
+      "The in keyword checks whether a specific value exists within a list.",
+      "It returns True if the value is found and False if it is not.",
+      "This is especially useful with conditional statements when a program needs to behave differently depending on whether a value is in a list."
+    ],
+    "code": "colors = [\"red\", \"green\", \"blue\"]\n\nif \"green\" in colors:\n    print(\"Green is in the list!\")",
+    "initialOutput": "Green is in the list!\n",
+    "expectedOutput": "Green is in the list!\n",
+    "inlineCode": [
+      "in",
+      "True",
+      "False"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Traversing Lists with for",
+    "kind": "code",
+    "sourcePage": 18,
+    "paragraphs": [
+      "A for loop can traverse a list by accessing each value in the list one at a time.",
+      "The loop variable temporarily stores the current value from the list during each iteration.",
+      "The variable can be used inside the loop to work with that value, and it automatically changes to the next value as the loop continues.",
+      "The loop ends after every value in the list has been accessed."
+    ],
+    "code": "colors = [\"red\", \"green\", \"blue\"]\n\nfor color in colors:\n    print(color)",
+    "initialOutput": "red\ngreen\nblue\n",
+    "expectedOutput": "red\ngreen\nblue\n",
+    "inlineCode": [
+      "for"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Traversing Lists with for continued...",
+    "kind": "code",
+    "sourcePage": 19,
+    "paragraphs": [
+      "In this example, we see that you can use a for loop to perform a computation on the data for each iteration of the loop."
+    ],
+    "code": "numbers = [4, 7, 10, 13, 16]\n\nfor number in numbers:\n    if number >= 10:\n        print(number)\n    else:\n        print(\"Less than 10.\")",
+    "initialOutput": "Less than 10.\nLess than 10.\n10\n13\n16\n",
+    "expectedOutput": "Less than 10.\nLess than 10.\n10\n13\n16\n",
+    "inlineCode": [
+      "for"
+    ],
+    "compactCode": true
+  },
+  {
+    "title": "Copying Lists",
+    "kind": "code",
+    "sourcePage": 20,
+    "paragraphs": [
+      "The copy() method creates a new list containing the same values as the original list.",
+      "Because the copied list is a separate list, adding, removing, or replacing items in it does not change the original list.",
+      "This is useful when you want to modify a list while keeping the original version unchanged."
+    ],
+    "code": "original_colors = [\"red\", \"green\", \"blue\"]\ncopied_colors = original_colors.copy()\n\ncopied_colors.append(\"yellow\")\n\nprint(original_colors)\nprint(copied_colors)",
+    "initialOutput": "['red', 'green', 'blue']\n['red', 'green', 'blue', 'yellow']\n",
+    "expectedOutput": "['red', 'green', 'blue']\n['red', 'green', 'blue', 'yellow']\n",
+    "inlineCode": [
+      "copy()"
+    ],
+    "layout": "code-emphasis",
+    "denseText": true
+  },
+  {
+    "title": "Copy vs Reference",
+    "kind": "code",
+    "sourcePage": 21,
+    "paragraphs": [
+      "When you assign an existing list to another variable, Python does not create a new list.",
+      "Instead, the new variable becomes a reference to the same list, meaning both variables point to the same data in memory.",
+      "As a result, changing the list through either variable changes the same list.",
+      "To create a separate list that can be changed independently, you can use the copy() method."
+    ],
+    "code": "original = [\"red\", \"green\", \"blue\"]\nreference = original\ncopied = original.copy()\nreference.append(\"yellow\")\ncopied.append(\"purple\")\n\nprint(f\"Original: {original}\")\nprint(f\"Reference: {reference}\")\nprint(f\"Copy: {copied}\")",
+    "initialOutput": "Original: ['red', 'green', 'blue', 'yellow']\nReference: ['red', 'green', 'blue', 'yellow']\nCopy: ['red', 'green', 'blue', 'purple']\n",
+    "expectedOutput": "Original: ['red', 'green', 'blue', 'yellow']\nReference: ['red', 'green', 'blue', 'yellow']\nCopy: ['red', 'green', 'blue', 'purple']\n",
+    "inlineCode": [
+      "copy()"
+    ],
+    "layout": "code-emphasis",
+    "denseText": true
+  }
+]

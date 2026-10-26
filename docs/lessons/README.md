@@ -52,3 +52,12 @@ This nine-slide lesson starts the Data Structures collection. At the teacher's r
 Run and Step execute case conversion, trimming, whitespace/custom-separator splitting, replacement, joining and numeric conversion. The trimming example preserves three leading and trailing spaces in its original string. `highlightWhitespace: true` adds grey backgrounds behind spaces in actual terminal output without changing their text values. An optional `terminalNote` supplies a readable explanation inside that example's terminal. The numeric conversion example has no print call, matching its source; variable chips show the resulting types and values.
 
 Add subsequent lessons to CSE 2120's `lessons` array in teaching order with stable IDs and consecutive lesson numbers.
+
+
+## Lists (CSE 2120, lesson 2)
+
+The teacher's 21-slide Data Structures Part 1 deck follows Manipulating Strings in the module catalog. Its wording, slide order and code are retained; `lists-source.json` stores the extracted source for fidelity checks. Terminals compute actual Python output, so list representations use the interpreter's normal quoting. The deliberately invalid index produces a real IndexError, rather than a prewritten output fixture.
+
+All examples support Run and Step, including mutations, negative indices, loops, copying and aliasing. At the reference mutation on the final slide, the original and reference variables both update while the copied list remains independent; tests verify that paused state.
+
+`layout: "code-emphasis"` gives longer code and printed list values a wider column. `denseText` adjusts dense explanations while keeping reading text above the 16pt minimum. These layouts preserve the content and keep the complete initial example visible. `compactCode` retains the shared tighter editor spacing where appropriate.

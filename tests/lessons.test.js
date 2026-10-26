@@ -219,3 +219,34 @@ test('every string manipulation example produces real expected output in run and
     }
   }
 });
+
+
+const listSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/lists/slides.json'), 'utf8'));
+const listSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/lists-source.json'), 'utf8'));
+test('Lists retains all 21 original slides, explanations, code and output values', () => {
+  assert.equal(listSlides.length, 21);
+  listSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(listSource[index].text), `Source content differs on page ${index + 1}`);
+  });
+});
+
+test('all Lists examples run and step with genuine list results and IndexError', async () => {
+  for (const slide of listSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const execution = runPython(slide.code, [], mode);
+      if (slide.expectedError) await assert.rejects(execution, new RegExp(slide.expectedError));
+      else assert.equal((await execution).output, slide.expectedOutput, `${slide.title} (${slide.sourcePage}): ${mode}`);
+    }
+  }
+});
+
+test('stepping shows alias mutations together while the copied list stays independent', async () => {
+  const result = await runPython(listSlides[20].code, [], 'step');
+  const mutation = result.steps.find(step => step.line === 4);
+  const value = name => mutation.variables.find(item => item.name === name).value;
+  assert.equal(value('original'), "['red', 'green', 'blue', 'yellow']");
+  assert.equal(value('reference'), value('original'));
+  assert.equal(value('copied'), "['red', 'green', 'blue']");
+});

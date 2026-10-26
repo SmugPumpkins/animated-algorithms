@@ -1,0 +1,86 @@
+[
+  {
+    "page": 1,
+    "text": "Data Structures\nPart 1: Lists\nStoring groups of data together in\na single variable."
+  },
+  {
+    "page": 2,
+    "text": "Lists\nList: A data structure that stores multiple values in a specific order within\na single variable.\nLists are useful when working with large amounts of similar or related\ndata.\nLists are iterables, meaning they can easily be iterated over.\nIterating over a list allows you to perform some kind of computation using\nevery element of the list, with relatively little code."
+  },
+  {
+    "page": 3,
+    "text": "Creating Lists\nLists are created in Python using # A list of ints\nthe square bracket [] symbols.\nmy_numbers = [0, 1, 2, 3, 4, 5]\nA list can be created by setting\na variable equal to a sequence\n# A list of strings\nof values contained in a pair of\nmy_strings = [\"this\", \"is\", \"a\", \"list\"]\nsquare brackets [].\nValues are separated by\ncommas (,). # A mixed list\nmy_list = [7, \"hello world\", 10.5, True]\nAny data can be added to a list,\nincluding a mix of different\ndatatypes."
+  },
+  {
+    "page": 4,
+    "text": "Creating Lists continued...\nAlternatively, you can also\nshopping_list = [\ncreate lists with items on their\n\"eggs\",\nown line.\nThis can make code easier to \"milk\",\nread and debug later,\n\"cheese\",\ndepending on the length and\ncontents of the list.\n\"bread\",\n\"bananas\"\n]"
+  },
+  {
+    "page": 5,
+    "text": "Accessing List Values\nshopping_list = [\"eggs\", \"milk\", \"bread\"]\nTo access a value of a list, you\nneed to use its index.\n# Print the first value\nIn virtually every programming print(shopping_list[0])\nlanguage, indices start counting # Print the second value\nfrom 0 (this is to save on print(shopping_list[1])\n# Print the second value\nmemory).\nprint(shopping_list[2])\nYou can access a value from a\nlist by using the following syntax:\nOUTPUT\nlist_name[index]\neggs\nmilk\nbread"
+  },
+  {
+    "page": 6,
+    "text": "Accessing List Values continued...\nIf you try and access an index shopping_list = [\nout of range, you will get an \"eggs\",\nerror. \"milk\",\n\"bread\"\nPython does not allow you to\n]\naccess indices that are out of\n# Index 3 is out of range\nrange.\nprint(shopping_list[3])\nOUTPUT\nIndexError: list index out of range"
+  },
+  {
+    "page": 7,
+    "text": "Accessing List Values continued...\nshopping_list = [\nAccessing an index can also be\n\"eggs\",\nused to reassign the value\n\"milk\",\nlocated at that index. \"bread\"\n]\nWhen you assign a value to an\nshopping_list[1] = \"cheese\"\nindex, the value in the list at that\nindex changes to the newly\nprint(shopping_list)\nassigned value.\nOUTPUT\n['eggs', 'cheese', 'bread']"
+  },
+  {
+    "page": 8,
+    "text": "Negative Indices\nNegative indices let you access\ncolors = [\"red\", \"green\", \"blue\", \"yellow\"]\nitems starting from the end of a\nlist instead of the beginning.\nprint(colors[-1])\nAn index of -1 accesses the last\nprint(colors[-2])\nitem, -2 accesses the\nsecond-last item, and so on.\nThis is useful when you need to\naccess items near the end\nwithout knowing the length of OUTPUT\nthe list. yellow\nblue"
+  },
+  {
+    "page": 9,
+    "text": "append()\nAdding Items to Lists \u2013\nappend() adds a single item to\ncolors = [\"red\", \"green\"]\nthe end of a list.\nIt is useful when you are\ncolors.append(\"blue\")\nbuilding a list and want to add\nnew values one at a time.\nprint(colors)\nOUTPUT\n[\"red\", \"green\", \"blue\"]"
+  },
+  {
+    "page": 10,
+    "text": "insert()\nAdding Items to Lists \u2013\ninsert() adds an item at a shopping_list = [\n\"apples\",\nspecific index in a list.\n\"bananas\",\n\"milk\",\nItems at and after that index are\n\"oranges\"\nshifted back to make room for ]\nthe new item.\nshopping_list.insert(0, \"bread\")\nprint(shopping_list)\nOUTPUT\n[\"bread\", \"apples\", \"bananas\", \"milk\", \"oranges\"]"
+  },
+  {
+    "page": 11,
+    "text": "extend()\nAdding Items to Lists \u2013\nextend() adds all the items colors = [\"red\", \"green\"]\nfrom another collection to the\nmore_colors = [\"blue\", \"yellow\"]\nend of a list.\nIt is useful for combining the\ncolors.extend(more_colors)\ncontents of two lists without\ncreating a nested list.\nprint(colors)\nOUTPUT\n[\"red\", \"green\", \"blue\", \"yellow\"]"
+  },
+  {
+    "page": 12,
+    "text": "remove()\nRemoving Items from Lists \u2013\nremove() searches for a value colors = [\"red\", \"green\", \"blue\"]\nand removes the first matching\nitem from the list.\ncolors.remove(\"green\")\nIt is useful when you know the\nvalue you want to remove\nrather than its index.\nprint(colors)\nOUTPUT\n[\"red\", \"blue\"]"
+  },
+  {
+    "page": 13,
+    "text": "pop()\nRemoving Items from Lists \u2013\npop() removes an item from a shopping_list = [\"apples\", \"bananas\", \"milk\", \"oranges\"]\nlist and returns the removed\nlast_item = shopping_list.pop()\nvalue.\nfirst_item = shopping_list.pop(0)\nBy default, it removes the last\nitem, but you can provide an\nprint(shopping_list)\nindex to remove an item from\nprint(last_item)\nanother position. print(first_item)\nOUTPUT\n[\"bananas\", \"milk\"]\noranges\napples"
+  },
+  {
+    "page": 14,
+    "text": "clear()\nRemoving Items from Lists \u2013\nclear() removes every item\ncolors = [\"red\", \"green\", \"blue\"]\nfrom a list, leaving the list\nempty.\ncolors.clear()\nIt is useful when you want to\nreset a list while continuing to\nuse the same list variable.\nprint(colors)\nOUTPUT\n[]"
+  },
+  {
+    "page": 15,
+    "text": "Empty Lists\nAn empty list is a list that starts\nmy_list = []\nwith no items and can have\nvalues added to it later.\nEmpty lists are useful when you\ndo not know what values the list\nwill contain when the program\nbegins.\nFor example, a program might\nstart with an empty list and add\nvalues as they are entered,\ncalculated, or discovered while\nthe program runs."
+  },
+  {
+    "page": 16,
+    "text": "len()\nList Length with\nlen() returns the number of colors = [\nitems stored in a list. \"red\",\n\"green\",\nIt is useful when you need to\n\"blue\"\nknow how many values are in\n]\nthe list, such as when displaying\na count or controlling a loop.\nprint(len(colors))\nThe value returned by len() is\nan integer.\nOUTPUT\n3"
+  },
+  {
+    "page": 17,
+    "text": "in\nChecking Membership with\nThe in keyword checks whether\ncolors = [\"red\", \"green\", \"blue\"]\na specific value exists within a\nlist.\nif \"green\" in colors:\nIt returns True if the value is\nfound and False if it is not.\nprint(\"Green is in the list!\")\nThis is especially useful with\nconditional statements when a\nprogram needs to behave\ndifferently depending on OUTPUT\nwhether a value is in a list. Green is in the list!"
+  },
+  {
+    "page": 18,
+    "text": "for\nTraversing Lists with\nA for loop can traverse a list by\ncolors = [\"red\", \"green\", \"blue\"]\naccessing each value in the list\none at a time.\nThe loop variable temporarily\nfor color in colors:\nstores the current value from the\nlist during each iteration.\nprint(color)\nThe variable can be used inside\nthe loop to work with that value,\nand it automatically changes to\nthe next value as the loop\nOUTPUT\ncontinues.\nred\nThe loop ends after every value in\ngreen\nthe list has been accessed.\nblue"
+  },
+  {
+    "page": 19,
+    "text": "for\nTraversing Lists with continued...\nIn this example, we see that you numbers = [4, 7, 10, 13, 16]\ncan use a for loop to perform a\ncomputation on the data for for number in numbers:\neach iteration of the loop.\nif number >= 10:\nprint(number)\nelse:\nprint(\"Less than 10.\")\nOUTPUT\nLess than 10.\nLess than 10.\n10\n13\n16"
+  },
+  {
+    "page": 20,
+    "text": "Copying Lists\nThe copy() method creates a original_colors = [\"red\", \"green\", \"blue\"]\ncopied_colors = original_colors.copy()\nnew list containing the same\nvalues as the original list.\ncopied_colors.append(\"yellow\")\nBecause the copied list is a\nprint(original_colors)\nseparate list, adding, removing,\nprint(copied_colors)\nor replacing items in it does not\nchange the original list.\nThis is useful when you want to\nmodify a list while keeping the OUTPUT\n[\"red\", \"green\", \"blue\"]\noriginal version unchanged.\n[\"red\", \"green\", \"blue\", \"yellow\"]"
+  },
+  {
+    "page": 21,
+    "text": "Copy vs Reference\nWhen you assign an existing list to original = [\"red\", \"green\", \"blue\"]\nanother variable, Python does not\nreference = original\ncreate a new list.\ncopied = original.copy()\nInstead, the new variable reference.append(\"yellow\")\nbecomes a reference to the same copied.append(\"purple\")\nlist, meaning both variables point\nprint(f\"Original: {original}\")\nto the same data in memory.\nprint(f\"Reference: {reference}\")\nprint(f\"Copy: {copied}\")\nAs a result, changing the list\nthrough either variable changes\nthe same list.\nOUTPUT\nOriginal: ['red', 'green', 'blue', 'yellow']\nTo create a separate list that can\nReference: ['red', 'green', 'blue', 'yellow']\nbe changed independently, you\nCopy: ['red', 'green', 'blue', 'purple']\ncan use the copy() method."
+  }
+]

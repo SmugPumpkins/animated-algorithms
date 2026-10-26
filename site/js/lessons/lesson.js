@@ -33,7 +33,7 @@ function slideMarkup(slide, index) {
     : slide.kind === 'closing'
       ? `<div class="closing-layout">${title}<div class="source-body">${paragraphs}</div></div>`
       : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}</div>${playgroundMarkup(slide)}</div>`;
-  return `<section class="lesson-slide ${slide.kind}-slide" id="slide-${index + 1}" data-source-page="${slide.sourcePage}" aria-label="Slide ${index + 1}: ${escapeHtml(slide.title)}"><div class="slide-content">${contents}</div></section>`;
+  return `<section class="lesson-slide ${slide.kind}-slide ${slide.layout ? `layout-${escapeHtml(slide.layout)}` : ''} ${slide.denseText ? 'dense-text' : ''}" id="slide-${index + 1}" data-source-page="${slide.sourcePage}" aria-label="Slide ${index + 1}: ${escapeHtml(slide.title)}"><div class="slide-content">${contents}</div></section>`;
 }
 
 try {
