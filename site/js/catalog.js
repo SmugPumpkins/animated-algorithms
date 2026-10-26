@@ -50,7 +50,11 @@ export const modules = [
     }]),
   moduleEntry('CSE 1120', 'Structured Programming 2',
     'Add decisions, repetition and blocks to structured programs.',
-    ['Selection and decisions', 'Loops and repetition', 'Program blocks']),
+    ['Selection and decisions', 'Loops and repetition', 'Program blocks'], [{
+      id: 'conditions-and-if-statements', number: 1, title: 'Conditions and If Statements',
+      description: 'Boolean conditions, comparison operators, negation and ordered if/elif/else branches.',
+      slideCount: 13, href: './lessons/cse1120/conditions-and-if-statements/',
+    }]),
   moduleEntry('CSE 1240', 'Robotics Programming 1',
     'Design and debug programs that control robots.',
     ['Robot control', 'Robotic environments', 'Structured robot programs']),

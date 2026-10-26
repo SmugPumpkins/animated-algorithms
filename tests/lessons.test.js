@@ -642,3 +642,40 @@ test('pseudocode reference contains all 15 keywords and does not run as Python',
   assert.match(examples[1].pseudocode,/IF temp_celsius > WARM[\s\S]*Wow, it sure is hot![\s\S]*ELSE[\s\S]*Grab a sweater![\s\S]*END IF/);
   assert.match(examples[2].pseudocode,/WHILE i < 3\n        ADD i TO total\n        INCREASE i BY 1\n    END WHILE\n    OUTPUT total/);
 });
+
+const conditionSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse1120/conditions-and-if-statements/slides.json'), 'utf8'));
+const conditionSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/conditions-and-if-statements-source.json'), 'utf8'));
+test('Conditions and If Statements retains all 13 source slides and instructional wording', () => {
+  assert.equal(conditionSlides.length, 13);
+  conditionSlides.forEach((slide,index) => {
+    assert.equal(slide.sourcePage,index+1);
+    if (slide.kind === 'wrapup') return;
+    const text = [slide.title,slide.intro||'',...(slide.bullets||[]),...(slide.paragraphs||[]),...(slide.headers||[]),...(slide.rows||[]).flat(),slide.code||'',...(slide.examples||[]).map(example=>example.code),slide.expectedOutput ? `OUTPUT ${slide.expectedOutput}` : ''].join('\n');
+    assert.deepEqual(words(text),words(conditionSource[index].text),`Source wording differs on page ${index+1}`);
+  });
+});
+test('all condition examples execute and step with the source results', async () => {
+  for (const slide of conditionSlides) {
+    for (const example of slide.examples || (slide.code ? [slide] : [])) {
+      for (const mode of ['run','step']) {
+        const result = await runPython(example.code,[],mode);
+        assert.equal(result.output,example.expectedOutput,`${slide.title}: ${mode}`);
+      }
+    }
+  }
+});
+test('edited conditions exercise boundaries, skipped blocks and first-match ordering', async () => {
+  for (const mode of ['run','step']) {
+    const standalone = await runPython(conditionSlides[5].code.replace('temperature = 25','temperature = 20'),[],mode);
+    assert.equal(standalone.output,'Program complete.\n');
+    if (mode === 'step') assert.ok(!standalone.steps.some(step=>step.line===4));
+    assert.equal((await runPython(conditionSlides[6].code.replace('temperature = 15','temperature = 21'),[],mode)).output,'It is warm outside.\n');
+    for (const [score,grade] of [[80,'A'],[79,'B'],[65,'B'],[64,'C']]) {
+      assert.equal((await runPython(conditionSlides[7].code.replace('score = 72',`score = ${score}`),[],mode)).output,grade+'\n');
+    }
+    assert.equal((await runPython(conditionSlides[4].code.replace('logged_in = False','logged_in = True'),[],mode)).output,'True\nFalse\n');
+    const examples = conditionSlides[9].examples;
+    assert.equal((await runPython(examples[0].code,[],mode)).output,'A\n');
+    assert.equal((await runPython(examples[1].code,[],mode)).output,'C\n');
+  }
+});

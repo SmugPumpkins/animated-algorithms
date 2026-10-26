@@ -1,0 +1,279 @@
+[
+  {
+    "title": "Selection Structures",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 1: Conditions and If Statements",
+    "bullets": [
+      "If statements allows your program to choose some code to run while not running other code."
+    ]
+  },
+  {
+    "title": "Selection Structures",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A selection structure allows a program to choose between different paths of code.",
+      "Instead of always running every line in order, the program checks a condition and decides what should happen next.",
+      "In Python, selection structures are commonly created using if, elif, and else."
+    ],
+    "inlineCode": [
+      "if",
+      "elif",
+      "else"
+    ]
+  },
+  {
+    "title": "Conditions",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "A condition is an expression that evaluates to either True or False.",
+      "Selection structures use conditions to decide whether a block of code should run.",
+      "Comparisons such as 5 > 3 create conditions because Python can determine whether they are true or false."
+    ],
+    "inlineCode": [
+      "True",
+      "False",
+      "5 > 3"
+    ],
+    "code": "age = 16\n\nprint(age >= 14)\nprint(age < 10)",
+    "expectedOutput": "True\nFalse\n",
+    "denseText": true,
+    "initialOutput": "True\nFalse"
+  },
+  {
+    "title": "Comparison Operators",
+    "kind": "reference-table",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Comparison operators compare two values and produce either True or False.",
+      "They are commonly used to create conditions inside selection structures.",
+      "Python includes operators for equality, inequality, greater than, less than, and combinations of those comparisons."
+    ],
+    "inlineCode": [
+      "True",
+      "False"
+    ],
+    "headers": [
+      "Comparison",
+      "Operator",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Equal to",
+        "==",
+        "x == 5"
+      ],
+      [
+        "Not equal to",
+        "!=",
+        "x != 5"
+      ],
+      [
+        "Greater than",
+        ">",
+        "x > 5"
+      ],
+      [
+        "Greater than or equal to",
+        ">=",
+        "x >= 5"
+      ],
+      [
+        "Less than",
+        "<",
+        "x < 5"
+      ],
+      [
+        "Less than or equal to",
+        "<=",
+        "x <= 5"
+      ]
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Negating Conditions",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "Negation reverses the result of a condition.",
+      "Python uses the not keyword to change True to False and False to True.",
+      "This is useful when you want to check that something is not true."
+    ],
+    "inlineCode": [
+      "not",
+      "True",
+      "False"
+    ],
+    "code": "logged_in = False\n\nprint(logged_in)\nprint(not logged_in)",
+    "expectedOutput": "False\nTrue\n",
+    "denseText": true,
+    "initialOutput": "False\nTrue"
+  },
+  {
+    "title": "if Statements",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "An if statement runs a block of code only when its condition evaluates to True.",
+      "If the condition is False, that block is skipped.",
+      "In Python, the indented lines underneath the if statement belong to its code block."
+    ],
+    "inlineCode": [
+      "if",
+      "True",
+      "False"
+    ],
+    "code": "temperature = 25\n\nif temperature > 20:\n    print(\"It is warm outside.\")\n\nprint(\"Program complete.\")",
+    "expectedOutput": "It is warm outside.\nProgram complete.\n",
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "It is warm outside.\nProgram complete."
+  },
+  {
+    "title": "else Statements",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "An else statement provides a fallback when the conditions before it are False.",
+      "An else statement does not have its own condition.",
+      "It handles any remaining case that was not matched earlier."
+    ],
+    "inlineCode": [
+      "else",
+      "False"
+    ],
+    "code": "temperature = 15\n\nif temperature > 20:\n    print(\"It is warm outside.\")\nelse:\n    print(\"It is cool outside.\")",
+    "expectedOutput": "It is cool outside.\n",
+    "denseText": true,
+    "compactCode": true,
+    "initialOutput": "It is cool outside."
+  },
+  {
+    "title": "elif Statements",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "An elif statement (sometimes called else if statements in other programming languages) checks an additional condition when the conditions before it were False.",
+      "Python checks an if / elif structure from top to bottom and runs the first code block whose condition is True.",
+      "Once a match is found, the remaining elif and else statements are skipped."
+    ],
+    "inlineCode": [
+      "elif",
+      "if / elif",
+      "False",
+      "True",
+      "else"
+    ],
+    "code": "score = 72\n\nif score >= 80:\n    print(\"A\")\nelif score >= 65:\n    print(\"B\")\nelse:\n    print(\"C\")",
+    "expectedOutput": "B\n",
+    "denseText": true,
+    "layout": "long-explanation",
+    "initialOutput": "B"
+  },
+  {
+    "title": "Ordering elif Conditions",
+    "kind": "text",
+    "sourcePage": 9,
+    "paragraphs": [
+      "When several conditions overlap, their order matters because Python stops at the first condition that is True.",
+      "For conditions such as score >= 80, score >= 65, and score >= 50, the most restrictive condition should come first and the broadest condition should come last.",
+      "A score of 95 satisfies all three conditions, so if score >= 50 appears first, Python will stop there and never reach the more specific checks."
+    ],
+    "inlineCode": [
+      "elif",
+      "True",
+      "score >= 80",
+      "score >= 65",
+      "score >= 50"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Ordering elif Conditions continued...",
+    "kind": "comparison",
+    "sourcePage": 10,
+    "inlineCode": [
+      "elif"
+    ],
+    "examples": [
+      {
+        "code": "# What will this code output?\nscore = 95\n\nif score >= 80:\n    print(\"A\")\nelif score >= 65:\n    print(\"B\")\nelif score >= 50:\n    print(\"C\")\nelse:\n    print(\"Below C\")",
+        "expectedOutput": "A\n"
+      },
+      {
+        "code": "# What will this code output?\nscore = 95\n\nif score >= 50:\n    print(\"C\")\nelif score >= 65:\n    print(\"B\")\nelif score >= 80:\n    print(\"A\")\nelse:\n    print(\"Below C\")",
+        "expectedOutput": "C\n"
+      }
+    ],
+    "layout": "ordering"
+  },
+  {
+    "title": "Ordering elif Conditions continued...",
+    "kind": "comparison",
+    "sourcePage": 11,
+    "inlineCode": [
+      "elif"
+    ],
+    "examples": [
+      {
+        "code": "# What will this code output?\nscore = 95\n\nif score >= 80:\n    print(\"A\")\nelif score >= 65:\n    print(\"B\")\nelif score >= 50:\n    print(\"C\")\nelse:\n    print(\"Below C\")",
+        "expectedOutput": "A\n",
+        "label": "Correct condition order",
+        "verdict": "correct"
+      },
+      {
+        "code": "# What will this code output?\nscore = 95\n\nif score >= 50:\n    print(\"C\")\nelif score >= 65:\n    print(\"B\")\nelif score >= 80:\n    print(\"A\")\nelse:\n    print(\"Below C\")",
+        "expectedOutput": "C\n",
+        "label": "Incorrect condition order",
+        "verdict": "incorrect"
+      }
+    ],
+    "layout": "ordering"
+  },
+  {
+    "title": "Ordering elif Conditions continued...",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "The first condition, score >= 50, is already True, so Python immediately runs that block and skips the rest.",
+      "Even though score >= 80 is also True, Python never reaches it.",
+      "For overlapping inequality conditions, order them from most specific to broadest."
+    ],
+    "inlineCode": [
+      "elif",
+      "score >= 50",
+      "score >= 80",
+      "True"
+    ],
+    "code": "score = 95\n\nif score >= 50:\n    print(\"C\")\nelif score >= 65:\n    print(\"B\")\nelif score >= 80:\n    print(\"A\")\nelse:\n    print(\"Below C\")",
+    "expectedOutput": "C\n",
+    "denseText": true,
+    "layout": "long-explanation",
+    "compactCode": true,
+    "initialOutput": "C"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": 13,
+    "bullets": [
+      "Selection structures allow programs to make decisions by evaluating conditions as True or False.",
+      "if checks the first condition, elif allows additional conditions to be checked, and else handles any remaining case.",
+      "Comparison operators create many common conditions, while not can reverse a condition.",
+      "Because Python checks an if / elif structure from top to bottom, overlapping conditions must be ordered carefully."
+    ],
+    "inlineCode": [
+      "if / elif",
+      "if",
+      "elif",
+      "else",
+      "not",
+      "True",
+      "False"
+    ]
+  }
+]

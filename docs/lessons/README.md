@@ -146,3 +146,10 @@ The four-page source becomes eleven slides: cover, definition, four readable key
 `kind: "keyword-table"` presents native accessible keyword/description rows, grouped into Basic Commands, Selection, Iteration and Functions. Keep complete multiword terms in one orange inline-code span. `kind: "pseudocode"` displays the indented sample in Consolas with highlighted pseudocode keywords. Pseudocode is deliberately not sent to the Python interpreter; no Run controls imply that it is executable Python. A blank `cse1110/pseudocode` assignment row connects the wrap-up to the semester mapping.
 
 Flowchart playback shows the current action in orange inline code at the left of its status region, with the completed-step count anchored at the bottom right. The symbol overview reserves space for branch labels. Only the standalone Arrow slide uses `diagram.edgeWeight: "strong"` to increase its arrow weight.
+
+
+## Conditions and If Statements (CSE 1120, lesson 1)
+
+The revised Selection Structures Part 1 deck retains all 13 source slides and instructional wording. The existing final overview becomes the standard point-form Wrap Up with a blank `cse1120/conditions-and-if-statements` assignment mapping. Extracted text is recorded in `conditions-and-if-statements-source.json`.
+
+Conditions, comparisons, negation and if/elif/else examples use the shared live editor and real Run/Step execution. The two ordering comparison slides retain independent examples; the second preserves the source's correct/incorrect indicators using accessible `verdict` badges. Both terminals start empty. The native `reference-table` layout accepts `headers` and `rows`, using the first column as row headings and orange inline code for operator/example columns. The scoped `ordering` layout keeps both code examples visible above their terminals. Tests cover source fidelity, every example in Run and Step, boundary values, skipped blocks, negation and first-match behavior.

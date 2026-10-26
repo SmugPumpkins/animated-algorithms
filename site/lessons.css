@@ -302,3 +302,16 @@ html, body { width: 100%; height: 100%; margin: 0; }
 .lesson-page .runtime-variables::-webkit-scrollbar-corner { background: #101426; }
 
 .reveal .lesson-flowchart .flow-edges-strong > path { stroke-width: 7; }
+
+/* Native reference tables keep comparison operators selectable and readable. */
+.reveal .reference-table-layout { grid-template-columns: .85fr 1.15fr; }
+.reveal .lesson-reference-table { align-self: center; width: 100%; border-collapse: collapse; font: 22px/1.35 Poppins, sans-serif; }
+.reveal .lesson-reference-table th, .reveal .lesson-reference-table td { padding: 14px 12px; border: 1px solid #41465e; text-align: left; }
+.reveal .lesson-reference-table thead { color: #4de8f4; background: #18283b; }
+.reveal .lesson-reference-table tbody th { font-weight: 400; background: #1c1b30; }
+.reveal .lesson-reference-table tbody td { background: #111629; }
+.reveal .layout-ordering .terminal-pane { flex-basis: 26%; min-height: 100px; }
+
+.reveal .example-verdict { display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; width: 42px; height: 42px; border: 2px solid currentColor; border-radius: 50%; font: 700 30px/1 Poppins, sans-serif; }
+.reveal .example-verdict.correct { color: #65ffad; background: #17372c; }
+.reveal .example-verdict.incorrect { color: #ff5d7d; background: #3c1c2d; }
