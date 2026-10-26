@@ -51,7 +51,11 @@ export const modules = [
     }]),
   moduleEntry('CSE 2120', 'Data Structures 1',
     'Organize related data using arrays and records.',
-    ['Arrays and indexing', 'Records', 'Structured data processing']),
+    ['Arrays and indexing', 'Records', 'Structured data processing'], [{
+      id: 'manipulating-strings', number: 1, title: 'Manipulating Strings',
+      description: 'String methods for capitalization, whitespace, splitting, replacing, joining and numeric conversion.',
+      slideCount: 9, href: './lessons/cse2120/manipulating-strings/',
+    }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',
     ['File organization', 'Reading and writing files', 'Sequential and random access']),

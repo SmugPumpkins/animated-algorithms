@@ -43,3 +43,12 @@ The full battle games on slides 9 and 10 are copied from the source links embedd
 Both are runnable, use real player choices, retain random outcomes, and provide a visible GitHub source link. Tests seed randomness only inside the test harness to compare their behaviour.
 
 `kind: "comparison"` accepts an `examples` array. Each example has its own code, optional paragraph and accessible label, and independent Run/Step/Stop/Reset, terminal input and variables. An optional slide caption follows both panels. Leaving the slide stops every example, including paused sessions. `compactCode` gives a dense example tighter code spacing without shrinking teaching prose. `layout: "documentation"` combines a runnable example with a readable native documentation preview (signature, description, parameters and return text).
+
+
+## Manipulating Strings (CSE 2120, lesson 1)
+
+This nine-slide lesson starts the Data Structures collection. At the teacher's request, its cover and introductory framing focus on strings rather than plain text files, and file-specific examples in the prose are generalized to text. The string-method examples and explanations otherwise retain the source deck's language and order. `manipulating-strings-source.json` stores the extracted PDF text.
+
+Run and Step execute case conversion, trimming, whitespace/custom-separator splitting, replacement, joining and numeric conversion. The trimming example preserves three leading and trailing spaces in its original string. `highlightWhitespace: true` adds grey backgrounds behind spaces in actual terminal output without changing their text values. An optional `terminalNote` supplies a readable explanation inside that example's terminal. The numeric conversion example has no print call, matching its source; variable chips show the resulting types and values.
+
+Add subsequent lessons to CSE 2120's `lessons` array in teaching order with stable IDs and consecutive lesson numbers.

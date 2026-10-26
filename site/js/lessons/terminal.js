@@ -36,7 +36,7 @@ export function playgroundMarkup(slide) {
     <div class="code-pane"><pre class="editor-highlight source-code" aria-hidden="true"><code>${highlightLines(file.code)}</code></pre>
       <textarea class="code-editor" aria-label="${namedFiles ? `Edit ${escapeHtml(file.name)}` : 'Edit Python code'}" data-file="${escapeHtml(file.name)}" spellcheck="false" autocapitalize="off" autocomplete="off">${escapeHtml(file.code)}</textarea>
     </div></div>`).join('');
-  return `<div role="group" aria-label="${escapeHtml(slide.label || 'Python example')}" class="playground ${slide.compactCode ? 'compact-code' : ''} ${slide.initialOutput !== undefined ? 'has-terminal' : ''}">
+  return `<div role="group" aria-label="${escapeHtml(slide.label || 'Python example')}" class="playground ${slide.highlightWhitespace ? 'whitespace-example' : ''} ${slide.compactCode ? 'compact-code' : ''} ${slide.initialOutput !== undefined ? 'has-terminal' : ''}">
     <div class="code-toolbar" aria-label="Python example controls"><span class="code-language">Python${files.length > 1 ? ` · ${escapeHtml(entry)}` : ''}</span><div>
       <button type="button" data-action="run" class="run-code">▶ Run</button>
       <button type="button" data-action="step" class="step-code">Step</button>
@@ -50,6 +50,7 @@ export function playgroundMarkup(slide) {
       <div class="terminal-screen" tabindex="0" role="log" aria-label="Python output terminal"><span class="terminal-output"></span>
         <form class="terminal-input-row" hidden><span class="terminal-prompt"></span><input class="terminal-input" aria-label="Python terminal input" autocomplete="off" spellcheck="false"><button type="submit" aria-label="Submit terminal input">↵</button></form>
       </div>
+      ${slide.terminalNote ? `<p class="terminal-note">${escapeHtml(slide.terminalNote)}</p>` : ''}
       <div class="runtime-variables" aria-label="Variable values" hidden></div>
     </div>
   </div>`;
@@ -99,7 +100,10 @@ export function mountPlayground(root, slide) {
       const chip = document.createElement('span'); chip.className = 'runtime-variable';
       const type = document.createElement('small'); type.textContent = `${item.type}:`;
       const name = document.createElement('strong'); name.textContent = item.name;
-      const value = document.createElement('span'); value.textContent = item.displayValue ?? item.value;
+      const value = document.createElement('span');
+      const displayedValue = item.displayValue ?? item.value;
+      if (slide.highlightWhitespace && item.type === 'str') value.innerHTML = escapeHtml(displayedValue).replace(/ /g, '<span class="terminal-whitespace"> </span>');
+      else value.textContent = displayedValue;
       chip.append(type, document.createTextNode(' '), name, document.createTextNode(' '), value); variables.append(chip);
     }
     variables.hidden = items.length === 0;
@@ -122,7 +126,12 @@ export function mountPlayground(root, slide) {
     const screen = $('.terminal-screen'); screen.scrollTop = screen.scrollHeight;
   }
   function showTerminal() { terminal.hidden = false; root.classList.add('has-terminal'); }
-  function append(text) { output.textContent += text; scrollTerminal(); }
+  function append(text) {
+    const value = output.textContent + text;
+    if (slide.highlightWhitespace) output.innerHTML = escapeHtml(value).replace(/ /g, '<span class="terminal-whitespace"> </span>');
+    else output.textContent = value;
+    scrollTerminal();
+  }
 
   function run(mode = 'run') {
     if (paused && worker) {

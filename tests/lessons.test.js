@@ -189,3 +189,33 @@ test('both full battle-game versions accept real choices and finish in run and s
     assert.equal(results[0], results[1], 'Refactoring must retain the game behaviour');
   }
 });
+
+
+const stringSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/manipulating-strings/slides.json'), 'utf8'));
+const stringSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/manipulating-strings-source.json'), 'utf8'));
+test('string lesson preserves method explanations and removes the file-handling framing', () => {
+  assert.equal(stringSlides.length, 9);
+  stringSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    assert.doesNotMatch([slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || [])].join(' '), /\bfiles?\b/i);
+  });
+  for (const page of [3, 5, 6, 7, 8]) {
+    const slide = stringSlides[page - 1];
+    const text = [slide.title, ...slide.paragraphs, slide.code, `OUTPUT\n${slide.initialOutput}`].join('\n');
+    assert.deepEqual(words(text), words(stringSource[page - 1].text), `Source method wording differs on slide ${page}`);
+  }
+});
+
+test('every string manipulation example produces real expected output in run and step modes', async () => {
+  for (const slide of stringSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(slide.code, [], mode);
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+      if (slide.highlightWhitespace) assert.equal(result.output, 'hello\nhello   \n   hello\n');
+      if (slide.sourcePage === 9) {
+        assert.equal(result.variables.find(item => item.name === 'age').type, 'int');
+        assert.equal(result.variables.find(item => item.name === 'price').type, 'float');
+      }
+    }
+  }
+});

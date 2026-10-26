@@ -1,0 +1,143 @@
+[
+  {
+    "title": "Manipulating Strings",
+    "kind": "cover",
+    "intro": "Data Structures · Lesson 1",
+    "bullets": [
+      "Clean, separate, modify, and convert string values."
+    ],
+    "sourcePage": 1
+  },
+  {
+    "title": "Working with String Values",
+    "kind": "text",
+    "paragraphs": [
+      "Strings store information as text.",
+      "Even when a string contains numbers, those values behave like text until they are converted to another data type.",
+      "Understanding common string methods makes it easier to clean, separate, modify, and convert data."
+    ],
+    "sourcePage": 2
+  },
+  {
+    "title": "lower() / upper() / capitalize() / title()",
+    "kind": "code",
+    "inlineCode": [
+      "lower() / upper() / capitalize() / title()",
+      "lower()",
+      "upper()",
+      "capitalize()",
+      "title()"
+    ],
+    "paragraphs": [
+      "These string methods change the capitalization of text.",
+      "lower() makes all letters lowercase, while upper() makes them uppercase",
+      "capitalize() capitalizes the first character, and title() capitalizes the first letter of each word.",
+      "These methods return a new string rather than changing the original string."
+    ],
+    "code": "text = \"hello WORLD\"\n\nprint(text.lower())\nprint(text.upper())\nprint(text.capitalize())\nprint(text.title())",
+    "initialOutput": "hello world\nHELLO WORLD\nHello world\nHello World\n",
+    "expectedOutput": "hello world\nHELLO WORLD\nHello world\nHello World\n",
+    "sourcePage": 3
+  },
+  {
+    "title": "strip() / lstrip() / rstrip()",
+    "kind": "code",
+    "inlineCode": [
+      "strip() / lstrip() / rstrip()",
+      "strip()",
+      "lstrip()",
+      "rstrip()"
+    ],
+    "paragraphs": [
+      "These methods remove whitespace from the beginning or end of a string.",
+      "strip() removes whitespace from both sides, while lstrip() removes it from the left and rstrip() removes it from the right.",
+      "They are especially useful when cleaning text."
+    ],
+    "code": "text = \"   hello   \"\n\nprint(text.strip())\nprint(text.lstrip())\nprint(text.rstrip())",
+    "initialOutput": "hello\nhello   \n   hello\n",
+    "expectedOutput": "hello\nhello   \n   hello\n",
+    "highlightWhitespace": true,
+    "terminalNote": "In this example, the white space is highlighted in grey for emphasis.",
+    "sourcePage": 4
+  },
+  {
+    "title": "split()",
+    "kind": "code",
+    "inlineCode": [
+      "split()"
+    ],
+    "paragraphs": [
+      "The split() method separates a string into a list of smaller strings.",
+      "Without a parameter, it normally splits the text wherever whitespace appears.",
+      "A separator can also be provided to split the string at a specific character or sequence."
+    ],
+    "code": "# No separator used\nsentence = \"red green blue\"\n\nprint(sentence.split())",
+    "initialOutput": "['red', 'green', 'blue']\n",
+    "expectedOutput": "['red', 'green', 'blue']\n",
+    "sourcePage": 5
+  },
+  {
+    "title": "split()",
+    "kind": "code",
+    "inlineCode": [
+      "split()"
+    ],
+    "paragraphs": [
+      "The split() method separates a string into a list of smaller strings.",
+      "Without a parameter, it normally splits the text wherever whitespace appears.",
+      "A separator can also be provided to split the string at a specific character or sequence."
+    ],
+    "code": "# Uses , as a separator\ndata = \"Alex,82,91\"\n\nprint(data.split(\",\"))",
+    "initialOutput": "['Alex', '82', '91']\n",
+    "expectedOutput": "['Alex', '82', '91']\n",
+    "sourcePage": 6
+  },
+  {
+    "title": "replace()",
+    "kind": "code",
+    "inlineCode": [
+      "replace()"
+    ],
+    "paragraphs": [
+      "The replace() method creates a new string where one piece of text has been replaced with another.",
+      "It can replace individual characters, words, or longer sequences of text.",
+      "The original string is not changed unless the returned value is stored."
+    ],
+    "code": "message = \"Hello Sam\"\nmessage = message.replace(\"Sam\", \"Alex\")\n\nprint(message)",
+    "initialOutput": "Hello Alex\n",
+    "expectedOutput": "Hello Alex\n",
+    "sourcePage": 7
+  },
+  {
+    "title": "join()",
+    "kind": "code",
+    "inlineCode": [
+      "join()"
+    ],
+    "paragraphs": [
+      "The join() method combines multiple strings into one string.",
+      "It is called on the string that should be placed between each value.",
+      "This is useful for rebuilding text after it has been separated into a list."
+    ],
+    "code": "words = [\"red\", \"green\", \"blue\"]\ntext = \", \".join(words)\n\nprint(text)",
+    "initialOutput": "red, green, blue\n",
+    "expectedOutput": "red, green, blue\n",
+    "sourcePage": 8
+  },
+  {
+    "title": "Casting to int() or float()",
+    "kind": "code",
+    "inlineCode": [
+      "int()",
+      "float()"
+    ],
+    "paragraphs": [
+      "Numbers stored inside strings cannot be used directly for normal mathematical operations.",
+      "int() converts a string into an integer, while float() converts it into a decimal number.",
+      "This is commonly necessary when numeric data is stored as text."
+    ],
+    "code": "age_text = \"16\"\nprice_text = \"12.50\"\n\nage = int(age_text)\nprice = float(price_text)",
+    "expectedOutput": "",
+    "sourcePage": 9
+  }
+]

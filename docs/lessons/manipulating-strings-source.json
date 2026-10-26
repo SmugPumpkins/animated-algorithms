@@ -1,0 +1,38 @@
+[
+  {
+    "page": 1,
+    "text": "Plain Text Files\nPart 1: Manipulating\nStrings\nPlain Text Files are made up entirely of\nstrings. To use them effectively, you\nneed to know how to manipulate strings\neffectively."
+  },
+  {
+    "page": 2,
+    "text": "Plain Text Files Use String Values\nPlain text files store information as text, so Python\nreads their contents as strings.\nEven if a file contains numbers, those values initially\nbehave like text until they are converted to another\ndata type.\nUnderstanding common string methods makes it\neasier to clean, separate, modify, and convert data\nread from files."
+  },
+  {
+    "page": 3,
+    "text": "lower() upper() capitalize() title()\n/ / /\nThese string methods text = \"hello WORLD\"\nchange the capitalization of\ntext.\nprint(text.lower())\nlower() makes all letters\nlowercase, while upper()\nprint(text.upper())\nmakes them uppercase\nprint(text.capitalize())\ncapitalize() capitalizes the\nfirst character, and title() print(text.title())\ncapitalizes the first letter of\neach word.\nOUTPUT\nThese methods return a new\nhello world\nstring rather than changing\nHELLO WORLD\nthe original string.\nHello world\nHello World"
+  },
+  {
+    "page": 4,
+    "text": "strip() lstrip() rstrip()\n/ /\nThese methods remove text = \" hello \"\nwhitespace from the\nbeginning or end of a\nprint(text.strip())\nstring.\nstrip() removes print(text.lstrip())\nwhitespace from both\nprint(text.rstrip())\nsides, while lstrip()\nremoves it from the left\nand rstrip() removes it\nfrom the right.\nOUTPUT\nThey are especially useful hello\nIn this example, the white\nwhen cleaning text read hello . space is highlighted in\ngrey for emphasis.\nfrom a file. hello"
+  },
+  {
+    "page": 5,
+    "text": "split()\nThe split() method # No separator used\nseparates a string into a\nsentence = \"red green blue\"\nlist of smaller strings.\nWithout a parameter, it\nprint(sentence.split())\nnormally splits the text\nwherever whitespace\nappears.\nA separator can also be\nprovided to split the\nOUTPUT\nstring at a specific\n['red', 'green', 'blue']\ncharacter or sequence."
+  },
+  {
+    "page": 6,
+    "text": "split()\nThe split() method # Uses , as a separator\nseparates a string into a\ndata = \"Alex,82,91\"\nlist of smaller strings.\nWithout a parameter, it\nprint(data.split(\",\"))\nnormally splits the text\nwherever whitespace\nappears.\nA separator can also be\nprovided to split the\nOUTPUT\nstring at a specific\n['Alex', '82', '91']\ncharacter or sequence."
+  },
+  {
+    "page": 7,
+    "text": "replace()\nThe replace() method message = \"Hello Sam\"\ncreates a new string\nmessage = message.replace(\"Sam\", \"Alex\")\nwhere one piece of text\nhas been replaced with\nprint(message)\nanother.\nIt can replace individual\ncharacters, words, or\nlonger sequences of\ntext.\nOUTPUT\nThe original string is not\nHello Alex\nchanged unless the\nreturned value is stored."
+  },
+  {
+    "page": 8,
+    "text": "join()\nThe join() method words = [\"red\", \"green\", \"blue\"]\ncombines multiple\ntext = \", \".join(words)\nstrings into one string.\nIt is called on the string\nprint(text)\nthat should be placed\nbetween each value.\nThis is useful for\nrebuilding text after it OUTPUT\nred, green, blue\nhas been separated\ninto a list."
+  },
+  {
+    "page": 9,
+    "text": "int() float()\nCasting to or\nNumbers stored inside age_text = \"16\"\nstrings cannot be used\nprice_text = \"12.50\"\ndirectly for normal\nmathematical operations.\nint() converts a string into\nage = int(age_text)\nan integer, while float()\nprice = float(price_text)\nconverts it into a decimal\nnumber.\nThis is commonly necessary\nwhen numeric data has\nbeen read from a text file."
+  }
+]
