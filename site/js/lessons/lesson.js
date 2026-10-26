@@ -73,7 +73,7 @@ function slideMarkup(slide, index) {
 }
 
 try {
-  const response = await fetch('./slides.json');
+  const response = await fetch(`./slides.json${new URL(import.meta.url).search}`, { cache: 'no-cache' });
   if (!response.ok) throw new Error('Lesson content could not be loaded.');
   const slides = await response.json();
   $('.slides').innerHTML = slides.map(slideMarkup).join('');
