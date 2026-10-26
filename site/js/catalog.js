@@ -75,6 +75,10 @@ export const modules = [
       id: 'multidimensional-lists', number: 6, title: 'Multidimensional Lists',
       description: 'Nested lists, rows and columns, multidimensional indexing and nested-loop traversal.',
       slideCount: 13, href: './lessons/cse2120/multidimensional-lists/',
+    }, {
+      id: 'parallel-lists', number: 7, title: 'Parallel Lists',
+      description: 'Related lists, matching indices, enumerate and zip traversal.',
+      slideCount: 6, href: './lessons/cse2120/parallel-lists/',
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',

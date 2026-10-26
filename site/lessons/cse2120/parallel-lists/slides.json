@@ -1,0 +1,100 @@
+[
+  {
+    "title": "Advanced Uses for Lists",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 2: Parallel Lists",
+    "bullets": [
+      "Creating multiple separate, yet related lists."
+    ]
+  },
+  {
+    "title": "Parallel Lists",
+    "kind": "code",
+    "sourcePage": 2,
+    "paragraphs": [
+      "Parallel lists are separate lists where values at the same index are related to one another.",
+      "They are useful when you want to keep different types of related data in separate collections.",
+      "The lists must stay in the same order so that matching indices continue to represent the same item."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\nscores = [82, 91, 76]\n\nprint(names[1])\nprint(scores[1])",
+    "initialOutput": "Sam\n91\n",
+    "expectedOutput": "Sam\n91\n",
+    "inlineCode": [],
+    "denseText": true,
+    "compactCode": true
+  },
+  {
+    "title": "Creating Related Lists",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "Two (or more) related lists can be created by storing matching data at the same index in each list.",
+      "For example, one list can store student names while another stores their grades.",
+      "Index 0 in both lists refers to the same student, index 1 refers to the next student, and so on."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\ngrades = [82, 91, 76]\n\nprint(f\"{names[0]}: {grades[0]}\")",
+    "initialOutput": "Alex: 82\n",
+    "expectedOutput": "Alex: 82\n",
+    "inlineCode": [
+      "0",
+      "1"
+    ],
+    "denseText": true,
+    "compactCode": true
+  },
+  {
+    "title": "Traversing with Indices",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "Parallel lists can be traversed using indices so the same position can be accessed in both lists.",
+      "A range() loop can generate each valid index.",
+      "This works well when you need direct control over the index."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\ngrades = [82, 91, 76]\n\nfor i in range(len(names)):\n    print(f\"{names[i]}: {grades[i]}\")",
+    "initialOutput": "Alex: 82\nSam: 91\nJordan: 76\n",
+    "expectedOutput": "Alex: 82\nSam: 91\nJordan: 76\n",
+    "inlineCode": [
+      "range()"
+    ],
+    "denseText": true,
+    "compactCode": true
+  },
+  {
+    "title": "Traversing with enumerate()",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "The enumerate() function provides both the index and the value from a list during traversal.",
+      "The index can then be used to access the related value in another list.",
+      "This can make index-based traversal easier to read."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\ngrades = [82, 91, 76]\n\nfor i, name in enumerate(names):\n    print(f\"{name}: {grades[i]}\")",
+    "initialOutput": "Alex: 82\nSam: 91\nJordan: 76\n",
+    "expectedOutput": "Alex: 82\nSam: 91\nJordan: 76\n",
+    "inlineCode": [
+      "enumerate()"
+    ],
+    "denseText": true,
+    "compactCode": true
+  },
+  {
+    "title": "Traversing with zip()",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "The zip() function combines matching values from multiple lists during traversal.",
+      "This allows related values to be accessed directly without manually working with indices.",
+      "zip() is often the simplest option when you only need the matching values."
+    ],
+    "code": "names = [\"Alex\", \"Sam\", \"Jordan\"]\ngrades = [82, 91, 76]\n\nfor name, grade in zip(names, grades):\n    print(f\"{name}: {grade}\")",
+    "initialOutput": "Alex: 82\nSam: 91\nJordan: 76\n",
+    "expectedOutput": "Alex: 82\nSam: 91\nJordan: 76\n",
+    "inlineCode": [
+      "zip()"
+    ],
+    "denseText": true,
+    "compactCode": true
+  }
+]

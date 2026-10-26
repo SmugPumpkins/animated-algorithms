@@ -87,3 +87,7 @@ Optional `indexGrid` is an array of rows of coordinate strings. The shared lesso
 The shared syntax highlighter distinguishes decorators (yellow), string escapes (orange), f-string braces (pink), and interpolated expressions (pale purple). It keeps the same textarea/overlay editor and current-line highlighting. Raw strings keep literal backslashes; escaped f-string braces remain literal. Tests verify lossless HTML escaping, multiline strings, nested expressions and incomplete edits.
 
 Editor, output and variable-panel scrollbars use dark tracks and cyan thumbs, with native scrolling behavior and platform fallbacks. Both standard scrollbar properties and WebKit pseudo-elements are styled.
+
+## Parallel Lists (CSE 2120, lesson 7)
+
+All six slides retain source wording and sequence, with extracted text in `parallel-lists-source.json`. Five editable examples support Run and Step, including matching indices, range-based traversal, enumerate and zip. Tests check source fidelity, real output in both modes and matching name/grade pairs across all three traversal approaches. The shared syntax highlighting and neon scrollbars apply automatically.

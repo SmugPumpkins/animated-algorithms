@@ -411,3 +411,31 @@ test('f-string highlighting retains nested expressions, multiline strings and in
     assert.equal(highlightLines(code).replace(/<\/span><span class="code-line/g, '</span>\n<span class="code-line').replace(/<[^>]+>/g, ''), escapeHtml(code));
   }
 });
+
+const parallelSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2120/parallel-lists/slides.json'), 'utf8'));
+const parallelSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/parallel-lists-source.json'), 'utf8'));
+test('Parallel Lists retains all six source slides, explanations, code and output', () => {
+  assert.equal(parallelSlides.length, 6);
+  parallelSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    assert.deepEqual(words(text), words(parallelSource[index].text), `Source differs on page ${index + 1}`);
+  });
+});
+
+test('all parallel-list examples run and step with actual matching values', async () => {
+  for (const slide of parallelSlides.filter(slide => slide.code)) {
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(slide.code, [], mode);
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('edited parallel lists retain matching pairs across indices, enumerate and zip', async () => {
+  for (const slide of parallelSlides.slice(3)) {
+    const code = slide.code.replace('["Alex", "Sam", "Jordan"]', '["Ada", "Grace"]').replace('[82, 91, 76]', '[95, 99]');
+    const result = await runPython(code, [], 'step');
+    assert.equal(result.output, 'Ada: 95\nGrace: 99\n');
+  }
+});

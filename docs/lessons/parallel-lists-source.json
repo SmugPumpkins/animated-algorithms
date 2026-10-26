@@ -1,0 +1,26 @@
+[
+  {
+    "page": 1,
+    "text": "Advanced Uses\nfor Lists\nPart 2: Parallel Lists\nCreating multiple separate, yet\nrelated lists."
+  },
+  {
+    "page": 2,
+    "text": "Parallel Lists\nParallel lists are separate lists\nnames = [\"Alex\", \"Sam\", \"Jordan\"]\nwhere values at the same index\nscores = [82, 91, 76]\nare related to one another.\nThey are useful when you want\nto keep different types of\nprint(names[1])\nrelated data in separate\ncollections. print(scores[1])\nThe lists must stay in the same\norder so that matching indices OUTPUT\ncontinue to represent the same Sam\nitem.\n91"
+  },
+  {
+    "page": 3,
+    "text": "Creating Related Lists\nTwo (or more) related lists\nnames = [\"Alex\", \"Sam\", \"Jordan\"]\ncan be created by storing\ngrades = [82, 91, 76]\nmatching data at the same\nindex in each list.\nFor example, one list can\nprint(f\"{names[0]}: {grades[0]}\")\nstore student names while\nanother stores their grades.\nIndex 0 in both lists refers to\nOUTPUT\nthe same student, index 1 Alex: 82\nrefers to the next student,\nand so on."
+  },
+  {
+    "page": 4,
+    "text": "Traversing with Indices\nParallel lists can be names = [\"Alex\", \"Sam\", \"Jordan\"]\ntraversed using indices so\ngrades = [82, 91, 76]\nthe same position can be\naccessed in both lists.\nfor i in range(len(names)):\nA range() loop can print(f\"{names[i]}: {grades[i]}\")\ngenerate each valid index.\nThis works well when you\nOUTPUT\nneed direct control over\nAlex: 82\nthe index.\nSam: 91\nJordan: 76"
+  },
+  {
+    "page": 5,
+    "text": "enumerate()\nTraversing with\nThe enumerate() function names = [\"Alex\", \"Sam\", \"Jordan\"]\nprovides both the index\ngrades = [82, 91, 76]\nand the value from a list\nduring traversal.\nfor i, name in enumerate(names):\nThe index can then be\nprint(f\"{name}: {grades[i]}\")\nused to access the related\nvalue in another list.\nOUTPUT\nThis can make index-\nAlex: 82\nbased traversal easier to\nSam: 91\nread.\nJordan: 76"
+  },
+  {
+    "page": 6,
+    "text": "zip()\nTraversing with\nThe zip() function combines names = [\"Alex\", \"Sam\", \"Jordan\"]\nmatching values from multiple\ngrades = [82, 91, 76]\nlists during traversal.\nThis allows related values to be\nfor name, grade in zip(names, grades):\naccessed directly without\nprint(f\"{name}: {grade}\")\nmanually working with indices.\nzip() is often the simplest\noption when you only need the\nmatching values. OUTPUT\nAlex: 82\nSam: 91\nJordan: 76"
+  }
+]
