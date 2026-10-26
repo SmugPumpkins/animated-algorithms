@@ -1,0 +1,38 @@
+[
+  {
+    "page": 1,
+    "text": "Iteration Structures\nPart 2: While Loops\nWhile loops continue to execute for as\nlong as a condition remains True."
+  },
+  {
+    "page": 2,
+    "text": "While Loops\nWhile Loop: An iteration structure that repeatedly executes a code block as long as a\ncondition remains True.\nBefore each iteration, the condition is evaluated.\n\u2022\nIf the condition is True, the code block executes.\n\u2022\nIf the condition is False, the loop ends and the program continues.\nUnlike a for loop, a while loop does not automatically know when it should stop.\nThe programmer is responsible for creating a condition that will eventually evaluate to\nFalse.\nIf the condition never becomes False, the loop will continue running indefinitely.\nBecause of this, while loops provide more flexibility than for loops, but they also\nrequire more care to avoid creating unintended infinite loops."
+  },
+  {
+    "page": 3,
+    "text": "While Loops \u2013 Counting Example\nA while loop can be used similarly\ni = 0\nto a for loop by tracking a\ncounter variable.\nThe counter is initialized before\nwhile i < 5:\nthe loop begins, and the loop\ncontinues until the counter\nprint(i)\nreaches a specified value.\ni += 1\nWhen using this pattern, the\nstarting value is set outside of the\nloop and updated inside the loop.\nOUTPUT\n0\nIf the counter is not updated, the\n1\ncondition may never become\n2\nFalse, resulting in an infinite loop.\n3\n4"
+  },
+  {
+    "page": 4,
+    "text": "While Loops \u2013 Repeating Until a Condition Is Met\nA common use of a while loop is\nanswer = \"\"\nrepeating code until a condition is met.\nThe loop continues running while the\ncondition is True and stops once the while answer != \"yes\":\ncondition becomes False.\nanswer = input(\"Type yes to continue: \")\nThis pattern is often used when waiting\nfor user input, a response from another\nsystem, or some other event that may\nprint(\"Program will now continue...\")\noccur at an unknown time.\nUnlike a for loop, the number of\niterations does not need to be known in\nOUTPUT\nadvance.\nType yes to continue:\nno\nThis loop continues asking for input until\nthe user enters \"yes\". Type yes to continue:\nyes\nProgram will now continue..."
+  },
+  {
+    "page": 5,
+    "text": "While Loops \u2013 Validating Input\nA common use of a while loop age = -1\nis validating user input.\nwhile age < 0:\nThe loop repeats until the user\nage = input(\"Enter your age: \")\nenters a value that meets the\nage = int(age)\nprogram's requirements.\nprint(\"Valid age received.\")\nThis helps prevent invalid data\nfrom causing errors later in the\nprogram.\nOUTPUT\nThis loop continues until a valid\nEnter your age:\nage is entered. -3\nEnter your age:\n27\nValid age received."
+  },
+  {
+    "page": 6,
+    "text": "While Loops \u2013 Validating Multiple Inputs\nWhen validating multiple inputs, it age = -1\ngrade = -1\nis generally best practice to give\neach input its own validation loop.\nwhile age < 0:\nage = int(input(\"Enter your age: \"))\nThis allows the program to\nre-request only the invalid value. print(\"Valid age received.\")\nwhile grade < 1 or grade > 12:\nCombining multiple inputs into a\ngrade = int(input(\"Enter your grade: \"))\nsingle validation loop can lead to\na poor user experience because print(\"Valid grade received.\")\nall inputs may need to be entered\nagain when only one value is\nOUTPUT\ninvalid.\nEnter your age:\n17\nSeparate validation loops make Valid age received.\nEnter your grade:\nprograms easier to use and\n10\neasier to maintain.\nValis grade received."
+  },
+  {
+    "page": 7,
+    "text": "While Loops \u2013 Infinite Loops\nAn infinite loop is a loop that\nwhile True:\nnever ends because its\ncondition never becomes False. print(\"This loop never ends\")\nAccidental infinite loops are a\ncommon programming mistake\nand will cause a program to\ncontinue running indefinitely.\nThis often makes the program\nappear frozen or unresponsive. OUTPUT\n...\nThis loop never ends\nThis loop never ends\nThis loop never ends\nThis loop never ends\nThis loop never ends\n..."
+  },
+  {
+    "page": 8,
+    "text": "While Loops \u2013 Infinite Loops continued...\nNot all infinite loops are mistakes.\nwhile True:\nSometimes a program is intended to\nrun continuously and repeatedly\n# Check button state\ncheck for new information.\n# Read sensor values\nFor example, a machine may need to\nconstantly monitor buttons, sensors,\nor other forms of input while it is # Update outputs\npowered on.\nIn CircuitPython (a python library for\nprogramming circuits), infinite loops\nare commonly used to repeatedly\ncheck hardware devices."
+  },
+  {
+    "page": 9,
+    "text": "While Loops \u2013 Infinite Loops continued...\nIn OpenCV (a library using a live\nwhile True:\ncamera feed later in this\n# Capture a frame from the camera\ncourse), infinite loops are\ncommonly used to continuously\n# Process the image\nprocess frames from a camera.\n# Display the result"
+  }
+]

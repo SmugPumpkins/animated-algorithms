@@ -31,6 +31,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step', project = 
     let output = '', promptCount = 0;
     const steps = [];
     const dataFiles = { ...(project.dataFiles || {}) };
+    const { stopAfterInputs, ...workerProject } = project;
     const context = vm.createContext({ console, setTimeout, clearTimeout, setInterval, clearInterval });
     context.self = context;
     context.importScripts = (...names) => names.forEach(name => {
@@ -45,6 +46,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step', project = 
         queueMicrotask(() => context.onmessage({ data: { type: advance } }));
       }
       else if (message.type === 'input') {
+        if (stopAfterInputs !== undefined && promptCount >= stopAfterInputs) { resolve({output, promptCount, steps, waiting:true, prompt:message.prompt}); return; }
         const value = inputs[promptCount++];
         if (value === undefined) { reject(new Error('Unexpected input request')); return; }
         output += message.prompt + value + '\n';
@@ -54,7 +56,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step', project = 
     };
     const filename = path.join(root, 'site/js/lessons/python-worker.js');
     vm.runInContext(readFileSync(filename, 'utf8'), context, { filename });
-    context.onmessage({ data: { type: 'run', code, mode, ...project } });
+    context.onmessage({ data: { type: 'run', code, mode, ...workerProject } });
   });
 }
 
@@ -867,5 +869,72 @@ test('break and continue affect the selected for-loop iteration and preserve fol
     assert.equal(search.variables.find(item=>item.name==='name').displayValue,'Charlie');
     assert.equal((await runPython(advancedForSlides[6].code.replace('if name == "Charlie":','if name == "Zoe":'),[],mode)).output,'Search complete.\n');
     assert.equal((await runPython(advancedForSlides[7].code.replace('number == 2','number == 0'),[],mode)).output,'1\n2\n3\n4\nLoop complete.\n');
+  }
+});
+
+const whileSlides = JSON.parse(readFileSync(path.join(root,'site/lessons/cse1120/while-loops/slides.json'),'utf8'));
+const advancedWhileSlides = JSON.parse(readFileSync(path.join(root,'site/lessons/cse1120/advanced-while-loops/slides.json'),'utf8'));
+test('while-loop lessons separate flags and stopping conditions from advanced control', () => {
+  assert.equal(whileSlides.length,8);assert.equal(advancedWhileSlides.length,10);
+  const basic = whileSlides.map(slide=>slide.code||'').join('\n');
+  assert.doesNotMatch(basic,/\b(break|continue)\b/);
+  assert.ok(whileSlides.some(slide=>slide.code?.includes('running = False')));
+  assert.equal(advancedWhileSlides.filter(slide=>slide.expectedNonTerminating).length,1);
+});
+test('all terminating while-loop examples run and step with genuine input and output', async () => {
+  for(const slide of [...whileSlides,...advancedWhileSlides].filter(slide=>slide.code&&!slide.expectedNonTerminating)) {
+    for(const mode of ['run','step']) {
+      const result = await runPython(slide.code,slide.testInputs||[],mode);
+      assert.equal(result.output,slide.expectedOutput,`${slide.title}: ${mode}`);
+    }
+  }
+});
+test('while conditions can skip the body and Boolean flags finish the current iteration', async () => {
+  for(const mode of ['run','step']) {
+    assert.equal((await runPython(whileSlides[2].code.replace('count = 0','count = 5'),[],mode)).output,'');
+    const flag = await runPython(whileSlides[5].code,['quit'],mode);
+    assert.equal(flag.variables.find(item=>item.name==='running').value,'False');
+    assert.equal(flag.promptCount,1);
+    assert.equal((await runPython(whileSlides[6].code,['quit'],mode)).output,'Command: quit\nIteration complete.\nLoop complete.\n');
+    const repeated = await runPython(whileSlides[4].code,['no','later','yes'],mode);
+    assert.equal(repeated.promptCount,3);assert.match(repeated.output,/Ready\./);
+  }
+});
+test('infinite-loop example keeps requesting input and can be observed without flooding output', async () => {
+  const slide = advancedWhileSlides[1];
+  for(const mode of ['run','step']) {
+    const result = await runPython(slide.code,['',''],mode,'step',{stopAfterInputs:2});
+    assert.equal(result.waiting,true);assert.equal(result.promptCount,2);
+    assert.equal((result.output.match(/Iteration complete\./g)||[]).length,2);
+    assert.match(result.prompt,/Press Enter/);
+  }
+});
+test('validation loops reject invalid text and preserve separately accepted inputs', async () => {
+  for(const mode of ['run','step']) {
+    const choice = await runPython(advancedWhileSlides[3].code,['','maybe','YES','no'],mode);
+    assert.equal(choice.promptCount,4);assert.match(choice.output,/Accepted: no/);
+    const age = await runPython(advancedWhileSlides[4].code,['oops','','1.5','-2','0'],mode);
+    assert.equal(age.promptCount,5);assert.match(age.output,/Valid age: 0/);
+    assert.equal((age.output.match(/Enter a whole number\./g)||[]).length,3);
+    const separate = await runPython(advancedWhileSlides[5].code,['green','blue','medium','large'],mode);
+    assert.equal((separate.output.match(/Colour \(red\/blue\):/g)||[]).length,2);
+    assert.equal((separate.output.match(/Size \(small\/large\):/g)||[]).length,2);
+    assert.match(separate.output,/blue large/);
+  }
+});
+test('nested while loops reset their inner counter and break leaves the outer loop running', async () => {
+  const nested = await runPython(advancedWhileSlides[2].code,[],'step');
+  assert.equal(nested.output,'0 0\n0 1\n1 0\n1 1\n');
+  assert.ok(nested.steps.some(step=>step.variables.some(item=>item.name==='row'&&item.value==='1')&&step.variables.some(item=>item.name==='column'&&item.value==='0')));
+  assert.equal((await runPython(advancedWhileSlides[8].code,[],'step')).output,'0 0\n1 0\n');
+});
+test('while break exits immediately and continue still advances toward the stopping condition', async () => {
+  for(const mode of ['run','step']) {
+    const stopped = await runPython(advancedWhileSlides[6].code,['quit'],mode);
+    assert.equal(stopped.output,'Command: quit\nLoop complete.\n');
+    const skipped = await runPython(advancedWhileSlides[7].code,[],mode);
+    assert.equal(skipped.output,'1\n2\n4\n5\nLoop complete.\n');
+    assert.equal(skipped.variables.find(item=>item.name==='number').value,'5');
+    assert.equal((await runPython(advancedWhileSlides[7].code.replace('number == 3','number == 1'),[],mode)).output,'2\n3\n4\n5\nLoop complete.\n');
   }
 });

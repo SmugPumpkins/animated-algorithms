@@ -1,6 +1,6 @@
 // Add modules and demonstrations here. Each demonstration owns its rendering
 // and returns a cleanup function, so timers and listeners never leak across pages.
-const curriculumUrl = 'https://education.alberta.ca/media/159479/cse_pos.pdf';
+const curriculumUrl = 'https://curriculum.learnalberta.ca/curriculum/en/area/CTS';
 
 // Class membership is data, not a fixed two-class layout. Add a course here
 // and reference any module IDs from the module registry below.
@@ -70,6 +70,14 @@ export const modules = [
       id: 'advanced-for-loops', number: 5, title: 'Advanced For Loops',
       description: 'Nested loops, enumerate, zip, break and continue in for loops.',
       slideCount: 10, href: './lessons/cse1120/advanced-for-loops/',
+    }, {
+      id: 'while-loops', number: 6, title: 'While Loops',
+      description: 'Condition-controlled repetition, stopping conditions and Boolean flags.',
+      slideCount: 8, href: './lessons/cse1120/while-loops/',
+    }, {
+      id: 'advanced-while-loops', number: 7, title: 'Advanced While Loops',
+      description: 'Infinite and nested loops, input validation, break and continue.',
+      slideCount: 10, href: './lessons/cse1120/advanced-while-loops/',
     }]),
   moduleEntry('CSE 1240', 'Robotics Programming 1',
     'Design and debug programs that control robots.',
@@ -145,7 +153,7 @@ export const modules = [
       'Quicksort, merge sort and heapsort',
       'Recursion and dynamic data structures',
     ],
-    curriculumUrl: 'https://education.alberta.ca/media/159479/cse_pos.pdf',
+    curriculumUrl: 'https://curriculum.learnalberta.ca/curriculum/en/area/CTS',
     demonstrations: [{
       id: 'depth-first-search', title: 'Depth-first search',
       description: 'Help a mouse find the exit. Follow recursive calls through a maze and see how backtracking builds a path.',

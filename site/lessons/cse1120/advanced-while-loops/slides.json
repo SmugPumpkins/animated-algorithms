@@ -1,0 +1,233 @@
+[
+  {
+    "title": "Advanced While Loops",
+    "kind": "cover",
+    "sourcePage": null,
+    "intro": "Iteration Structures: Controlling While Loops",
+    "bullets": [
+      "Recognize an infinite loop.",
+      "Trace nested while loops.",
+      "Keep asking until input is valid.",
+      "End a while loop with break.",
+      "Skip an iteration with continue."
+    ],
+    "inlineCode": [
+      "while",
+      "break",
+      "continue"
+    ]
+  },
+  {
+    "title": "Infinite Loops",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "An infinite loop never reaches an exit.",
+      "The condition in while True stays True. This example waits for input during every iteration.",
+      "Press Enter to complete an iteration. Use Stop to end this example.",
+      "A loop can also repeat endlessly when a value needed by its stopping condition is never updated."
+    ],
+    "code": "while True:\n    input(\"Press Enter for another iteration: \")\n    print(\"Iteration complete.\")",
+    "expectedOutput": "",
+    "initialOutput": "",
+    "denseText": true,
+    "compactCode": true,
+    "expectedNonTerminating": true,
+    "inlineCode": [
+      "while True",
+      "True"
+    ],
+    "layout": "long-explanation",
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "Nesting while Loops",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "The inner loop runs inside the outer loop.",
+      "Set column back to 0 at the start of each row. This lets the inner loop run again.",
+      "Increase column inside the inner loop. Increase row after the inner loop finishes."
+    ],
+    "code": "row = 0\nwhile row < 2:\n    column = 0\n    while column < 2:\n        print(row, column)\n        column += 1\n    row += 1",
+    "expectedOutput": "0 0\n0 1\n1 0\n1 1\n",
+    "initialOutput": "0 0\n0 1\n1 0\n1 1",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "while",
+      "column",
+      "row"
+    ]
+  },
+  {
+    "title": "Validating a Choice",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "Validation checks whether input meets the requirements.",
+      "Here, only yes and no are accepted. The loop repeats while the answer matches neither choice.",
+      "Any other response causes another prompt. The accepted value is displayed after the loop."
+    ],
+    "code": "answer = \"\"\nwhile answer != \"yes\" and answer != \"no\":\n    answer = input(\"Enter yes or no: \")\nprint(\"Accepted:\", answer)",
+    "expectedOutput": "Enter yes or no: maybe\nEnter yes or no: yes\nAccepted: yes\n",
+    "initialOutput": "Enter yes or no: maybe\nEnter yes or no: yes\nAccepted: yes",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "maybe",
+      "yes"
+    ],
+    "inlineCode": [
+      "yes",
+      "no"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "Validating a Whole Number",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "The loop keeps asking while age is negative.",
+      "The try block attempts the conversion with int.",
+      "A ValueError means the text could not be converted. The except block displays a message.",
+      "The loop ends when age is 0 or higher."
+    ],
+    "code": "age = -1\nwhile age < 0:\n    response = input(\"Enter your age: \")\n    try:\n        age = int(response)\n    except ValueError:\n        print(\"Enter a whole number.\")\nprint(\"Valid age:\", age)",
+    "expectedOutput": "Enter your age: -3\nEnter your age: hello\nEnter a whole number.\nEnter your age: 17\nValid age: 17\n",
+    "initialOutput": "Enter your age: -3\nEnter your age: hello\nEnter a whole number.\nEnter your age: 17\nValid age: 17",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "-3",
+      "hello",
+      "17"
+    ],
+    "inlineCode": [
+      "age",
+      "int",
+      "ValueError",
+      "except",
+      "try"
+    ],
+    "layout": "long-explanation",
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "Validating Inputs Separately",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "Give each input its own validation loop.",
+      "The first loop accepts red or blue. The second accepts small or large.",
+      "An invalid size only repeats the size prompt. The accepted colour is kept."
+    ],
+    "code": "colour = \"\"\nwhile colour != \"red\" and colour != \"blue\":\n    colour = input(\"Colour (red/blue): \")\nsize = \"\"\nwhile size != \"small\" and size != \"large\":\n    size = input(\"Size (small/large): \")\nprint(colour, size)",
+    "expectedOutput": "Colour (red/blue): red\nSize (small/large): medium\nSize (small/large): small\nred small\n",
+    "initialOutput": "Colour (red/blue): red\nSize (small/large): medium\nSize (small/large): small\nred small",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "red",
+      "medium",
+      "small"
+    ],
+    "inlineCode": [
+      "red",
+      "blue",
+      "small",
+      "large"
+    ],
+    "layout": "code-emphasis",
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "Ending a while Loop with break",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "while True keeps its condition True. A break can still end the loop.",
+      "Here, entering quit executes break. No later instruction in that iteration runs.",
+      "Python then runs the final print outside the loop."
+    ],
+    "code": "while True:\n    command = input(\"Command: \")\n    if command == \"quit\":\n        break\n    print(\"Received:\", command)\nprint(\"Loop complete.\")",
+    "expectedOutput": "Command: hello\nReceived: hello\nCommand: quit\nLoop complete.\n",
+    "initialOutput": "Command: hello\nReceived: hello\nCommand: quit\nLoop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "hello",
+      "quit"
+    ],
+    "inlineCode": [
+      "while True",
+      "True",
+      "break",
+      "quit",
+      "print"
+    ],
+    "layout": "long-explanation",
+    "sourceDeck": "break-continue"
+  },
+  {
+    "title": "Skipping an Iteration with continue",
+    "kind": "code",
+    "sourcePage": 2,
+    "paragraphs": [
+      "continue skips the rest of the current iteration. The loop then checks its condition again.",
+      "Here, number increases before the continue check. The loop can still reach its stopping value.",
+      "The value 3 is skipped. The values 4 and 5 are displayed."
+    ],
+    "code": "number = 0\nwhile number < 5:\n    number += 1\n    if number == 3:\n        continue\n    print(number)\nprint(\"Loop complete.\")",
+    "expectedOutput": "1\n2\n4\n5\nLoop complete.\n",
+    "initialOutput": "1\n2\n4\n5\nLoop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "continue",
+      "number"
+    ],
+    "layout": "long-explanation",
+    "sourceDeck": "break-continue"
+  },
+  {
+    "title": "break Inside Nested while Loops",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "A break ends the nearest loop that contains it.",
+      "Here, the inner loop ends when column reaches 1.",
+      "The outer loop still increases row. It then starts another inner loop."
+    ],
+    "code": "row = 0\nwhile row < 2:\n    column = 0\n    while column < 3:\n        if column == 1:\n            break\n        print(row, column)\n        column += 1\n    row += 1",
+    "expectedOutput": "0 0\n1 0\n",
+    "initialOutput": "0 0\n1 0",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "break",
+      "while",
+      "column",
+      "row"
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "A loop needs a reachable exit to finish. Use Stop to interrupt an example that keeps running.",
+      "Reset inner-loop variables when each outer iteration begins.",
+      "Validation loops keep asking until input meets the requirements.",
+      "Use break to end the nearest containing loop.",
+      "Use continue to skip the rest of an iteration. Keep the stopping condition reachable."
+    ],
+    "inlineCode": [
+      "break",
+      "continue"
+    ]
+  }
+]

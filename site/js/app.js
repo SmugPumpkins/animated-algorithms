@@ -1,10 +1,10 @@
-import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js?v=20261026-for-loops';
+import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js?v=20261026-while-loops';
 import { learningFlow } from './learning-flow.js?v=3';
 
 const main = document.querySelector('main');
 let cleanup = () => {}, routeVersion = 0;
 const curriculumFooter = document.querySelector('[data-curriculum-link]');
-function showCurriculum(url = 'https://education.alberta.ca/media/159479/cse_pos.pdf') {
+function showCurriculum(url = 'https://curriculum.learnalberta.ca/curriculum/en/area/CTS') {
   curriculumFooter.hidden = false;
   curriculumFooter.innerHTML = `<a class="curriculum-source" href="${url}" target="_blank" rel="noopener">View the program of studies ↗</a>`;
 }

@@ -1,0 +1,167 @@
+[
+  {
+    "title": "While Loops",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Iteration Structures: Conditions and Boolean Flags",
+    "bullets": [
+      "Check a condition before each iteration.",
+      "Repeat until a stopping condition is met.",
+      "Use a Boolean flag to control a loop."
+    ],
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "How a while Loop Works",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "A while loop repeats a block of code when its condition is True.",
+      "Python checks the condition before each iteration.",
+      "A True condition starts the next iteration. A False condition ends the loop.",
+      "The program then continues with the first instruction after the loop."
+    ],
+    "inlineCode": [
+      "while",
+      "True",
+      "False"
+    ],
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "Changing the Condition",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "The variable count starts at 0.",
+      "The loop runs while count < 5 is True. Each iteration displays count and increases it by 1.",
+      "When count reaches 5, the condition is False. The loop finishes."
+    ],
+    "code": "count = 0\n\nwhile count < 5:\n    print(count)\n    count += 1",
+    "expectedOutput": "0\n1\n2\n3\n4\n",
+    "initialOutput": "0\n1\n2\n3\n4",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "count < 5",
+      "count",
+      "True",
+      "False"
+    ],
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "A Loop Can Be Skipped",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "The condition is checked before the body runs.",
+      "Here, count starts at 5. The condition count < 5 is already False.",
+      "The loop body does not run. The final print still runs."
+    ],
+    "code": "count = 5\n\nwhile count < 5:\n    print(count)\n    count += 1\n\nprint(\"Loop complete.\")",
+    "expectedOutput": "Loop complete.\n",
+    "initialOutput": "Loop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "count < 5",
+      "count",
+      "False",
+      "print"
+    ]
+  },
+  {
+    "title": "Repeating Until a Response Is Received",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "The loop keeps asking while answer is not yes.",
+      "Each response replaces the value stored in answer.",
+      "Entering yes makes the condition False. The program then displays Ready."
+    ],
+    "code": "answer = \"\"\nwhile answer != \"yes\":\n    answer = input(\"Type yes to finish: \")\nprint(\"Ready.\")",
+    "expectedOutput": "Type yes to finish: no\nType yes to finish: yes\nReady.\n",
+    "initialOutput": "Type yes to finish: no\nType yes to finish: yes\nReady.",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "no",
+      "yes"
+    ],
+    "inlineCode": [
+      "answer",
+      "yes",
+      "False",
+      "Ready"
+    ],
+    "layout": "long-explanation",
+    "sourceDeck": "while-loops"
+  },
+  {
+    "title": "Controlling a Loop with a Boolean Flag",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "A Boolean flag stores True or False.",
+      "Here, running starts as True. The loop checks that flag before each iteration.",
+      "Entering quit changes running to False. The next condition check ends the loop."
+    ],
+    "code": "running = True\nwhile running:\n    command = input(\"Command: \")\n    if command == \"quit\":\n        running = False\nprint(\"Loop complete.\")",
+    "expectedOutput": "Command: hello\nCommand: quit\nLoop complete.\n",
+    "initialOutput": "Command: hello\nCommand: quit\nLoop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "hello",
+      "quit"
+    ],
+    "inlineCode": [
+      "True",
+      "False",
+      "running",
+      "quit"
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "The Current Iteration Finishes",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "Changing the flag does not jump out of the current code block.",
+      "The remaining instructions in that iteration still run.",
+      "Here, Iteration complete. is displayed after quit. The next condition check ends the loop."
+    ],
+    "code": "running = True\nwhile running:\n    command = input(\"Command: \")\n    if command == \"quit\":\n        running = False\n    print(\"Iteration complete.\")\nprint(\"Loop complete.\")",
+    "expectedOutput": "Command: quit\nIteration complete.\nLoop complete.\n",
+    "initialOutput": "Command: quit\nIteration complete.\nLoop complete.",
+    "denseText": true,
+    "compactCode": true,
+    "testInputs": [
+      "quit"
+    ],
+    "inlineCode": [
+      "Iteration complete.",
+      "quit"
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Wrap Up",
+    "kind": "wrapup",
+    "sourcePage": null,
+    "bullets": [
+      "A while loop checks its condition before each iteration.",
+      "A True condition starts another iteration.",
+      "The loop can run zero times when its first check is False.",
+      "Update values in the body so the stopping condition can be reached.",
+      "A Boolean flag can be changed to False to end the loop at its next check."
+    ],
+    "inlineCode": [
+      "while",
+      "True",
+      "False"
+    ]
+  }
+]
