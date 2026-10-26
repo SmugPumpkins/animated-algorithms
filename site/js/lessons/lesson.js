@@ -1,6 +1,6 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
-import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-multidimensional';
+import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-textfiles';
 
 const $ = selector => document.querySelector(selector);
 function inlineCode(text, tokens = []) {
@@ -16,6 +16,16 @@ new ResizeObserver(([entry]) => {
 }).observe($('.lesson-nav'));
 
 function slideMarkup(slide, index) {
+  const cyclePositions = [[240, 20], [460, 160], [370, 360], [110, 360], [20, 160]];
+  const cycle = slide.cycle ? `<svg class="lesson-cycle" viewBox="0 0 700 480" role="img" aria-label="Read-process-write cycle"><defs><marker id="cycle-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#a09cb8"/></marker></defs>${["M450 65L540 145", "M565 250L515 345", "M355 405L325 405", "M150 345L105 250", "M155 145L235 85"].map(d => `<path class="cycle-links" d="${d}"/>`).join('')}${slide.cycle.map((node, i) => {
+    const [x,y] = cyclePositions[i];
+    const lines = [''];
+    for (const word of node.label.split(' ')) {
+      if ((lines.at(-1) + ' ' + word).trim().length > 14) lines.push(word);
+      else lines[lines.length - 1] = (lines.at(-1) + ' ' + word).trim();
+    }
+    return `<g class="flow-node" data-node="cycle-${i}" data-role="${escapeHtml(node.role)}" transform="translate(${x} ${y})"><rect width="210" height="90" rx="12"/><text x="105" y="37" text-anchor="middle"><tspan x="105">${escapeHtml(lines[0])}</tspan><tspan x="105" dy="28">${escapeHtml(lines[1] || '')}</tspan></text></g>`;
+  }).join('')}</svg>` : '';
   const title = `<h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>${inlineCode(slide.title, slide.inlineCode)}${slide.sourceUrl ? `<a class="lesson-source" href="${escapeHtml(slide.sourceUrl)}" target="_blank" rel="noopener">GitHub source ↗</a>` : ''}</h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>`;
   const paragraphs = (slide.paragraphs || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('');
   const indexGrid = slide.indexGrid ? `<table class="lesson-index-grid" aria-label="Row and column indices"><tbody>${slide.indexGrid.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '';
@@ -25,6 +35,8 @@ function slideMarkup(slide, index) {
     ? `${title}<div class="comparison-layout">${slide.examples.map(example => `<div class="example-panel">${example.paragraph ? `<div class="source-body comparison-explanation"><p>${inlineCode(example.paragraph, slide.inlineCode)}</p></div>` : ''}${playgroundMarkup(example)}</div>`).join('')}</div>${slide.caption ? `<p class="comparison-caption">${inlineCode(slide.caption, slide.inlineCode)}</p>` : ''}`
     : slide.layout === 'documentation'
       ? `${title}<div class="source-body wide-caption">${paragraphs}</div><div class="documentation-layout">${playgroundMarkup(slide)}<aside class="documentation-preview" aria-label="Function documentation"><pre>${escapeHtml(documentation.signature)}</pre><p>${escapeHtml(documentation.description)}</p><h3>Params:</h3><dl>${documentation.parameters.map(parameter => `<dt><span class="inline-code">${escapeHtml(parameter.name)}</span></dt><dd>${escapeHtml(parameter.description)}</dd>`).join('')}</dl><p><strong>Returns:</strong> ${escapeHtml(documentation.returns)}</p></aside></div>`
+    : slide.kind === 'cycle'
+    ? `${title}<div class="slide-columns"><div class="source-body">${paragraphs}</div>${cycle}</div>`
     : slide.kind === 'text'
     ? `${title}<div class="source-body text-layout">${paragraphs}</div>`
     : slide.layout === 'wide' || slide.layout === 'annotated'

@@ -1,0 +1,394 @@
+[
+  {
+    "title": "Plain Text Files",
+    "kind": "cover",
+    "sourcePage": 1,
+    "intro": "Part 1: Reading, Writing, and Appending to Files",
+    "bullets": [
+      "Files can be accessed and altered in Python with reading, writing, and appending."
+    ]
+  },
+  {
+    "title": "Reading, Writing, and Appending",
+    "kind": "text",
+    "sourcePage": 2,
+    "paragraphs": [
+      "Python can open text files in different modes depending on what you want to do.",
+      "\"r\" (read mode) reads an existing file without changing it.",
+      "\"w\" (write mode) writes to a file and replaces any existing contents.",
+      "\"a\" (append mode) adds new content to the end of an existing file."
+    ],
+    "inlineCode": [
+      "\"r\"",
+      "\"w\"",
+      "\"a\""
+    ]
+  },
+  {
+    "title": "Opening a File to Read",
+    "kind": "code",
+    "sourcePage": 3,
+    "paragraphs": [
+      "A file can be opened in read mode using \"r\".",
+      "The with statement automatically closes the file when the indented block finishes.",
+      "The file must already exist or Python will produce an error.",
+      "This string value here needs to be the path to the file. Here we assume an existing file called \"students.txt\" that is in the same folder as our Python script."
+    ],
+    "code": "with open(\"students.txt\", \"r\") as file:\n    pass",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "\"r\"",
+      "with",
+      "\"students.txt\""
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Reading the Whole File as One String",
+    "kind": "code",
+    "sourcePage": 4,
+    "paragraphs": [
+      "The read() method reads the entire contents of a file as one string.",
+      "Any line breaks in the file are included in that string.",
+      "This is useful when you want to work with the whole file at once."
+    ],
+    "code": "with open(\"students.txt\", \"r\") as file:\n    text = file.read()\n\nprint(text)",
+    "expectedOutput": "Alex\nSam\nJordan\n\n",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "read()"
+    ],
+    "initialOutput": "Alex\nSam\nJordan\n"
+  },
+  {
+    "title": "Reading the File Line by Line",
+    "kind": "code",
+    "sourcePage": 5,
+    "paragraphs": [
+      "The readlines() method reads the file and stores each line as an item in a list.",
+      "This makes it easier to process each line separately.",
+      "The newline character \\n is usually kept at the end of each line."
+    ],
+    "code": "with open(\"students.txt\", \"r\") as file:\n    lines = file.readlines()\n\nprint(lines)",
+    "expectedOutput": "['Alex\\n', 'Sam\\n', 'Jordan\\n']\n",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "readlines()",
+      "\\n"
+    ],
+    "initialOutput": "['Alex\\n', 'Sam\\n', 'Jordan\\n']\n"
+  },
+  {
+    "title": "Processing a List of Lines",
+    "kind": "code",
+    "sourcePage": 6,
+    "paragraphs": [
+      "Once file lines are stored in a list, they can be processed one at a time using a loop.",
+      "Each line can be cleaned, changed, or checked individually.",
+      "strip() is often used to remove the newline character."
+    ],
+    "code": "with open(\"students.txt\", \"r\") as file:\n    lines = file.readlines()\n\nfor line in lines:\n    name = line.strip()\n    print(name.upper())",
+    "expectedOutput": "ALEX\nSAM\nJORDAN\n",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "strip()"
+    ],
+    "initialOutput": "ALEX\nSAM\nJORDAN\n"
+  },
+  {
+    "title": "Opening / Creating a File to Write",
+    "kind": "code",
+    "sourcePage": 7,
+    "paragraphs": [
+      "A file can be opened in write mode using \"w\".",
+      "If the file does not exist, Python creates it.",
+      "If it already exists, its current contents are removed.",
+      "This string value here needs to be the path to the file you are writing. Here we assume there is no file called \"students.txt\" because we will create it ourselves."
+    ],
+    "code": "with open(\"students.txt\", \"w\") as file:\n    pass",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "",
+        "exists": false
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": ""
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "\"w\"",
+      "\"students.txt\""
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Writing a New File",
+    "kind": "code",
+    "sourcePage": 8,
+    "paragraphs": [
+      "The write() method adds text to a file that has been opened for writing.",
+      "If students.txt does not already exist, Python creates it.",
+      "Newline characters can be added so each value appears on its own line."
+    ],
+    "code": "with open(\"students.txt\", \"w\") as file:\n    file.write(\"Alex\\n\")\n    file.write(\"Sam\\n\")\n    file.write(\"Jordan\\n\")",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "",
+        "exists": false
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "write()",
+      "students.txt"
+    ]
+  },
+  {
+    "title": "Overwriting a File",
+    "kind": "code",
+    "sourcePage": 9,
+    "paragraphs": [
+      "Opening an existing file with \"w\" completely replaces its current contents.",
+      "This means anything already stored in students.txt will be erased before new text is written.",
+      "After the operation, only the new data remains."
+    ],
+    "code": "with open(\"students.txt\", \"w\") as file:\n    file.write(\"Taylor\\n\")",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Taylor\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "\"w\"",
+      "students.txt"
+    ]
+  },
+  {
+    "title": "Writing a File with Multiple Lines",
+    "kind": "code",
+    "sourcePage": 10,
+    "paragraphs": [
+      "A list of strings can be written to the file using a loop.",
+      "Each value can be followed by \\n so it appears on its own line.",
+      "This is useful when the data is already stored in a Python list."
+    ],
+    "code": "students = [\"Alex\", \"Sam\", \"Jordan\"]\n\nwith open(\"students.txt\", \"w\") as file:\n    for student in students:\n        file.write(student + \"\\n\")",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "",
+        "exists": false
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "\\n"
+    ]
+  },
+  {
+    "title": "Opening / Creating a File to Append",
+    "kind": "code",
+    "sourcePage": 11,
+    "paragraphs": [
+      "A file can be opened in append mode using \"a\".",
+      "If the file does not exist, Python creates it.",
+      "If it does exist, the current contents are kept.",
+      "This string value here needs to be the path to the file you are appending. \"students.txt\" doesn’t need to exist, but it can."
+    ],
+    "code": "with open(\"students.txt\", \"a\") as file:\n    pass",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [
+      "\"a\"",
+      "\"students.txt\""
+    ],
+    "layout": "long-explanation"
+  },
+  {
+    "title": "Adding to an Existing File",
+    "kind": "code",
+    "sourcePage": 12,
+    "paragraphs": [
+      "Append mode adds new text to the end of the file instead of replacing what is already there.",
+      "This makes it useful when new records need to be added over time.",
+      "A newline can be included so the new value appears on a separate line."
+    ],
+    "code": "with open(\"students.txt\", \"a\") as file:\n    file.write(\"Taylor\\n\")",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\nTaylor\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": []
+  },
+  {
+    "title": "Appending Multiple Lines to a File",
+    "kind": "code",
+    "sourcePage": 13,
+    "paragraphs": [
+      "Multiple values can be added to the end of a file by looping through a list.",
+      "The existing contents remain unchanged.",
+      "Each new value is written after the previous data."
+    ],
+    "code": "new_students = [\"Taylor\", \"Morgan\"]\n\nwith open(\"students.txt\", \"a\") as file:\n    for student in new_students:\n        file.write(student + \"\\n\")",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "Alex\nSam\nJordan\n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\nTaylor\nMorgan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": []
+  },
+  {
+    "title": "Editing a File with Read and Write",
+    "kind": "cycle",
+    "sourcePage": 14,
+    "paragraphs": [
+      "Text files are usually edited by first in \"r\" mode by reading the current data into Python.",
+      "The program then modifies that data in memory and rewrites the file using \"w\" mode.",
+      "This creates a simple read-process-write cycle."
+    ],
+    "inlineCode": [
+      "\"r\"",
+      "\"w\""
+    ],
+    "cycle": [
+      {
+        "label": "Open File to Read",
+        "role": "predefined"
+      },
+      {
+        "label": "Read Data into Python",
+        "role": "predefined"
+      },
+      {
+        "label": "Process / Edit Data",
+        "role": "process"
+      },
+      {
+        "label": "Open File to Write",
+        "role": "predefined"
+      },
+      {
+        "label": "Rewrite File with New Data",
+        "role": "predefined"
+      }
+    ]
+  },
+  {
+    "title": "Code Example of Reading, Processing, and Writing a File",
+    "kind": "code",
+    "sourcePage": 15,
+    "paragraphs": [],
+    "code": "with open(\"students.txt\", \"r\") as file:\n    students = file.readlines()\n\nprocessed_students = []\n\nfor student in students:\n    student = student.strip().title()\n    processed_students.append(student)\n\nwith open(\"students.txt\", \"w\") as file:\n    for student in processed_students:\n        file.write(student + \"\\n\")",
+    "expectedOutput": "",
+    "dataFiles": [
+      {
+        "name": "students.txt",
+        "content": "  aLEX  \nsAM\n jordan \n",
+        "exists": true
+      }
+    ],
+    "expectedFiles": {
+      "students.txt": "Alex\nSam\nJordan\n"
+    },
+    "denseText": true,
+    "compactCode": true,
+    "inlineCode": [],
+    "layout": "wide"
+  }
+]

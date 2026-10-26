@@ -82,7 +82,11 @@ export const modules = [
     }]),
   moduleEntry('CSE 2130', 'Files & File Structures 1',
     'Store and retrieve program data using files.',
-    ['File organization', 'Reading and writing files', 'Sequential and random access']),
+    ['File organization', 'Reading and writing files', 'Sequential and random access'], [{
+      id: 'reading-writing-appending', number: 1, title: 'Reading, Writing, and Appending',
+      description: 'Text file modes, reading lines, writing, appending and the read-process-write cycle.',
+      slideCount: 15, href: './lessons/cse2130/reading-writing-appending/',
+    }]),
   moduleEntry('CSE 3110', 'Iterative Algorithm 1',
     'Develop iterative algorithms for searching and sorting.',
     ['Iterative searching', 'Iterative sorting', 'Algorithm efficiency']),

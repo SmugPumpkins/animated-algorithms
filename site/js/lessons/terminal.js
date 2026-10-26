@@ -89,7 +89,7 @@ export function playgroundMarkup(slide) {
     <div class="code-pane"><pre class="editor-highlight source-code" aria-hidden="true"><code>${highlightLines(file.code)}</code></pre>
       <textarea class="code-editor" aria-label="${namedFiles ? `Edit ${escapeHtml(file.name)}` : 'Edit Python code'}" data-file="${escapeHtml(file.name)}" spellcheck="false" autocapitalize="off" autocomplete="off">${escapeHtml(file.code)}</textarea>
     </div></div>`).join('');
-  return `<div role="group" aria-label="${escapeHtml(slide.label || 'Python example')}" class="playground ${slide.highlightWhitespace ? 'whitespace-example' : ''} ${slide.compactCode ? 'compact-code' : ''} ${slide.initialOutput !== undefined ? 'has-terminal' : ''}">
+  return `<div role="group" aria-label="${escapeHtml(slide.label || 'Python example')}" class="playground ${slide.dataFiles ? 'with-data-files' : ''} ${slide.highlightWhitespace ? 'whitespace-example' : ''} ${slide.compactCode ? 'compact-code' : ''} ${slide.initialOutput !== undefined ? 'has-terminal' : ''}">
     <div class="code-toolbar" aria-label="Python example controls"><span class="code-language">Python${files.length > 1 ? ` · ${escapeHtml(entry)}` : ''}</span><div>
       <button type="button" data-action="run" class="run-code">▶ Run</button>
       <button type="button" data-action="step" class="step-code">Step</button>
@@ -98,6 +98,7 @@ export function playgroundMarkup(slide) {
     </div></div>
     ${files.length > 1 && !slide.splitFiles ? `<div class="file-tabs" role="tablist" aria-label="Python files">${files.map(file => `<button type="button" role="tab" aria-selected="${file.name === entry}" data-open-file="${escapeHtml(file.name)}">${escapeHtml(file.name)}</button>`).join('')}</div>` : ''}
     <div class="code-workspace ${slide.splitFiles ? 'split-files' : ''}">${fileMarkup}</div>
+    ${slide.dataFiles ? `<div class="data-files" aria-label="Virtual text files">${slide.dataFiles.map(file => `<label class="data-file-panel"><span class="file-heading">${escapeHtml(file.name)} <small data-file-state>${file.exists === false ? 'Not created yet' : 'Virtual text file'}</small></span><textarea class="data-file-editor" aria-label="Edit virtual file ${escapeHtml(file.name)}" data-name="${escapeHtml(file.name)}" data-exists="${file.exists !== false}" spellcheck="false" placeholder="${file.exists === false ? 'File does not exist yet' : 'Empty file'}">${escapeHtml(file.content || '')}</textarea></label>`).join('')}</div>` : ''}
     <div class="terminal-pane" ${slide.initialOutput === undefined ? 'hidden' : ''}>
       <div class="terminal-title"><span>OUTPUT</span><span class="execution-status">Ready</span></div>
       <div class="terminal-screen" tabindex="0" role="log" aria-label="Python output terminal"><span class="terminal-output"></span>
@@ -113,6 +114,7 @@ export function mountPlayground(root, slide) {
   const $ = selector => root.querySelector(selector);
   const buttons = Object.fromEntries([...root.querySelectorAll('[data-action]')].map(button => [button.dataset.action, button]));
   const editors = [...root.querySelectorAll('.code-editor')];
+  const dataEditors = [...root.querySelectorAll('.data-file-editor')];
   const entryFile = slide.entryFile || editors[0].dataset.file;
   const editor = editors.find(item => item.dataset.file === entryFile);
   let activeFile = entryFile;
@@ -164,7 +166,7 @@ export function mountPlayground(root, slide) {
 
   function stop(message = 'Stopped', keepHighlight = false) {
     if (!running && !worker) return;
-    worker?.terminate(); worker = null; running = false; paused = false; editors.forEach(field => { field.readOnly = false; });
+    worker?.terminate(); worker = null; running = false; paused = false; [...editors, ...dataEditors].forEach(field => { field.readOnly = false; });
     clearTimeout(watchdog); watchdog = null;
     inputRow.hidden = true;
     buttons.run.disabled = false; buttons.step.disabled = false; buttons.stop.disabled = true;
@@ -196,15 +198,23 @@ export function mountPlayground(root, slide) {
     }
     stop(); setActiveLine(null); showTerminal(); output.textContent = '';
     variables.hidden = true; variables.replaceChildren(); inputRow.hidden = true;
-    running = true; stepMode = mode === 'step'; editors.forEach(field => { field.readOnly = true; });
+    running = true; stepMode = mode === 'step'; [...editors, ...dataEditors].forEach(field => { field.readOnly = true; });
     status.textContent = stepMode ? 'Stepping' : 'Running';
     buttons.run.disabled = true; buttons.step.disabled = true; buttons.stop.disabled = false;
     try {
-      worker = new Worker(new URL('./python-worker.js?v=20261026-dataclasses', import.meta.url));
+      worker = new Worker(new URL('./python-worker.js?v=20261026-textfiles', import.meta.url));
       const activeWorker = worker;
       worker.onmessage = ({ data }) => {
         if (worker !== activeWorker) return;
         if (data.type === 'output') append(data.text);
+        else if (data.type === 'file') {
+          const field = dataEditors.find(field => field.dataset.name === data.name);
+          if (field) {
+            field.value = data.content; field.dataset.exists = 'true';
+            field.placeholder = 'Empty file';
+            field.parentElement.querySelector('[data-file-state]').textContent = 'Virtual text file · updated';
+          }
+        }
         else if (data.type === 'executing') { setActiveLine(data.line, data.filename); }
         else if (data.type === 'paused') {
           clearTimeout(watchdog); paused = true;
@@ -230,7 +240,8 @@ export function mountPlayground(root, slide) {
         }
       };
       worker.onerror = event => { if (worker !== activeWorker) return; append(`${event.message || 'Python could not start.'}\n`); stop('Error'); };
-      worker.postMessage({ type: 'run', code: editor.value, mode, entryFile, files: Object.fromEntries(editors.map(field => [field.dataset.file, field.value])) });
+      worker.postMessage({ type: 'run', code: editor.value, mode, entryFile, files: Object.fromEntries(editors.map(field => [field.dataset.file, field.value])),
+        ...(slide.dataFiles ? { dataFiles: Object.fromEntries(dataEditors.filter(field => field.dataset.exists === 'true').map(field => [field.dataset.name, field.value])) } : {}) });
       startWatchdog();
     } catch (error) { append(`${error.message}\n`); stop('Error'); }
   }
@@ -243,6 +254,12 @@ export function mountPlayground(root, slide) {
       field.scrollTop = 0; field.scrollLeft = 0;
     }
     openFile(entryFile); updateHighlight();
+    for (const field of dataEditors) {
+      const original = slide.dataFiles.find(file => file.name === field.dataset.name);
+      field.value = original.content || ''; field.dataset.exists = String(original.exists !== false);
+      field.placeholder = original.exists === false ? 'File does not exist yet' : 'Empty file';
+      field.parentElement.querySelector('[data-file-state]').textContent = original.exists === false ? 'Not created yet' : 'Virtual text file';
+    }
     output.textContent = '';
     terminal.hidden = slide.initialOutput === undefined;
     root.classList.toggle('has-terminal', !terminal.hidden);
@@ -255,6 +272,10 @@ export function mountPlayground(root, slide) {
 
   };
   const abort = new AbortController();
+  for (const field of dataEditors) field.addEventListener('input', () => {
+    field.dataset.exists = 'true';
+    field.parentElement.querySelector('[data-file-state]').textContent = 'Virtual text file · edited';
+  }, { signal: abort.signal });
   for (const field of editors) {
     field.addEventListener('input', () => { activeLine = null; updateHighlight(); }, { signal: abort.signal });
     field.addEventListener('scroll', () => {

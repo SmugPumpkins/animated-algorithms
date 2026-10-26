@@ -29,6 +29,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step', project = 
   return new Promise((resolve, reject) => {
     let output = '', promptCount = 0;
     const steps = [];
+    const dataFiles = { ...(project.dataFiles || {}) };
     const context = vm.createContext({ console, setTimeout, clearTimeout, setInterval, clearInterval });
     context.self = context;
     context.importScripts = (...names) => names.forEach(name => {
@@ -37,6 +38,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step', project = 
     });
     context.postMessage = message => {
       if (message.type === 'output') output += message.text;
+      else if (message.type === 'file') dataFiles[message.name] = message.content;
       else if (message.type === 'paused') {
         steps.push(JSON.parse(JSON.stringify({ ...message, output })));
         queueMicrotask(() => context.onmessage({ data: { type: advance } }));
@@ -46,7 +48,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step', project = 
         if (value === undefined) { reject(new Error('Unexpected input request')); return; }
         output += message.prompt + value + '\n';
         queueMicrotask(() => context.onmessage({ data: { type: 'input', value } }));
-      } else if (message.type === 'complete') resolve({ output, variables: JSON.parse(JSON.stringify(message.variables)), promptCount, steps, line: message.line });
+      } else if (message.type === 'complete') resolve({ output, variables: JSON.parse(JSON.stringify(message.variables)), promptCount, steps, line: message.line, dataFiles });
       else if (message.type === 'error') reject(new Error(message.message));
     };
     const filename = path.join(root, 'site/js/lessons/python-worker.js');
@@ -438,4 +440,38 @@ test('edited parallel lists retain matching pairs across indices, enumerate and 
     const result = await runPython(code, [], 'step');
     assert.equal(result.output, 'Ada: 95\nGrace: 99\n');
   }
+});
+
+const fileSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2130/reading-writing-appending/slides.json'), 'utf8'));
+const fileSource = JSON.parse(readFileSync(path.join(root, 'docs/lessons/reading-writing-appending-source.json'), 'utf8'));
+test('file lesson preserves all 15 slides with the requested Part 1 renumbering', () => {
+  assert.equal(fileSlides.length, 15);
+  fileSlides.forEach((slide, index) => {
+    assert.equal(slide.sourcePage, index + 1);
+    const text = [slide.title, slide.intro || '', ...(slide.bullets || []), ...(slide.paragraphs || []), slide.code || '', ...(slide.cycle || []).map(node => node.label), slide.initialOutput !== undefined ? `OUTPUT\n${slide.initialOutput}` : ''].join('\n');
+    const original = index === 0 ? fileSource[index].text.replace('Part 2:', 'Part 1:') : fileSource[index].text;
+    assert.deepEqual(words(text), words(original), `Source differs on page ${index + 1}`);
+  });
+});
+
+test('file examples read, create, overwrite, append and process real virtual contents in run and step', async () => {
+  for (const slide of fileSlides.filter(slide => slide.code)) {
+    const dataFiles = Object.fromEntries(slide.dataFiles.filter(file => file.exists !== false).map(file => [file.name, file.content]));
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(slide.code, [], mode, 'step', {dataFiles});
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+      assert.deepEqual(result.dataFiles, slide.expectedFiles, `${slide.title} contents: ${mode}`);
+    }
+  }
+});
+
+test('virtual files retain unterminated last lines, reject missing reads and isolate executions', async () => {
+  const read = 'with open("students.txt", "r") as file:\n    print(file.readlines())';
+  assert.equal((await runPython(read, [], 'run', 'step', {dataFiles:{'students.txt':'Ada\nGrace'}})).output, "['Ada\\n', 'Grace']\n");
+  await assert.rejects(runPython(read, [], 'run', 'step', {dataFiles:{}}), /No such file/);
+  const append = 'with open("students.txt", "a") as file:\n    file.write("Ada\\n")';
+  for (const mode of ['run','step']) {
+    assert.deepEqual((await runPython(append, [], mode, 'step', {dataFiles:{}})).dataFiles, {'students.txt':'Ada\n'});
+  }
+  assert.equal((await runPython(read, [], 'run', 'step', {dataFiles:{'students.txt':'Original\n'}})).output, "['Original\\n']\n");
 });

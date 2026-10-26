@@ -38,6 +38,9 @@ self.onmessage = async ({ data }) => {
   stepping = data.mode === 'step';
   currentLine = null; currentFile = null;
   const files = data.files || {};
+  const dataFiles = { ...(data.dataFiles || {}) };
+  const fileAccess = data.dataFiles !== undefined;
+  const publishFile = file => self.postMessage({ type: 'file', name: file.name, content: dataFiles[file.name] });
   const entryFile = data.entryFile || '<stdin>.py';
   const resolveFile = filename => Object.keys(files).find(name => filename === name || filename.endsWith('/' + name)) || filename;
   const localFile = filename => filename === entryFile || Object.hasOwn(files, resolveFile(filename));
@@ -48,12 +51,39 @@ self.onmessage = async ({ data }) => {
     breakpoints: localFile,
     execLimit: 8000,
     yieldLimit: 50,
+    nonreadopen: fileAccess,
+    fileopen: fileAccess ? file => {
+      const mode = file.mode.v;
+      if (!['r', 'w', 'a'].includes(mode)) throw new Sk.builtin.ValueError('Supported text file modes: r, w, a');
+      if (mode === 'r' && !Object.hasOwn(dataFiles, file.name)) throw new Sk.builtin.IOError(`No such file: '${file.name}'`);
+      if (mode === 'w' || !Object.hasOwn(dataFiles, file.name)) {
+        dataFiles[file.name] = ''; publishFile(file);
+      }
+      file.data$ = dataFiles[file.name];
+      file.lineList = file.data$.match(/[^\n]*\n|[^\n]+$/g) || [];
+      file.currentLine = 0;
+      file.pos$ = mode === 'a' ? file.data$.length : 0;
+    } : undefined,
+    filewrite: fileAccess ? (file, text) => {
+      const value = Sk.ffi.remapToJs(text);
+      const old = dataFiles[file.name];
+      const position = file.mode.v === 'a' ? old.length : file.pos$;
+      const content = old.slice(0, position) + value + old.slice(position + value.length);
+      if (content.length > 100000) throw new Sk.builtin.ValueError('File size limit reached');
+      dataFiles[file.name] = file.data$ = content;
+      file.pos$ = position + value.length;
+      publishFile(file);
+    } : undefined,
     output(text) {
       outputLength += text.length;
       if (outputLength > 100000) throw new Error('Output limit reached.');
       self.postMessage({ type: 'output', text });
     },
     read(filename) {
+      if (fileAccess && Object.hasOwn(dataFiles, filename)) return dataFiles[filename];
+      // The file constructor reads before invoking fileopen; that callback checks
+      // existence/mode and initializes a missing write/append target safely.
+      if (fileAccess && !filename.startsWith('src/') && !filename.endsWith('.py')) return '';
       const localName = Object.keys(files).find(name => filename === name || filename.endsWith('/' + name));
       if (localName) return prepareClassAnnotations(files[localName]);
       const contents = Sk.builtinFiles?.files?.[filename];

@@ -91,3 +91,13 @@ Editor, output and variable-panel scrollbars use dark tracks and cyan thumbs, wi
 ## Parallel Lists (CSE 2120, lesson 7)
 
 All six slides retain source wording and sequence, with extracted text in `parallel-lists-source.json`. Five editable examples support Run and Step, including matching indices, range-based traversal, enumerate and zip. Tests check source fidelity, real output in both modes and matching name/grade pairs across all three traversal approaches. The shared syntax highlighting and neon scrollbars apply automatically.
+
+## Reading, Writing, and Appending (CSE 2130, lesson 1)
+
+The teacher moved string manipulation into Data Structures. This 15-slide plain-text-file deck is therefore **Lesson 1 / Part 1** in Files & File Structures 1, even though its PDF cover says Part 2. Keep subsequent file lessons numbered from this revised sequence. All other source wording and code are retained in order; `reading-writing-appending-source.json` records extracted text.
+
+`dataFiles` defines editable virtual text files (`name`, `content`, optional `exists: false`). The Python worker executes `open` in r/w/a mode in an isolated in-memory filesystem. File creation, truncation and each write update the visible file panel while stepping; terminal output remains empty until execution. Run uses the panel's current contents, so running append twice appends twice. Reset restores the original code, file contents and existence. Every slide/run has an independent worker; virtual files never access the computer's filesystem. Example files use Alex/Sam/Jordan; the final processing example starts with whitespace and inconsistent capitalization to make its changes visible.
+
+The virtual filesystem uses Skulpt's nonreadopen/fileopen/filewrite hooks, preserving final lines without newlines. It supports the lesson's introductory text modes; binary files, directory operations and full CPython filesystem behavior are outside this implementation. Tests verify source fidelity with the Part 1 exception, real output and resulting file contents in both execution modes, missing reads and creation on append.
+
+`kind: "cycle"` presents the read-process-write cycle as native SVG using shared flowchart roles and colors. The wide final code example puts its virtual file beside the editor. Path callouts remain complete paragraphs in a compact explanation layout.

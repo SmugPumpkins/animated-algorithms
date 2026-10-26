@@ -1,0 +1,62 @@
+[
+  {
+    "page": 1,
+    "text": "Plain Text Files\nPart 2: Reading,\nWriting, and\nAppending to Files\nFiles can be accessed and altered in\nPython with reading, writing, and\nappending."
+  },
+  {
+    "page": 2,
+    "text": "Reading, Writing, and Appending\nPython can open text files in different modes\ndepending on what you want to do.\n\"r\" (read mode) reads an existing file without\nchanging it.\n\"w\" (write mode) writes to a file and replaces any\nexisting contents.\n\"a\" (append mode) adds new content to the end of\nan existing file."
+  },
+  {
+    "page": 3,
+    "text": "Opening a File to Read\nwith open(\"students.txt\", \"r\") as file:\nA file can be opened in\npass\nread mode using \"r\".\nThe with statement\nautomatically closes\nThis string value here needs\nthe file when the to be the path to the file.\nHere we assume an existing\nindented block finishes.\nfile called \"students.txt\"\nThe file must already that is in the same folder as\nour Python script.\nexist or Python will\nproduce an error."
+  },
+  {
+    "page": 4,
+    "text": "Reading the Whole File as One String\nThe read() method with open(\"students.txt\", \"r\") as file:\ntext = file.read()\nreads the entire\ncontents of a file as\nprint(text)\none string.\nAny line breaks in the\nfile are included in that\nstring.\nThis is useful when you OUTPUT\nAlex\nwant to work with the\nSam\nwhole file at once.\nJordan"
+  },
+  {
+    "page": 5,
+    "text": "Reading the File Line by Line\nThe readlines() with open(\"students.txt\", \"r\") as file:\nlines = file.readlines()\nmethod reads the file\nand stores each line as\nprint(lines)\nan item in a list.\nThis makes it easier to\nprocess each line\nseparately.\nThe newline character OUTPUT\n['Alex\\n', 'Sam\\n', 'Jordan\\n']\n\\n is usually kept at the\nend of each line."
+  },
+  {
+    "page": 6,
+    "text": "Processing a List of Lines\nwith open(\"students.txt\", \"r\") as file:\nOnce file lines are\nlines = file.readlines()\nstored in a list, they\ncan be processed one\nfor line in lines:\nat a time using a loop. name = line.strip()\nprint(name.upper())\nEach line can be\ncleaned, changed, or\nchecked individually.\nstrip() is often used OUTPUT\nALEX\nto remove the newline\nSAM\ncharacter.\nJORDAN"
+  },
+  {
+    "page": 7,
+    "text": "Opening / Creating a File to Write\nwith open(\"students.txt\", \"w\") as file:\nA file can be opened\npass\nin write mode using\n\"w\".\nIf the file does not This string value here needs\nto be the path to the file you\nexist, Python creates\nare writing. Here we assume\nit.\nthere is no file called\n\"students.txt\" because we\nIf it already exists, its\nwill create it ourselves.\ncurrent contents are\nremoved."
+  },
+  {
+    "page": 8,
+    "text": "Writing a New File\nThe write() method with open(\"students.txt\", \"w\") as file:\nadds text to a file that file.write(\"Alex\\n\")\nfile.write(\"Sam\\n\")\nhas been opened for\nfile.write(\"Jordan\\n\")\nwriting.\nIf students.txt does\nnot already exist,\nPython creates it.\nNewline characters can\nbe added so each\nvalue appears on its\nown line."
+  },
+  {
+    "page": 9,
+    "text": "Overwriting a File\nOpening an existing file with open(\"students.txt\", \"w\") as file:\nwith \"w\" completely file.write(\"Taylor\\n\")\nreplaces its current\ncontents.\nThis means anything\nalready stored in\nstudents.txt will be\nerased before new text\nis written.\nAfter the operation, only\nthe new data remains."
+  },
+  {
+    "page": 10,
+    "text": "Writing a File with Multiple Lines\nstudents = [\"Alex\", \"Sam\", \"Jordan\"]\nA list of strings can be\nwritten to the file\nwith open(\"students.txt\", \"w\") as file:\nusing a loop.\nfor student in students:\nfile.write(student + \"\\n\")\nEach value can be\nfollowed by \\n so it\nappears on its own\nline.\nThis is useful when the\ndata is already stored\nin a Python list."
+  },
+  {
+    "page": 11,
+    "text": "Opening / Creating a File to Append\nwith open(\"students.txt\", \"a\") as file:\nA file can be opened\npass\nin append mode\nusing \"a\".\nIf the file does not\nThis string value here needs\nexist, Python creates to be the path to the file you\nare appending.\nit.\n\"students.txt\" doesn\u2019t\nneed to exist, but it can.\nIf it does exist, the\ncurrent contents are\nkept."
+  },
+  {
+    "page": 12,
+    "text": "Adding to an Existing File\nAppend mode adds new with open(\"students.txt\", \"a\") as file:\nfile.write(\"Taylor\\n\")\ntext to the end of the file\ninstead of replacing what\nis already there.\nThis makes it useful when\nnew records need to be\nadded over time.\nA newline can be\nincluded so the new\nvalue appears on a\nseparate line."
+  },
+  {
+    "page": 13,
+    "text": "Appending Multiple Lines to a File\nnew_students = [\"Taylor\", \"Morgan\"]\nMultiple values can\nbe added to the end\nwith open(\"students.txt\", \"a\") as file:\nof a file by looping for student in new_students:\nfile.write(student + \"\\n\")\nthrough a list.\nThe existing contents\nremain unchanged.\nEach new value is\nwritten after the\nprevious data."
+  },
+  {
+    "page": 14,
+    "text": "Editing a File with Read and Write\nOpen File to\nText files are usually\nedited by first in \"r\" Read\nmode by reading the\ncurrent data into\nPython.\nRewrite File Read Data\nThe program then\nwith New Data into Python\nmodifies that data in\nmemory and rewrites\nthe file using \"w\"\nmode.\nThis creates a simple\nOpen File to Process / Edit\nread-process-write\nWrite Data\ncycle."
+  },
+  {
+    "page": 15,
+    "text": "Code Example of Reading, Processing, and Writing a File\nwith open(\"students.txt\", \"r\") as file:\nstudents = file.readlines()\nprocessed_students = []\nfor student in students:\nstudent = student.strip().title()\nprocessed_students.append(student)\nwith open(\"students.txt\", \"w\") as file:\nfor student in processed_students:\nfile.write(student + \"\\n\")"
+  }
+]
