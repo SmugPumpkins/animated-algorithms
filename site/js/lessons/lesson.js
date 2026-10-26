@@ -1,6 +1,6 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
-import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-editor';
+import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-simple';
 
 const $ = selector => document.querySelector(selector);
 function inlineCode(text, tokens = []) {
@@ -31,7 +31,7 @@ try {
   if (!response.ok) throw new Error('Lesson content could not be loaded.');
   const slides = await response.json();
   $('.slides').innerHTML = slides.map(slideMarkup).join('');
-  $('#slide-select').innerHTML = slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}</option>`).join('');
+  $('#slide-select').innerHTML = '<option value="" selected disabled>Select slide</option>' + slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}</option>`).join('');
   document.querySelectorAll('.lesson-slide').forEach((section, index) => {
     if (slides[index].code) controllers.set(section, mountPlayground(section.querySelector('.playground'), slides[index]));
   });
@@ -40,20 +40,17 @@ try {
     embedded: true, scrollActivationWidth: null, hash: true, hashOneBasedIndex: true, controls: true,
     progress: true, slideNumber: 'c/t', transition: 'none', center: false,
     controlsBackArrows: 'visible', controlsLayout: 'edges',
-    keyboardCondition: event => !document.body.classList.contains('reading-mode') && !event.target?.closest('input,textarea,select,button'),
+    overview: false,
+    keyboardCondition: event => !event.target?.closest('input,textarea,select,button'),
     plugins: [Notes],
   });
   await deck.initialize();
   $('.lesson-loading').remove();
-  const sync = () => { $('#slide-select').value = String(deck.getIndices().h); };
-  sync();
-  deck.on('slidechanged', event => { controllers.get(event.previousSlide)?.stop(); sync(); });
+  deck.on('slidechanged', event => { controllers.get(event.previousSlide)?.stop(); });
   $('#slide-select').addEventListener('change', event => {
-    const index = Number(event.target.value);
-    if (document.body.classList.contains('reading-mode')) document.querySelectorAll('.lesson-slide')[index].scrollIntoView({ behavior: 'auto' });
-    else deck.slide(index);
+    deck.slide(Number(event.target.value));
+    event.target.value = '';
   });
-  $('#overview').addEventListener('click', () => deck.toggleOverview());
   $('#fullscreen').addEventListener('click', async () => {
     try { if (document.fullscreenElement) await document.exitFullscreen(); else await document.documentElement.requestFullscreen(); }
     catch { $('#fullscreen').textContent = 'Fullscreen unavailable'; }
@@ -61,18 +58,6 @@ try {
   document.addEventListener('fullscreenchange', () => {
     $('#fullscreen').textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Fullscreen';
     deck.layout();
-  });
-  $('#reading').addEventListener('click', () => {
-    const reading = document.body.classList.toggle('reading-mode');
-    if (deck.isOverview()) deck.toggleOverview(false);
-    $('#reading').setAttribute('aria-pressed', String(reading));
-    $('#reading').textContent = reading ? 'Slideshow view' : 'Reading view';
-    $('#overview').disabled = reading;
-    for (const controller of controllers.values()) controller.stop();
-    document.querySelectorAll('.lesson-slide').forEach(section => {
-      if (reading) { section.removeAttribute('aria-hidden'); section.removeAttribute('inert'); }
-    });
-    if (!reading) { deck.sync(); deck.layout(); $('.lesson-stage').scrollTop = 0; }
   });
   window.addEventListener('pagehide', () => { for (const controller of controllers.values()) controller.destroy(); });
   window.addEventListener('resize', () => deck.layout());

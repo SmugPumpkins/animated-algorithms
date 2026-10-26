@@ -49,7 +49,7 @@ html, body { width: 100%; height: 100%; margin: 0; }
 .reveal .source-body { font-family: "Poppins", "Segoe UI", sans-serif; font-size: 28px; line-height: 1.42; }
 .reveal .source-body p { margin: 0 0 22px; }
 .reveal .source-body p:last-child { margin-bottom: 0; }
-.reveal .source-body code, .reveal h1 code, .reveal h2 code { font-family: var(--font-code); color: #8bebf7; font-size: .98em; background: #192339; border: 1px solid #35506a; border-radius: 4px; padding: 1px 5px; white-space: nowrap; }
+.reveal .source-body code, .reveal h1 code, .reveal h2 code { font-family: var(--font-code); color: var(--lesson-inline-code-color); font-size: .98em; background: #2a1b18; border: 1px solid #805134; border-radius: 4px; padding: 1px 5px; white-space: nowrap; }
 .lesson-page .lesson-nav, .lesson-page .lesson-nav *, .reveal .code-toolbar button, .reveal .execution-status { font-family: "Poppins", "Segoe UI", sans-serif; }
 .reveal .slide-columns { display: grid; grid-template-columns: .88fr 1.12fr; gap: 34px; flex: 1; min-height: 0; }
 .reveal .slide-columns > * { min-width: 0; min-height: 0; }
@@ -98,18 +98,6 @@ html, body { width: 100%; height: 100%; margin: 0; }
 
 /* Reading mode retains the same wording and live examples, without scaling
    tiny slides onto a phone. It is also useful for semester preparation. */
-.reading-mode.lesson-page { overflow: auto; }
-.reading-mode .lesson-nav { position: sticky; top: 0; z-index: 100; }
-.reading-mode .lesson-stage { height: auto; min-height: calc(100dvh - 68px); }
-.reading-mode .reveal { height: auto; overflow: visible; }
-.reading-mode .reveal .slides { position: relative !important; inset: auto !important; width: 100% !important; height: auto !important; transform: none !important; perspective: none; }
-.reading-mode .reveal .slides > section { display: block !important; position: relative !important; transform: none !important; visibility: visible !important; opacity: 1 !important; width: 100%; height: auto; padding: 20px; margin: 0 auto; max-width: 1440px; }
-.reading-mode .reveal .slide-content { min-height: 580px; padding: 30px; }
-.reading-mode .reveal .slide-columns { min-height: 480px; }
-.reading-mode .reveal .playground { height: 500px; }
-.reading-mode .reveal .controls, .reading-mode .reveal .progress, .reading-mode .reveal .slide-number { display: none !important; }
-.reading-mode .reveal .cover-layout { min-height: 520px; }
-.reading-mode .reveal .closing-layout { padding: 50px 0; }
 @media (max-width: 1100px) {
   .lesson-name { display: none; }
   .lesson-nav { padding: 8px 14px; gap: 12px; }
@@ -117,22 +105,13 @@ html, body { width: 100%; height: 100%; margin: 0; }
   .lesson-tools select { max-width: 190px; }
 }
 @media (max-width: 760px) {
-  .lesson-nav { min-height: 116px; flex-wrap: wrap; padding: 8px 12px; gap: 6px; }
+  .lesson-nav { min-height: 60px; flex-wrap: wrap; padding: 8px 12px; gap: 6px; }
   .lesson-back { font-size: 14px; }
   .lesson-tools { flex-wrap: wrap; gap: 5px; }
   .lesson-tools button, .lesson-tools select { min-height: 34px; padding: 6px 8px; font-size: 12px; }
   .lesson-tools select { max-width: 160px; }
-  .lesson-stage { height: calc(100dvh - var(--lesson-nav-height, 116px)); }
-  .reading-mode .reveal .slides > section { padding: 10px; }
-  .reading-mode .reveal .slide-content { padding: 22px; min-height: 0; }
-  .reading-mode .reveal .slide-columns, .reading-mode .reveal .cover-layout { display: flex; flex-direction: column; gap: 24px; min-height: 0; }
-  .reading-mode .reveal h1 { font-size: 36px; }
-  .reading-mode .reveal h2 { font-size: 30px; }
-  .reading-mode .reveal .source-body, .reading-mode .reveal .objectives { font-size: 16pt; line-height: 1.7; }
-  .reading-mode .reveal .playground { min-height: 440px; height: 440px; }
-  .reading-mode .reveal .source-code, .reading-mode .reveal .code-editor, .reading-mode .reveal .terminal-screen { font-size: 19px; }
-  .reading-mode .reveal .code-toolbar { flex-wrap: wrap; }
-  .reading-mode .reveal .code-toolbar button { font-size: 14px; }
+  .lesson-stage { height: calc(100dvh - var(--lesson-nav-height, 60px)); }
+
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
@@ -143,3 +122,5 @@ html, body { width: 100%; height: 100%; margin: 0; }
 .reveal .editor-highlight { pointer-events: none; overflow: hidden; }
 .reveal .code-editor { background: transparent; color: transparent; caret-color: #f0edff; -webkit-text-fill-color: transparent; }
 .reveal .code-editor::selection { background: #5575a977; }
+
+.lesson-page { --lesson-inline-code-color: #ffb178; }

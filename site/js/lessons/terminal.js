@@ -17,12 +17,10 @@ export function playgroundMarkup(slide) {
     <div class="code-toolbar" aria-label="Python example controls"><span class="code-language">Python</span><div>
       <button type="button" data-action="run" class="run-code">▶ Run</button>
       <button type="button" data-action="stop" disabled>■ Stop</button>
-      <button type="button" data-action="edit" aria-pressed="false">Edit code</button>
       <button type="button" data-action="reset">Reset</button>
     </div></div>
-    <div class="code-pane"><pre class="source-code" tabindex="0" aria-label="Python code"><code>${highlightPython(slide.code)}</code></pre>
-      <pre class="editor-highlight source-code" aria-hidden="true" hidden><code></code></pre>
-      <textarea class="code-editor" aria-label="Edit Python code" spellcheck="false" autocapitalize="off" autocomplete="off" hidden>${escapeHtml(slide.code)}</textarea>
+    <div class="code-pane"><pre class="editor-highlight source-code" aria-hidden="true"><code>${highlightPython(slide.code + '\n')}</code></pre>
+      <textarea class="code-editor" aria-label="Edit Python code" spellcheck="false" autocapitalize="off" autocomplete="off">${escapeHtml(slide.code)}</textarea>
     </div>
     <div class="terminal-pane" ${slide.initialOutput === undefined ? 'hidden' : ''}>
       <div class="terminal-title"><span>OUTPUT</span><span class="execution-status">Ready</span></div>
@@ -37,14 +35,14 @@ export function playgroundMarkup(slide) {
 export function mountPlayground(root, slide) {
   const $ = selector => root.querySelector(selector);
   const buttons = Object.fromEntries([...root.querySelectorAll('[data-action]')].map(button => [button.dataset.action, button]));
-  const editor = $('.code-editor'), source = $('.source-code'), highlight = $('.editor-highlight');
+  const editor = $('.code-editor'), highlight = $('.editor-highlight');
   function updateHighlight() {
     highlight.querySelector('code').innerHTML = highlightPython(editor.value + '\n');
     highlight.scrollTop = editor.scrollTop; highlight.scrollLeft = editor.scrollLeft;
   }
   const terminal = $('.terminal-pane'), output = $('.terminal-output'), inputRow = $('.terminal-input-row');
   const status = $('.execution-status'), variables = $('.runtime-variables');
-  let worker = null, watchdog = null, editing = false, running = false;
+  let worker = null, watchdog = null, running = false;
 
   function stop(message = 'Stopped') {
     if (!running && !worker) return;
@@ -104,10 +102,8 @@ export function mountPlayground(root, slide) {
   }
 
   function reset() {
-    stop(); editor.value = slide.code; editing = false;
-    editor.hidden = true; source.hidden = false; highlight.hidden = true;
-    source.querySelector('code').innerHTML = highlightPython(slide.code);
-    buttons.edit.textContent = 'Edit code'; buttons.edit.setAttribute('aria-pressed', 'false');
+    stop(); editor.value = slide.code;
+    editor.scrollTop = 0; editor.scrollLeft = 0; updateHighlight();
     output.textContent = '';
     terminal.hidden = slide.initialOutput === undefined;
     root.classList.toggle('has-terminal', !terminal.hidden);
@@ -117,15 +113,7 @@ export function mountPlayground(root, slide) {
 
   const handlers = {
     run, stop: () => stop(), reset,
-    edit() {
-      editing = !editing;
-      editor.hidden = !editing; source.hidden = editing; highlight.hidden = !editing;
-      if (editing) updateHighlight();
-      buttons.edit.textContent = editing ? 'View code' : 'Edit code';
-      buttons.edit.setAttribute('aria-pressed', String(editing));
-      if (editing) editor.focus({ preventScroll: true });
-      else source.querySelector('code').innerHTML = highlightPython(editor.value);
-    },
+
   };
   const abort = new AbortController();
   editor.addEventListener('input', updateHighlight, { signal: abort.signal });

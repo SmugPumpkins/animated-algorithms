@@ -86,8 +86,10 @@ Keep design changes in these shared files so future demonstrations inherit the s
 
 ## Lessons and readability
 
-Lesson headings, body text and interface controls use Poppins. Program code, terminal text and inline code use Consolas. Preserve highlighted Consolas terms from source slides as inline code with a subtle cyan border and dark background. Source wording and slide order stay unchanged.
+Lesson headings, body text and interface controls use Poppins. Program code, terminal text and inline code use Consolas. Treat highlighted Consolas terms in source slides as inline code regardless of their original highlight colour. Normalize all inline code in headings and body text to orange (`#ffb178`) Consolas on a dark warm background (`#2a1b18`), with a subtle orange border (`#805134`), 4px corners and compact padding. Preserve the wording; never carry inconsistent source highlight colours into a lesson. Program blocks and terminals keep their syntax colours. Source wording and slide order stay unchanged.
 
-The visible Readable font toggle on every page switches all text, including code and SVG labels, to Poppins. It remembers the choice on the device. Weights and sizes still distinguish roles.
+Outside slideshows, the visible Readable font toggle switches all text, including code and SVG labels, to Poppins and remembers the choice. Slideshows omit this toggle: their text always uses Poppins or Consolas. Weights and sizes distinguish roles.
 
 Lesson output starts empty and appears only after Run. Reset clears output and restores the original example.
+
+Slideshow navigation stays minimal: module link, lesson title, a selector that always displays “Select slide”, and Fullscreen. Do not add Overview or Reading view. Python examples are always editable with live syntax highlighting; expose only Run, Stop and Reset.
