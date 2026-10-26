@@ -252,7 +252,7 @@ h2 { letter-spacing: .2px; }
 .curriculum-source a, a.curriculum-source { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
 .course-overview { padding: 28px 0; border-bottom: 1px solid var(--line); }
 .course-overview h2 { margin-bottom: 20px; }
-.course-overview .course-topics { columns: 2; column-gap: 50px; }
+.course-overview .course-topics { columns: 1; }
 .course-overview li { break-inside: avoid; }
 .module-intro > p:not(.eyebrow) { font-size: 18px; }
 

@@ -1,0 +1,42 @@
+[
+  {
+    "page": 1,
+    "text": "Procedural\nProgramming\nPart 2: External Modules\nPrograms can be separated into\nseparate files to increase readability\nand maintainability."
+  },
+  {
+    "page": 2,
+    "text": "Creating External Programs\nAs programs grow, keeping all code in one file can make\nthem harder to read and maintain.\nExternal modules allow related functions and classes to\nbe moved into separate files.\nThe main program can then focus on the overall flow of\nthe program while supporting code is kept elsewhere.\nThis also makes useful code easier to reuse in other\nprograms."
+  },
+  {
+    "page": 3,
+    "text": "Creating External Modules\nA module is simply a # math_tools.py\nPython file that contains\ncode you want to use\ndef double_number(number):\nsomewhere else.\nreturn number * 2\nFunctions, classes, and\nvariables can all be\nstored inside a module.\nThe module file can then\nbe imported into another\nPython program."
+  },
+  {
+    "page": 4,
+    "text": "Importing External Modules\nPython can import # main.py\nspecific functions or\nclasses from another from math_tools import double_number\nmodule using\nfrom ... import ....\nresult = double_number(5)\nThis places the imported\nprint(result)\nitem directly into the\ncurrent program's\nnamespace.\nYou can then use it\nwithout writing the\nmodule name first."
+  },
+  {
+    "page": 5,
+    "text": "Module Being Imported Example\n# main.py # math_tools.py\nfrom math_tools import double_number def double_number(number):\nreturn number * 2\nresult = double_number(5)\nprint(result)"
+  },
+  {
+    "page": 6,
+    "text": "Testing Modules with if __name__ == \"__main__\"\nA module can contain test # math_tools.py\ncode without having that\ncode run when the module\ndef double_number(number):\nis imported.\nreturn number * 2\nThe condition\nif __name__ == \"__main__\":\nif __name__ == \"__main__\":\nonly runs when the file is\nprint(double_number(5))\nexecuted directly.\nThis makes it useful for\nOUTPUT\ntesting functions and\n10\nclasses inside their own\nmodule."
+  },
+  {
+    "page": 7,
+    "text": "One-Way Parameter Passing\nOne-way parameter def greet(name):\npassing means that a\nprint(f\"Hello, {name}!\")\nvalue is sent into a\nfunction so the function\ncan use it.\ngreet(\"Alex\")\nThe function receives the\nvalue through a\nparameter, but does not\nsend a result back with\nreturn.\nOUTPUT\nThis is useful when the\nHello, Alex!\nfunction only needs to\nperform an action."
+  },
+  {
+    "page": 8,
+    "text": "Two-Way Parameter Passing\nTwo-way parameter def double_number(number):\npassing means that data\nreturn number * 2\nis sent into a function and\na result is returned back to\nresult = double_number(5)\nthe calling code.\nprint(result)\nParameters provide the\ninput, while return\nprovides the output.\nThis allows the result to be\nOUTPUT\nstored and used 10\nelsewhere in the program."
+  },
+  {
+    "page": 9,
+    "text": "Documentation for External Modules\nExternal modules should include clear documentation\nso another programmer can understand how to use\nthem without reading all of the code.\nDocstrings can describe what a module, function, or\nclass does, what parameters it expects, and what values\nit returns.\nGood documentation is especially important when a\nmodule is designed to be reused by other programs."
+  },
+  {
+    "page": 10,
+    "text": "Type hints for\nType hint for\nparameters\nreturn value\ndef calculate_area(length: float, width: float) -> float:\n\"\"\"\nDocstring start \"\"\"\nFunction description.\nCalculate the area of a rectangle.\n:param length: The length of the rectangle.\nParameter\ndescriptions.\n:param width: The width of the rectangle.\n:return: The area of the rectangle.\nreturn value\n\"\"\" Docstring end \"\"\"\ndescription\nreturn length * width"
+  }
+]

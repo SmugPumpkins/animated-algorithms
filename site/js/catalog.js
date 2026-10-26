@@ -40,7 +40,11 @@ export const modules = [
     ['Robot control', 'Robotic environments', 'Structured robot programs']),
   moduleEntry('CSE 2110', 'Procedural Programming 1',
     'Break programs into reusable procedures and functions.',
-    ['Modular design', 'Functions and procedures', 'Parameters and scope']),
+    ['Modular design', 'Functions and procedures', 'Parameters and scope'], [{
+      id: 'external-modules', number: 2, title: 'External Modules',
+      description: 'Importing Python modules, testing reusable functions and documenting their interfaces.',
+      slideCount: 13, href: './lessons/cse2110/external-modules/',
+    }]),
   moduleEntry('CSE 2120', 'Data Structures 1',
     'Organize related data using arrays and records.',
     ['Arrays and indexing', 'Records', 'Structured data processing']),

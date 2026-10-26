@@ -93,3 +93,7 @@ Outside slideshows, the visible Readable font toggle switches all text, includin
 Lesson output starts empty and appears only after Run. Reset clears output and restores the original example.
 
 Slideshow navigation stays minimal: module link, lesson title, a selector that always displays “Select slide”, and Fullscreen. Do not add Overview or Reading view. Python examples are always editable with live syntax highlighting; expose only Run, Step, Stop and Reset.
+
+Module page section order is Module topics → Lessons → Interactive demonstrations. Keep the topic list in one column at every viewport size. For lessons, use text-only, wide code, companion-file and annotated-code layouts when appropriate; avoid blank simulation panels on explanation slides.
+
+Keep a consecutive inline-code expression in one `.inline-code` span and one highlight box. Merge adjacent marked terms separated only by whitespace. Keep the expression together; use a wider layout or a shorter explanatory example when a long expression cannot fit. Do not draw separate boxes around individual words of a single code expression.

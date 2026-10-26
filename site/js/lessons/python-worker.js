@@ -2,7 +2,7 @@
    interrupt loops immediately, including while waiting for terminal input. */
 importScripts('../../vendor/skulpt/skulpt.min.js', '../../vendor/skulpt/skulpt-stdlib.js');
 
-let acceptInput = null, advanceStep = null, stepping = false, currentLine = null;
+let acceptInput = null, advanceStep = null, stepping = false, currentLine = null, currentFile = null;
 function variablesFor(scope) {
   return Object.entries(scope || {})
     .filter(([name, value]) => !name.startsWith('__') && value && ['str', 'int', 'float', 'bool', 'list', 'dict', 'tuple', 'NoneType'].includes(value.tp$name))
@@ -29,12 +29,16 @@ self.onmessage = async ({ data }) => {
   }
   if (data.type !== 'run') return;
   stepping = data.mode === 'step';
-  currentLine = null;
+  currentLine = null; currentFile = null;
+  const files = data.files || {};
+  const entryFile = data.entryFile || '<stdin>.py';
+  const resolveFile = filename => Object.keys(files).find(name => filename === name || filename.endsWith('/' + name)) || filename;
+  const localFile = filename => filename === entryFile || Object.hasOwn(files, resolveFile(filename));
   let outputLength = 0;
   Sk.configure({
     __future__: Sk.python3,
     debugging: stepping,
-    breakpoints: filename => filename === '<stdin>.py',
+    breakpoints: localFile,
     execLimit: 8000,
     yieldLimit: 50,
     output(text) {
@@ -43,6 +47,8 @@ self.onmessage = async ({ data }) => {
       self.postMessage({ type: 'output', text });
     },
     read(filename) {
+      const localName = Object.keys(files).find(name => filename === name || filename.endsWith('/' + name));
+      if (localName) return files[localName];
       const contents = Sk.builtinFiles?.files?.[filename];
       if (contents === undefined) throw new Error(`Module not available: ${filename}`);
       return contents;
@@ -57,22 +63,24 @@ self.onmessage = async ({ data }) => {
   });
   try {
     const module = await Sk.misceval.asyncToPromise(
-      () => Sk.importMainWithBody('<stdin>', false, data.code, true),
+      () => Sk.importMainWithBody(entryFile.replace(/\.py$/, ''), false, data.code, true),
       { 'Sk.debug': suspension => {
         if (!stepping) return;
         let frame = suspension;
-        while (frame.child?.$lineno) frame = frame.child;
+        for (let child = suspension.child; child; child = child.child) {
+          if (child.$lineno !== undefined) frame = child;
+        }
         const line = frame.$lineno;
         const execute = () => {
-          currentLine = line;
+          currentLine = line; currentFile = resolveFile(frame.$filename);
           Sk.execStart = Date.now(); Sk.lastYield = Date.now();
-          self.postMessage({ type: 'executing', line });
+          self.postMessage({ type: 'executing', line, filename: currentFile });
           return suspension.resume();
         };
         // The first press executes the first statement. Subsequent breakpoints
         // retain the live interpreter, rather than replaying earlier code.
         if (currentLine === null) return Promise.resolve().then(execute);
-        self.postMessage({ type: 'paused', line: currentLine, nextLine: line,
+        self.postMessage({ type: 'paused', line: currentLine, filename: currentFile, nextLine: line, nextFile: resolveFile(frame.$filename),
           variables: variablesFor({ ...frame.$gbl, ...frame.$loc }) });
         return new Promise((resolve, reject) => {
           advanceStep = () => {
@@ -82,7 +90,7 @@ self.onmessage = async ({ data }) => {
         });
       } },
     );
-    self.postMessage({ type: 'complete', line: currentLine, variables: variablesFor(module.$d) });
+    self.postMessage({ type: 'complete', line: currentLine, filename: currentFile, variables: variablesFor(module.$d) });
   } catch (error) {
     self.postMessage({ type: 'error', message: String(error) });
   }

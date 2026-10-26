@@ -13,3 +13,19 @@ Skulpt implements browser Python, rather than a complete desktop CPython environ
 Use arrow controls, the slide picker or fullscreen for teaching. The picker always displays Select slide after navigation. Overview and Reading view are omitted. The S shortcut opens reveal.js speaker view when browser popups are allowed.
 
 Run `node --test` to check source fidelity and all original examples, real multiple-input execution and error handling. Check desktop and mobile layouts when changing slide content or styles.
+
+
+## External Modules (CSE 2110, lesson 2)
+
+This lesson adapts the teacher's 10-page Procedural Programming Part 2 PDF into 13 web slides. Permission to revise wording applies to this lesson only; the Introduction to Python lesson still preserves its original wording. Changes include clearer parameter/return explanations, a direct-run versus import comparison, separate type-hint and docstring slides, and a short practice prompt. `external-modules-source.json` keeps the extracted source text; each web slide records its sourcePage.
+
+Reusable slide layouts:
+
+- `kind: "text"` displays an explanation without an empty code panel.
+- `layout: "wide"` gives code the full width, with an optional explanation above.
+- `layout: "annotated"` pairs a wide runnable example with three annotation columns (`annotations`, each with `title` and `text`).
+- `files` contains `{name, code}` objects; `entryFile` identifies the program executed by Run or Step. Use `splitFiles: true` for side-by-side editors; otherwise file tabs select the visible editor. Both files remain editable, and Reset restores all files.
+
+Companion Python files are held in memory and imported by the real interpreter. Step follows execution into supplied files, highlights the relevant editor and switches tabs when needed. The paused status identifies the current source file. Files do not persist after reload. Inline code and syntax colours use the shared theme, including multiline docstrings.
+
+Module pages display module topics in one column, followed by lessons, then interactive demonstrations.

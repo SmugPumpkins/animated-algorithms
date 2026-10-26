@@ -1,0 +1,262 @@
+[
+  {
+    "title": "External Modules",
+    "kind": "cover",
+    "intro": "Procedural Programming · Lesson 2",
+    "bullets": [
+      "Separate related code into Python files.",
+      "Import and test reusable functions.",
+      "Document parameters and return values."
+    ],
+    "sourcePage": 1
+  },
+  {
+    "title": "Why split a program into modules?",
+    "kind": "text",
+    "paragraphs": [
+      "As a program grows, one large file becomes harder to read, test and maintain.",
+      "Keep related functions, classes and variables together in separate modules. Let the main program coordinate the overall flow.",
+      "A useful module can be reused in another program without copying all of its supporting code."
+    ],
+    "sourcePage": 2
+  },
+  {
+    "title": "Create a module",
+    "kind": "code",
+    "paragraphs": [
+      "A module is a Python file containing code that another program can use.",
+      "Save this function in math_tools.py. The file name becomes the module name: math_tools.",
+      "Defining a function does not call it. This file produces no printed output yet."
+    ],
+    "inlineCode": [
+      "math_tools.py",
+      "math_tools"
+    ],
+    "files": [
+      {
+        "name": "math_tools.py",
+        "code": "def double_number(number):\n    return number * 2"
+      }
+    ],
+    "entryFile": "math_tools.py",
+    "expectedOutput": "",
+    "sourcePage": 3
+  },
+  {
+    "title": "Import a function",
+    "kind": "code",
+    "paragraphs": [
+      "Use from ... import ... to import a function from another module.",
+      "The function name is added to the current namespace, so you can call double_number(5) directly.",
+      "Keep both Python files in the same folder. Switch file tabs to inspect or edit either file."
+    ],
+    "inlineCode": [
+      "from ... import ...",
+      "double_number(5)"
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "from math_tools import double_number\n\nresult = double_number(5)\nprint(result)"
+      },
+      {
+        "name": "math_tools.py",
+        "code": "def double_number(number):\n    return number * 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "initialOutput": "",
+    "expectedOutput": "10\n",
+    "sourcePage": 4
+  },
+  {
+    "title": "Two files, one program",
+    "kind": "code",
+    "layout": "wide",
+    "paragraphs": [
+      "main.py imports the function; math_tools.py defines it. Step follows execution between the files."
+    ],
+    "inlineCode": [
+      "main.py",
+      "math_tools.py"
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "from math_tools import double_number\n\nresult = double_number(5)\nprint(result)"
+      },
+      {
+        "name": "math_tools.py",
+        "code": "def double_number(number):\n    return number * 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "initialOutput": "",
+    "expectedOutput": "10\n",
+    "sourcePage": 5
+  },
+  {
+    "title": "Test a module directly",
+    "kind": "code",
+    "paragraphs": [
+      "Python sets __name__ to \"__main__\" when a file is executed directly.",
+      "Put test calls inside this guard so you can check a module on its own.",
+      "Run math_tools.py directly: its test prints 10."
+    ],
+    "inlineCode": [
+      "__name__",
+      "\"__main__\"",
+      "math_tools.py",
+      "10"
+    ],
+    "files": [
+      {
+        "name": "math_tools.py",
+        "code": "def double_number(number):\n    return number * 2\n\nif __name__ == \"__main__\":\n    print(double_number(5))"
+      }
+    ],
+    "entryFile": "math_tools.py",
+    "initialOutput": "",
+    "expectedOutput": "10\n",
+    "sourcePage": 6
+  },
+  {
+    "title": "Import without running the tests",
+    "kind": "code",
+    "layout": "wide",
+    "paragraphs": [
+      "On import, __name__ is math_tools. The guarded test is skipped; only main.py prints a result."
+    ],
+    "inlineCode": [
+      "__name__",
+      "math_tools",
+      "main.py"
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "from math_tools import double_number\n\nprint(double_number(7))"
+      },
+      {
+        "name": "math_tools.py",
+        "code": "def double_number(number):\n    return number * 2\n\nif __name__ == \"__main__\":\n    print(double_number(5))"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "initialOutput": "",
+    "expectedOutput": "14\n",
+    "sourcePage": 6
+  },
+  {
+    "title": "One-way: perform an action",
+    "kind": "code",
+    "paragraphs": [
+      "A value is passed into the function through a parameter.",
+      "The function performs an action without explicitly returning a result. Here it prints a greeting.",
+      "This lesson calls that pattern one-way parameter passing. A function without an explicit return value returns None."
+    ],
+    "inlineCode": [
+      "return",
+      "None"
+    ],
+    "code": "def greet(name):\n    print(f\"Hello, {name}!\")\n\ngreet(\"Alex\")",
+    "initialOutput": "",
+    "expectedOutput": "Hello, Alex!\n",
+    "sourcePage": 7
+  },
+  {
+    "title": "Two-way: return a result",
+    "kind": "code",
+    "paragraphs": [
+      "Parameters provide input; return sends a result back to the calling code.",
+      "The caller can store the result and use it elsewhere.",
+      "This lesson calls that pattern two-way parameter passing. Returning a value does not automatically change the caller’s original variable."
+    ],
+    "inlineCode": [
+      "return"
+    ],
+    "code": "def double_number(number):\n    return number * 2\n\nresult = double_number(5)\nprint(result)",
+    "initialOutput": "",
+    "expectedOutput": "10\n",
+    "sourcePage": 8
+  },
+  {
+    "title": "Document the module’s interface",
+    "kind": "text",
+    "paragraphs": [
+      "Another programmer should be able to use a module without reading its entire implementation.",
+      "Document what each function does, what its parameters mean, and what it returns. Explain important assumptions, units or restrictions.",
+      "Use docstrings for descriptions and type hints to show the kinds of values a function expects and returns."
+    ],
+    "sourcePage": 9
+  },
+  {
+    "title": "Type hints describe the interface",
+    "kind": "code",
+    "layout": "annotated",
+    "code": "def calculate_area(length: float, width: float) -> float:\n    return length * width\n\nprint(calculate_area(3.0, 4.0))",
+    "expectedOutput": "12.0\n",
+    "annotations": [
+      {
+        "title": "Parameters",
+        "text": "length: float and width: float describe the expected input types."
+      },
+      {
+        "title": "Return value",
+        "text": "-> float describes the expected result type."
+      },
+      {
+        "title": "A hint, not a check",
+        "text": "Python does not enforce these types automatically at runtime."
+      }
+    ],
+    "inlineCode": [
+      "length: float",
+      "width: float",
+      "-> float"
+    ],
+    "sourcePage": 10
+  },
+  {
+    "title": "Docstrings explain how to use a function",
+    "kind": "code",
+    "layout": "annotated",
+    "code": "def calculate_area(length, width):\n    \"\"\"Calculate the area of a rectangle.\n\n    :param length: The length of the rectangle.\n    :param width: The width of the rectangle.\n    :return: The area of the rectangle.\n    \"\"\"\n    return length * width\n\nprint(calculate_area(3.0, 4.0))",
+    "expectedOutput": "12.0\n",
+    "annotations": [
+      {
+        "title": "Description",
+        "text": "The first line states what the function does."
+      },
+      {
+        "title": "Parameters",
+        "text": ":param entries describe the meaning of each input."
+      },
+      {
+        "title": "Result",
+        "text": ":return: describes the value sent back to the caller."
+      }
+    ],
+    "inlineCode": [
+      ":param",
+      ":return:"
+    ],
+    "sourcePage": 10
+  },
+  {
+    "title": "Try it with your own module",
+    "kind": "closing",
+    "paragraphs": [
+      "Create a geometry_tools.py module containing a documented function.",
+      "Import the function into main.py, pass in values, and use its return value.",
+      "Add a guarded test so the module can be checked directly without printing test output on import."
+    ],
+    "inlineCode": [
+      "geometry_tools.py",
+      "main.py"
+    ],
+    "sourcePage": 10
+  }
+]

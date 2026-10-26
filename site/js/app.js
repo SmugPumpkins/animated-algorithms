@@ -1,4 +1,4 @@
-import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js';
+import { courses, modules, getCourseModules, getCourseForModule } from './catalog.js?v=20261026-modules';
 import { learningFlow } from './learning-flow.js?v=2';
 
 const main = document.querySelector('main');
@@ -87,8 +87,8 @@ async function render() {
     document.title = `${module.code} · Animated Algorithms`;
     main.innerHTML = `${breadcrumb(module)}
       <section class="module-intro"><p class="eyebrow">${module.code} · CTS COMPUTER SCIENCE</p><h1>${module.title}</h1><p>${module.description}</p><div class="tags">${module.topics.map(topic => `<span>${topic}</span>`).join('')}</div></section>
-      ${lessonsSection(module)}
       <section class="course-overview"><h2>Module topics</h2><ul class="course-topics">${(module.curriculumTopics || module.topics).map(topic => `<li>${topic}</li>`).join('')}</ul>${module.curriculumUrl ? `<a class="curriculum-source" href="${module.curriculumUrl}" target="_blank" rel="noopener">View the program of studies ↗</a>` : ''}</section>
+      ${lessonsSection(module)}
       <section class="library"><div class="section-heading"><h2>Interactive demonstrations</h2><span class="count">${count(module.demonstrations.length, 'demonstration')}</span></div>
         ${module.demonstrations.length ? `<div class="demo-grid">${module.demonstrations.map((demo, index) => demonstrationCard(module, demo, index)).join('')}</div>` : `<div class="empty-state"><h3>${module.lessons.length ? 'No standalone demonstrations yet' : 'No demonstrations yet'}</h3><p>${module.lessons.length ? 'The lesson above includes interactive code examples.' : 'Interactive demonstrations will appear here as they are added.'}</p></div>`}
       </section>`;

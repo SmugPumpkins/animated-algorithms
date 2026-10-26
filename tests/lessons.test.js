@@ -1,3 +1,4 @@
+import { escapeHtml, highlightPython, highlightLines } from '../site/js/lessons/terminal.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -24,7 +25,7 @@ test('all 16 original slides retain every source word, code token and output val
   });
 });
 
-function runPython(code, inputs = [], mode = 'run', advance = 'step') {
+function runPython(code, inputs = [], mode = 'run', advance = 'step', project = {}) {
   return new Promise((resolve, reject) => {
     let output = '', promptCount = 0;
     const steps = [];
@@ -50,7 +51,7 @@ function runPython(code, inputs = [], mode = 'run', advance = 'step') {
     };
     const filename = path.join(root, 'site/js/lessons/python-worker.js');
     vm.runInContext(readFileSync(filename, 'utf8'), context, { filename });
-    context.onmessage({ data: { type: 'run', code, mode } });
+    context.onmessage({ data: { type: 'run', code, mode, ...project } });
   });
 }
 
@@ -102,5 +103,46 @@ test('all original examples also finish correctly when stepping', async () => {
   for (const slide of slides.filter(slide => slide.code)) {
     const result = await runPython(slide.code, [], 'step');
     assert.equal(result.output, slide.expectedOutput, slide.title);
+  }
+});
+
+
+const externalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/external-modules/slides.json'), 'utf8'));
+test('external modules lesson examples run and step with their real companion files', async () => {
+  for (const slide of externalSlides.filter(slide => slide.code || slide.files)) {
+    const files = Object.fromEntries((slide.files || []).map(file => [file.name, file.code]));
+    const code = slide.code || files[slide.entryFile];
+    for (const mode of ['run', 'step']) {
+      const result = await runPython(code, [], mode, 'step', { files, ...(slide.entryFile ? { entryFile: slide.entryFile } : {}) });
+      assert.equal(result.output, slide.expectedOutput, `${slide.title}: ${mode}`);
+    }
+  }
+});
+
+test('stepping enters imported functions and skips their guarded tests', async () => {
+  const slide = externalSlides.find(slide => slide.title === 'Import without running the tests');
+  const files = Object.fromEntries(slide.files.map(file => [file.name, file.code]));
+  const result = await runPython(files[slide.entryFile], [], 'step', 'step', { files, entryFile: slide.entryFile });
+  assert.equal(result.output, '14\n');
+  assert.ok(result.steps.some(step => step.filename.endsWith('math_tools.py')), 'Must pause inside the companion file');
+});
+
+
+test('syntax highlighting preserves multiline docstrings and safely escapes code', () => {
+  const code = 'def explain():\n    """Line one.\n    Line two <tag> & text.\n    """\n    return 2';
+  assert.equal(highlightPython(code).replace(/<[^>]+>/g, ''), escapeHtml(code));
+  assert.equal((highlightLines(code).match(/class="code-line/g) || []).length, code.split('\n').length);
+  assert.match(highlightLines(code), /python-string[^>]*>.*&lt;tag&gt;/);
+});
+
+test('registered lesson links and slide counts match the deployed lesson files', async () => {
+  const { modules } = await import('../site/js/catalog.js');
+  for (const module of modules) {
+    assert.equal(new Set(module.lessons.map(lesson => lesson.id)).size, module.lessons.length);
+    for (const lesson of module.lessons) {
+      const folder = path.resolve(root, 'site', lesson.href);
+      assert.ok(readFileSync(path.join(folder, 'index.html'), 'utf8').includes(module.code));
+      assert.equal(JSON.parse(readFileSync(path.join(folder, 'slides.json'), 'utf8')).length, lesson.slideCount);
+    }
   }
 });

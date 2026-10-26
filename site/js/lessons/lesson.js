@@ -1,12 +1,12 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
-import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-step';
+import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-modules';
 
 const $ = selector => document.querySelector(selector);
 function inlineCode(text, tokens = []) {
   if (!tokens.length) return escapeHtml(text);
   const pattern = tokens.map(token => token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).sort((a, b) => b.length - a.length).join('|');
-  return String(text).split(new RegExp(`(?<![A-Za-z0-9_])(${pattern})(?![A-Za-z0-9_])`, 'g')).map(part => tokens.includes(part) ? `<code>${escapeHtml(part)}</code>` : escapeHtml(part)).join('');
+  return String(text).split(new RegExp(`(?<![A-Za-z0-9_])(${pattern})(?![A-Za-z0-9_])`, 'g')).map(part => tokens.includes(part) ? `<span class="inline-code">${escapeHtml(part)}</span>` : escapeHtml(part)).join('').replace(/<\/span>(\s*)<span class="inline-code">/g, '$1');
 }
 let deck;
 const controllers = new Map();
@@ -18,7 +18,12 @@ new ResizeObserver(([entry]) => {
 function slideMarkup(slide, index) {
   const title = `<h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>${inlineCode(slide.title, slide.inlineCode)}</h${slide.kind === 'cover' || slide.kind === 'closing' ? '1' : '2'}>`;
   const paragraphs = (slide.paragraphs || []).map(text => `<p>${inlineCode(text, slide.inlineCode)}</p>`).join('');
-  const contents = slide.kind === 'cover'
+  const annotations = (slide.annotations || []).map(note => `<div><h3>${escapeHtml(note.title)}</h3><p>${inlineCode(note.text, slide.inlineCode)}</p></div>`).join('');
+  const contents = slide.kind === 'text'
+    ? `${title}<div class="source-body text-layout">${paragraphs}</div>`
+    : slide.layout === 'wide' || slide.layout === 'annotated'
+      ? `${title}<div class="wide-layout">${slide.paragraphs ? `<div class="source-body wide-caption">${paragraphs}</div>` : ''}${playgroundMarkup(slide)}${annotations ? `<div class="code-annotations">${annotations}</div>` : ''}</div>`
+    : slide.kind === 'cover'
     ? `<div class="cover-layout"><div class="cover-title">${title}</div><div class="source-body objectives"><p>${inlineCode(slide.intro, slide.inlineCode)}</p><ul>${slide.bullets.map(text => `<li>${inlineCode(text, slide.inlineCode)}</li>`).join('')}</ul></div></div>`
     : slide.kind === 'closing'
       ? `<div class="closing-layout">${title}<div class="source-body">${paragraphs}</div></div>`
@@ -33,7 +38,7 @@ try {
   $('.slides').innerHTML = slides.map(slideMarkup).join('');
   $('#slide-select').innerHTML = '<option value="" selected disabled>Select slide</option>' + slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}</option>`).join('');
   document.querySelectorAll('.lesson-slide').forEach((section, index) => {
-    if (slides[index].code) controllers.set(section, mountPlayground(section.querySelector('.playground'), slides[index]));
+    if (slides[index].code || slides[index].files) controllers.set(section, mountPlayground(section.querySelector('.playground'), slides[index]));
   });
   deck = new Reveal($('.reveal'), {
     width: 1280, height: 720, margin: 0.035, minScale: 0.2, maxScale: 2,
