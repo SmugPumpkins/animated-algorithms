@@ -72,7 +72,7 @@ try {
   if (!response.ok) throw new Error('Lesson content could not be loaded.');
   const slides = await response.json();
   $('.slides').innerHTML = slides.map(slideMarkup).join('');
-  $('#slide-select').innerHTML = '<option value="" selected disabled>Select slide</option>' + slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}${slide.group ? ` — ${escapeHtml(slide.group)}` : ''}</option>`).join('');
+  $('#slide-select').innerHTML = '<option value="" selected disabled>Select slide</option>' + slides.map((slide, index) => `<option value="${index}">${index + 1}. ${escapeHtml(slide.title)}${slide.group ? ` - ${escapeHtml(slide.group)}` : ''}</option>`).join('');
   document.querySelectorAll('.lesson-slide').forEach((section, index) => {
     const examples = slides[index].examples || (slides[index].code || slides[index].files ? [slides[index]] : []);
     const mounted = [...section.querySelectorAll('.playground')].map((playground, exampleIndex) => mountPlayground(playground, examples[exampleIndex]));
