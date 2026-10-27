@@ -89,7 +89,7 @@ export function playgroundMarkup(slide) {
     <div class="code-pane"><pre class="editor-highlight source-code" aria-hidden="true"><code>${highlightLines(file.code)}</code></pre>
       <textarea class="code-editor" aria-label="${namedFiles ? `Edit ${escapeHtml(file.name)}` : 'Edit Python code'}" data-file="${escapeHtml(file.name)}" spellcheck="false" autocapitalize="off" autocomplete="off">${escapeHtml(file.code)}</textarea>
     </div></div>`).join('');
-  return `<div role="group" aria-label="${escapeHtml(slide.label || 'Python example')}" class="playground ${slide.dataFiles ? 'with-data-files' : ''} ${slide.highlightWhitespace ? 'whitespace-example' : ''} ${slide.compactCode ? 'compact-code' : ''} ${slide.initialOutput !== undefined ? 'has-terminal' : ''}">
+  return `<div role="group" aria-label="${escapeHtml(slide.label || 'Python example')}" class="playground ${slide.compactModule ? 'compact-module' : ''} ${slide.dataFiles ? 'with-data-files' : ''} ${slide.highlightWhitespace ? 'whitespace-example' : ''} ${slide.compactCode ? 'compact-code' : ''} ${slide.initialOutput !== undefined ? 'has-terminal' : ''}">
     <div class="code-toolbar" aria-label="Python example controls"><span class="code-language">Python${files.length > 1 ? ` · ${escapeHtml(entry)}` : ''}</span><div>
       <button type="button" data-action="run" class="run-code">▶ Run</button>
       <button type="button" data-action="step" class="step-code">Step</button>

@@ -1,6 +1,6 @@
 import Reveal from '../../vendor/reveal/reveal.mjs';
 import Notes from '../../vendor/reveal/notes.mjs';
-import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261026-finish-step';
+import { escapeHtml, playgroundMarkup, mountPlayground } from './terminal.js?v=20261027-geometry';
 import { loadAssignment, assignmentMarkup } from './assignments.js?v=20261026-wrapups';
 import { flowchartMarkup, mountFlowchart } from './flowchart.js?v=20261026-temperature';
 
@@ -69,7 +69,7 @@ function slideMarkup(slide, index) {
     : slide.kind === 'closing'
       ? `<div class="closing-layout">${title}<div class="source-body">${paragraphs}</div></div>`
       : `${title}<div class="slide-columns"><div class="source-body">${paragraphs}${stages}${indexGrid}${truthTables}</div>${playgroundMarkup(slide)}</div>`;
-  return `<section class="lesson-slide ${slide.kind}-slide ${slide.layout ? `layout-${escapeHtml(slide.layout)}` : ''} ${slide.denseText ? 'dense-text' : ''}" id="slide-${index + 1}" data-source-page="${slide.sourcePage}" aria-label="Slide ${index + 1}: ${escapeHtml(slide.title)}"><div class="slide-content">${contents}</div></section>`;
+  return `<section class="lesson-slide ${slide.kind}-slide ${slide.compactModule ? 'module-example' : ''} ${slide.layout ? `layout-${escapeHtml(slide.layout)}` : ''} ${slide.denseText ? 'dense-text' : ''}" id="slide-${index + 1}" data-source-page="${slide.sourcePage}" aria-label="Slide ${index + 1}: ${escapeHtml(slide.title)}"><div class="slide-content">${contents}</div></section>`;
 }
 
 try {

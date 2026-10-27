@@ -2,280 +2,494 @@
   {
     "title": "External Modules",
     "kind": "cover",
-    "intro": "Procedural Programming · Lesson 2",
+    "sourcePage": null,
+    "intro": "Procedural Programming: Reusable Python Files",
     "bullets": [
-      "Separate related code into Python files.",
-      "Import and test reusable functions.",
-      "Document parameters and return values."
-    ],
-    "sourcePage": 1
+      "Organize reusable helper functions in modules.",
+      "Use module namespaces and import styles.",
+      "Keep module tests from running during an import."
+    ]
   },
   {
-    "title": "Why split a program into modules?",
+    "title": "External Modules and File Names",
     "kind": "text",
+    "sourcePage": null,
     "paragraphs": [
-      "As a program grows, one large file becomes harder to read, test and maintain.",
-      "Keep related functions, classes and variables together in separate modules. Let the main program coordinate the overall flow.",
-      "A useful module can be reused in another program without copying all of its supporting code."
-    ],
-    "sourcePage": 2
-  },
-  {
-    "title": "Create a module",
-    "kind": "code",
-    "paragraphs": [
-      "A module is a Python file containing code that another program can use.",
-      "Save this function in math_tools.py. The file name becomes the module name: math_tools.",
-      "Defining a function does not call it. This file produces no printed output yet."
-    ],
-    "inlineCode": [
-      "math_tools.py",
-      "math_tools"
-    ],
-    "files": [
-      {
-        "name": "math_tools.py",
-        "code": "def double_number(number):\n    return number * 2"
-      }
-    ],
-    "entryFile": "math_tools.py",
-    "expectedOutput": "",
-    "sourcePage": 3
-  },
-  {
-    "title": "Import a function",
-    "kind": "code",
-    "paragraphs": [
-      "Use from ... import ... to import a function from another module.",
-      "The function name is added to the current namespace, so you can call double_number(5) directly.",
-      "Keep both Python files in the same folder. Switch file tabs to inspect or edit either file."
-    ],
-    "inlineCode": [
-      "from ... import ...",
-      "double_number(5)"
-    ],
-    "files": [
-      {
-        "name": "main.py",
-        "code": "from math_tools import double_number\n\nresult = double_number(5)\nprint(result)"
-      },
-      {
-        "name": "math_tools.py",
-        "code": "def double_number(number):\n    return number * 2"
-      }
-    ],
-    "entryFile": "main.py",
-    "initialOutput": "",
-    "expectedOutput": "10\n",
-    "sourcePage": 4
-  },
-  {
-    "title": "Two files, one program",
-    "kind": "code",
-    "layout": "wide",
-    "paragraphs": [
-      "main.py imports the function; math_tools.py defines it. Step follows execution between the files."
+      "A module is a Python file whose code can be reused by another file.",
+      "Keep related helper functions together. Several programs can import the module and reuse those functions.",
+      "main.py is a common name for the file that starts a program. Use short lowercase module names. Separate words with underscores, as in circle_tools.py.",
+      "Choose names that do not clash with existing modules. A local math.py can hide the standard-library math module. The original file is not overwritten.",
+      "time.py is also a name to avoid. Some modules, including CPython's built-in time, take priority over local files."
     ],
     "inlineCode": [
       "main.py",
-      "math_tools.py"
+      "circle_tools.py",
+      "math.py",
+      "math",
+      "time.py",
+      "time"
+    ],
+    "denseText": true
+  },
+  {
+    "title": "Reusable Helpers in geometry.py",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "Helper functions perform tasks that can be reused. Put related helpers in one module.",
+      "These functions return circle measurements using a radius. The calling program decides what to do with the results.",
+      "diameter returns twice the radius. circumference returns the distance around the circle. area returns the space inside the circle."
     ],
     "files": [
       {
-        "name": "main.py",
-        "code": "from math_tools import double_number\n\nresult = double_number(5)\nprint(result)"
-      },
-      {
-        "name": "math_tools.py",
-        "code": "def double_number(number):\n    return number * 2"
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
       }
     ],
-    "entryFile": "main.py",
-    "splitFiles": true,
+    "entryFile": "geometry.py",
+    "layout": "long-explanation",
     "initialOutput": "",
-    "expectedOutput": "10\n",
-    "sourcePage": 5
-  },
-  {
-    "title": "Test a module directly",
-    "kind": "code",
-    "paragraphs": [
-      "Python sets __name__ to \"__main__\" when a file is executed directly.",
-      "Put test calls inside this guard so you can check a module on its own.",
-      "Run math_tools.py directly: its test prints 10."
-    ],
+    "expectedOutput": "",
+    "compactModule": true,
+    "denseText": true,
     "inlineCode": [
-      "__name__",
-      "\"__main__\"",
-      "math_tools.py",
-      "10"
-    ],
-    "files": [
-      {
-        "name": "math_tools.py",
-        "code": "def double_number(number):\n    return number * 2\n\nif __name__ == \"__main__\":\n    print(double_number(5))"
-      }
-    ],
-    "entryFile": "math_tools.py",
-    "initialOutput": "",
-    "expectedOutput": "10\n",
-    "sourcePage": 6
+      "geometry.py",
+      "diameter",
+      "circumference",
+      "area"
+    ]
   },
   {
-    "title": "Import without running the tests",
-    "kind": "code",
-    "layout": "wide",
-    "paragraphs": [
-      "On import, __name__ is math_tools. The guarded test is skipped; only main.py prints a result."
-    ],
-    "inlineCode": [
-      "__name__",
-      "math_tools",
-      "main.py"
-    ],
-    "files": [
-      {
-        "name": "main.py",
-        "code": "from math_tools import double_number\n\nprint(double_number(7))"
-      },
-      {
-        "name": "math_tools.py",
-        "code": "def double_number(number):\n    return number * 2\n\nif __name__ == \"__main__\":\n    print(double_number(5))"
-      }
-    ],
-    "entryFile": "main.py",
-    "splitFiles": true,
-    "initialOutput": "",
-    "expectedOutput": "14\n",
-    "sourcePage": 6
-  },
-  {
-    "title": "One-way: perform an action",
-    "kind": "code",
-    "paragraphs": [
-      "A value is passed into the function through a parameter.",
-      "The function performs an action without explicitly returning a result. Here it prints a greeting.",
-      "This lesson calls that pattern one-way parameter passing. A function without an explicit return value returns None."
-    ],
-    "inlineCode": [
-      "return",
-      "None"
-    ],
-    "code": "def greet(name):\n    print(f\"Hello, {name}!\")\n\ngreet(\"Alex\")",
-    "initialOutput": "",
-    "expectedOutput": "Hello, Alex!\n",
-    "sourcePage": 7
-  },
-  {
-    "title": "Two-way: return a result",
-    "kind": "code",
-    "paragraphs": [
-      "Parameters provide input; return sends a result back to the calling code.",
-      "The caller can store the result and use it elsewhere.",
-      "This lesson calls that pattern two-way parameter passing. Returning a value does not automatically change the caller’s original variable."
-    ],
-    "inlineCode": [
-      "return"
-    ],
-    "code": "def double_number(number):\n    return number * 2\n\nresult = double_number(5)\nprint(result)",
-    "initialOutput": "",
-    "expectedOutput": "10\n",
-    "sourcePage": 8
-  },
-  {
-    "title": "Document the module’s interface",
+    "title": "What Is a Namespace?",
     "kind": "text",
+    "sourcePage": null,
     "paragraphs": [
-      "Another programmer should be able to use a module without reading its entire implementation.",
-      "Document what each function does, what its parameters mean, and what it returns. Explain important assumptions, units or restrictions.",
-      "Use docstrings for descriptions and type hints to show the kinds of values a function expects and returns."
-    ],
-    "sourcePage": 9
-  },
-  {
-    "title": "Type hints describe the interface",
-    "kind": "code",
-    "layout": "annotated",
-    "code": "def calculate_area(length: float, width: float) -> float:\n    return length * width\n\nprint(calculate_area(3.0, 4.0))",
-    "expectedOutput": "12.0\n",
-    "annotations": [
-      {
-        "title": "Parameters",
-        "text": "length: float and width: float describe the expected input types."
-      },
-      {
-        "title": "Return value",
-        "text": "-> float describes the expected result type."
-      },
-      {
-        "title": "A hint, not a check",
-        "text": "Python does not enforce these types automatically at runtime."
-      }
+      "A namespace matches names to Python objects, such as functions and values.",
+      "Each module has its own namespace. Importing geometry.py normally gives you the module name geometry. The .py extension is left out.",
+      "geometry.area refers to the name area inside the geometry module.",
+      "main.py also has its own namespace. It holds the names defined or imported there.",
+      "Names such as math and time are already used by standard-library modules. Reusing an imported module name for another value hides access to that module under that name."
     ],
     "inlineCode": [
-      "length: float",
-      "width: float",
-      "-> float"
+      "geometry.py",
+      "geometry.area",
+      "geometry",
+      "area",
+      "main.py",
+      ".py",
+      "math",
+      "time"
     ],
-    "sourcePage": 10
+    "denseText": true
   },
   {
-    "title": "Docstrings explain how to use a function",
+    "title": "Importing a Module",
     "kind": "code",
-    "layout": "annotated",
-    "code": "def calculate_area(length, width):\n    \"\"\"Calculate the area of a rectangle.\n\n    :param length: The length of the rectangle.\n    :param width: The width of the rectangle.\n    :return: The area of the rectangle.\n    \"\"\"\n    return length * width\n\nprint(calculate_area(3.0, 4.0))",
-    "expectedOutput": "12.0\n",
-    "annotations": [
+    "sourcePage": null,
+    "paragraphs": [
+      "Use import geometry to make the module available in main.py.",
+      "Call a helper with the module name, a dot and the function name. For example, geometry.diameter(radius).",
+      "The functions remain inside the geometry namespace. Keep both files in the same folder."
+    ],
+    "files": [
       {
-        "title": "Description",
-        "text": "The first line states what the function does."
+        "name": "main.py",
+        "code": "import geometry\nradius = 3\nprint(geometry.diameter(radius))\nprint(round(geometry.circumference(radius), 2))\nprint(round(geometry.area(radius), 2))"
       },
       {
-        "title": "Parameters",
-        "text": ":param entries describe the meaning of each input."
-      },
-      {
-        "title": "Result",
-        "text": ":return: describes the value sent back to the caller."
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
       }
     ],
+    "entryFile": "main.py",
+    "splitFiles": false,
+    "layout": "code-emphasis",
+    "initialOutput": "",
+    "expectedOutput": "6\n18.85\n28.27\n",
+    "compactModule": true,
+    "denseText": true,
     "inlineCode": [
-      ":param",
-      ":return:"
+      "import geometry",
+      "main.py",
+      "geometry.diameter(radius)",
+      "geometry"
+    ]
+  },
+  {
+    "title": "main.py and geometry.py",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "main.py calls the helpers defined in geometry.py. Step follows execution between files."
     ],
-    "sourcePage": 10
+    "files": [
+      {
+        "name": "main.py",
+        "code": "import geometry\nradius = 3\nprint(geometry.diameter(radius))\nprint(round(geometry.circumference(radius), 2))\nprint(round(geometry.area(radius), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "layout": "wide",
+    "initialOutput": "",
+    "expectedOutput": "6\n18.85\n28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "main.py",
+      "geometry.py",
+      "geometry"
+    ]
+  },
+  {
+    "title": "Giving a Module an Alias",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "An alias is another name used to refer to a module. import geometry as g binds the module to g in this file.",
+      "The functions stay inside the module namespace. Call a function with the shorter prefix, such as g.area(radius).",
+      "Choose an alias that is not already in use."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "import geometry as g\nradius = 3\nprint(g.diameter(radius))\nprint(round(g.circumference(radius), 2))\nprint(round(g.area(radius), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": false,
+    "layout": "code-emphasis",
+    "initialOutput": "",
+    "expectedOutput": "6\n18.85\n28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "import geometry as g",
+      "g.area(radius)",
+      "g"
+    ]
+  },
+  {
+    "title": "Using g with Both Files",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "g refers to geometry in main.py. The helpers in geometry.py stay the same."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "import geometry as g\nradius = 3\nprint(g.diameter(radius))\nprint(round(g.circumference(radius), 2))\nprint(round(g.area(radius), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "layout": "wide",
+    "initialOutput": "",
+    "expectedOutput": "6\n18.85\n28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "g",
+      "geometry",
+      "main.py",
+      "geometry.py"
+    ]
+  },
+  {
+    "title": "Importing One Function",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "from geometry import area imports one function name.",
+      "The name area is now in the namespace of main.py. Call it directly with area(3).",
+      "This statement does not add the name geometry to main.py. An existing local name area would be replaced."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "from geometry import area\nprint(round(area(3), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": false,
+    "layout": "code-emphasis",
+    "initialOutput": "",
+    "expectedOutput": "28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "from geometry import area",
+      "area(3)",
+      "main.py",
+      "geometry",
+      "area"
+    ]
+  },
+  {
+    "title": "One Imported Function, Two Files",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "Only area is imported into main.py. All three helpers stay defined in geometry.py."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "from geometry import area\nprint(round(area(3), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "layout": "wide",
+    "initialOutput": "",
+    "expectedOutput": "28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "area",
+      "main.py",
+      "geometry.py"
+    ]
+  },
+  {
+    "title": "Importing Public Names with *",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "from geometry import * imports the module's public names into the current namespace. Here, that includes the three functions and pi.",
+      "The name area already exists in main.py. The import replaces that binding with the function from geometry.",
+      "This can hide names you already use. Prefer a module prefix or a specific import. Names beginning with an underscore are normally excluded."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "area = \"Original main value\"\nfrom geometry import *\nprint(round(area(3), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": false,
+    "layout": "code-emphasis",
+    "initialOutput": "",
+    "expectedOutput": "28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "from geometry import *",
+      "pi",
+      "area",
+      "main.py",
+      "geometry"
+    ]
+  },
+  {
+    "title": "A Wildcard Import Across Two Files",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "The wildcard import replaces the original area name in main.py."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "area = \"Original main value\"\nfrom geometry import *\nprint(round(area(3), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "layout": "wide",
+    "initialOutput": "",
+    "expectedOutput": "28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "area",
+      "main.py"
+    ]
+  },
+  {
+    "title": "Testing geometry.py Directly",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "You can add a short test call to check a helper function.",
+      "Run geometry.py directly. The test calls diameter(2) and prints the returned value.",
+      "This test is outside every function. It is top-level code."
+    ],
+    "files": [
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2\n\nprint(\"Geometry test:\", diameter(2))"
+      }
+    ],
+    "entryFile": "geometry.py",
+    "layout": "long-explanation",
+    "initialOutput": "",
+    "expectedOutput": "Geometry test: 4\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "geometry.py",
+      "diameter(2)"
+    ]
+  },
+  {
+    "title": "Importing Also Runs Top-Level Code",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "Importing geometry runs its top-level test before main.py prints its results."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "import geometry\nradius = 3\nprint(geometry.diameter(radius))\nprint(round(geometry.circumference(radius), 2))\nprint(round(geometry.area(radius), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2\n\nprint(\"Geometry test:\", diameter(2))"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "layout": "wide",
+    "initialOutput": "",
+    "expectedOutput": "Geometry test: 4\n6\n18.85\n28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "geometry",
+      "main.py"
+    ]
+  },
+  {
+    "title": "Keeping Tests Out of an Import",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "if __name__ == \"__main__\": asks: Was this file started directly?",
+      "Running geometry.py directly runs the test. Importing geometry makes this condition False.",
+      "Only the indented test code is skipped during import. The helper functions are still available.",
+      "You do not need to understand every special Python name with double underscores yet. Remember that this line keeps the test block from running during import."
+    ],
+    "files": [
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2\n\nif __name__ == \"__main__\":\n    print(\"Geometry test:\", diameter(2))"
+      }
+    ],
+    "entryFile": "geometry.py",
+    "layout": "long-explanation",
+    "initialOutput": "",
+    "expectedOutput": "Geometry test: 4\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "if __name__ == \"__main__\":",
+      "geometry.py",
+      "geometry",
+      "False"
+    ]
+  },
+  {
+    "title": "Importing Without Running the Test",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "geometry.py skips its guarded test during import. main.py can still call the helpers."
+    ],
+    "files": [
+      {
+        "name": "main.py",
+        "code": "import geometry\nradius = 3\nprint(geometry.diameter(radius))\nprint(round(geometry.circumference(radius), 2))\nprint(round(geometry.area(radius), 2))"
+      },
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2\n\nif __name__ == \"__main__\":\n    print(\"Geometry test:\", diameter(2))"
+      }
+    ],
+    "entryFile": "main.py",
+    "splitFiles": true,
+    "layout": "wide",
+    "initialOutput": "",
+    "expectedOutput": "6\n18.85\n28.27\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "geometry.py",
+      "geometry",
+      "main.py"
+    ]
+  },
+  {
+    "title": "Organizing Tests in main()",
+    "kind": "code",
+    "sourcePage": null,
+    "paragraphs": [
+      "main() groups the module's test instructions in one function.",
+      "The guard calls main() only when geometry.py is run directly.",
+      "This structure is not required for this course.",
+      "Using it consistently shows a high level of professionalism. It keeps reusable helpers and test code organized."
+    ],
+    "files": [
+      {
+        "name": "geometry.py",
+        "code": "from math import pi\n\ndef diameter(radius):\n    return radius * 2\n\ndef circumference(radius):\n    return 2 * pi * radius\n\ndef area(radius):\n    return pi * radius ** 2\n\ndef main():\n    print(\"Geometry test:\", diameter(2))\n\nif __name__ == \"__main__\":\n    main()"
+      }
+    ],
+    "entryFile": "geometry.py",
+    "layout": "long-explanation",
+    "initialOutput": "",
+    "expectedOutput": "Geometry test: 4\n",
+    "compactModule": true,
+    "denseText": true,
+    "inlineCode": [
+      "main()",
+      "geometry.py"
+    ]
   },
   {
     "title": "Wrap Up",
     "kind": "wrapup",
+    "sourcePage": null,
     "bullets": [
-      "Organize reusable functions in separate Python modules.",
-      "Import a module or specific functions to use them in another program.",
-      "Use parameters and return values to pass information between functions.",
-      "Guard direct-run tests with __name__ and document interfaces with type hints and docstrings."
+      "Group reusable helper functions in clearly named modules. Avoid names that clash with existing modules.",
+      "Use a module prefix or an alias to keep helper functions in their module namespace.",
+      "A specific import adds that name to the current namespace. A wildcard import can hide existing names.",
+      "Use if __name__ == \"__main__\": to keep guarded test code from running during import.",
+      "A main() function provides an organized place for direct-run tests."
     ],
     "inlineCode": [
-      "int",
-      "float",
-      "str",
-      "bool",
-      "print()",
-      "input()",
-      "int()",
-      "float()",
-      "copy()",
-      "len()",
-      "dataclass",
-      "@dataclass",
-      "__name__",
-      "enumerate()",
-      "zip()",
-      "with open()",
-      "read()",
-      "readlines()",
-      "\\n",
-      "\\\""
-    ],
-    "sourcePage": 10
+      "if __name__ == \"__main__\":",
+      "main()"
+    ]
   }
 ]

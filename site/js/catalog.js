@@ -90,8 +90,8 @@ export const modules = [
       slideCount: 16, href: './lessons/cse2110/focus-on-functions/',
     }, {
       id: 'external-modules', number: 2, title: 'External Modules',
-      description: 'Importing Python modules, testing reusable functions and documenting their interfaces.',
-      slideCount: 13, href: './lessons/cse2110/external-modules/',
+      description: 'Geometry helpers, module namespaces, import styles and guarded module tests.',
+      slideCount: 18, href: './lessons/cse2110/external-modules/',
     }]),
   moduleEntry('CSE 2120', 'Data Structures 1',
     'Organize related data using arrays and records.',

@@ -112,7 +112,7 @@ test('all original examples also finish correctly when stepping', async () => {
 });
 
 
-const externalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/external-modules/slides.json'), 'utf8')).filter(slide => slide.sourcePage !== null);
+const externalSlides = JSON.parse(readFileSync(path.join(root, 'site/lessons/cse2110/external-modules/slides.json'), 'utf8'));
 test('external modules lesson examples run and step with their real companion files', async () => {
   for (const slide of externalSlides.filter(slide => slide.code || slide.files)) {
     const files = Object.fromEntries((slide.files || []).map(file => [file.name, file.code]));
@@ -125,11 +125,11 @@ test('external modules lesson examples run and step with their real companion fi
 });
 
 test('stepping enters imported functions and skips their guarded tests', async () => {
-  const slide = externalSlides.find(slide => slide.title === 'Import without running the tests');
+  const slide = externalSlides.find(slide => slide.title === 'Importing Without Running the Test');
   const files = Object.fromEntries(slide.files.map(file => [file.name, file.code]));
   const result = await runPython(files[slide.entryFile], [], 'step', 'step', { files, entryFile: slide.entryFile });
-  assert.equal(result.output, '14\n');
-  assert.ok(result.steps.some(step => step.filename.endsWith('math_tools.py')), 'Must pause inside the companion file');
+  assert.equal(result.output, '6\n18.85\n28.27\n');
+  assert.ok(result.steps.some(step => step.filename.endsWith('geometry.py')), 'Must pause inside the companion file');
 });
 
 
@@ -936,5 +936,52 @@ test('while break exits immediately and continue still advances toward the stopp
     assert.equal(skipped.output,'1\n2\n4\n5\nLoop complete.\n');
     assert.equal(skipped.variables.find(item=>item.name==='number').value,'5');
     assert.equal((await runPython(advancedWhileSlides[7].code.replace('number == 3','number == 1'),[],mode)).output,'2\n3\n4\n5\nLoop complete.\n');
+  }
+});
+
+test('revised External Modules follows the requested geometry progression', () => {
+  assert.equal(externalSlides.length,18);
+  assert.deepEqual(externalSlides.filter(slide=>slide.splitFiles).map(slide=>slide.title),['main.py and geometry.py','Using g with Both Files','One Imported Function, Two Files','A Wildcard Import Across Two Files','Importing Also Runs Top-Level Code','Importing Without Running the Test']);
+  for(const slide of externalSlides.filter(slide=>slide.files)) {
+    const geometry = slide.files.find(file=>file.name==='geometry.py').code;
+    for(const name of ['diameter','circumference','area']) assert.match(geometry,new RegExp(`def ${name}\\(radius\\):`));
+  }
+});
+test('geometry helpers return correct circle values for several radii', async () => {
+  const geometry = externalSlides[2].files[0].code;
+  for(const radius of [0,1,2.5]) {
+    const result = await runPython(`import geometry\nprint(geometry.diameter(${radius}))\nprint(geometry.circumference(${radius}))\nprint(geometry.area(${radius}))`,[],'run','step',{files:{'geometry.py':geometry}});
+    const values = result.output.trim().split('\n').map(Number);
+    const expected = [radius*2,2*Math.PI*radius,Math.PI*radius**2];
+    values.forEach((value,index)=>assert.ok(Math.abs(value-expected[index])<1e-10));
+  }
+});
+test('module prefixes and aliases preserve local names while direct imports can replace them', async () => {
+  const geometry = externalSlides[2].files[0].code;
+  const prelude = 'def area(radius):\n    return -1\n';
+  for(const [statement,call,local] of [['import geometry','geometry.area(3)',-1],['import geometry as g','g.area(3)',-1],['from geometry import area','area(3)',28.27],['from geometry import *','area(3)',28.27]]) {
+    const code = prelude+statement+`\nprint(round(${call}, 2))\nprint(round(area(3), 2))`;
+    for(const mode of ['run','step']) assert.equal((await runPython(code,[],mode,'step',{files:{'geometry.py':geometry}})).output,`28.27\n${local}\n`);
+  }
+  assert.equal((await runPython('from geometry import *\nprint(round(pi, 2))',[],'run','step',{files:{'geometry.py':geometry}})).output,'3.14\n');
+});
+test('module tests execute on direct runs and guards suppress them during import', async () => {
+  const direct = externalSlides[12];
+  const plain = direct.files[0].code;
+  const guarded = externalSlides[14].files[0].code;
+  for(const mode of ['run','step']) {
+    assert.equal((await runPython(plain,[],mode,'step',{entryFile:'geometry.py',files:{'geometry.py':plain}})).output,'Geometry test: 4\n');
+    assert.equal((await runPython('import geometry\nprint("Main program")',[],mode,'step',{files:{'geometry.py':plain}})).output,'Geometry test: 4\nMain program\n');
+    assert.equal((await runPython(guarded,[],mode,'step',{entryFile:'geometry.py',files:{'geometry.py':guarded}})).output,'Geometry test: 4\n');
+    assert.equal((await runPython('import geometry\nprint("Main program")',[],mode,'step',{files:{'geometry.py':guarded}})).output,'Main program\n');
+    const fancy = externalSlides[16].files[0].code;
+    assert.equal((await runPython(fancy,[],mode,'step',{entryFile:'geometry.py',files:{'geometry.py':fancy}})).output,'Geometry test: 4\n');
+    assert.equal((await runPython('import geometry\nprint(geometry.diameter(3))',[],mode,'step',{files:{'geometry.py':fancy}})).output,'6\n');
+  }
+});
+test('editing a companion geometry function changes results for each import style', async () => {
+  const geometry = externalSlides[2].files[0].code.replace('radius * 2','radius * 3');
+  for(const [statement,call] of [['import geometry','geometry.diameter(3)'],['import geometry as g','g.diameter(3)'],['from geometry import diameter','diameter(3)'],['from geometry import *','diameter(3)']]) {
+    assert.equal((await runPython(statement+'\nprint('+call+')',[],'step','step',{files:{'geometry.py':geometry}})).output,'9\n');
   }
 });
