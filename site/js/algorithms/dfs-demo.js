@@ -44,28 +44,26 @@ function mazeMarkup() {
 export function mount(root) {
   const steps=buildSteps(), player=new Player(steps.length);
   let frame, disposed=false;
-  root.innerHTML = `<section class="demo-heading"><div><p class="eyebrow">CSE 3310 / RECURSIVE ALGORITHMS 1</p><h1>Depth-first search<span class="heading-dot">.</span></h1><p>One path at a time. Explore the maze, follow the calls, and watch the algorithm backtrack.</p></div><button type="button" id="fullscreen" class="button secondary">⛶ Present fullscreen</button></section>
+  root.innerHTML = `<section class="demo-heading"><div><h1>Depth-first search<span class="heading-dot">.</span></h1><p>One path at a time. Explore the maze, follow the calls, and watch the algorithm backtrack.</p></div></section>
+  <details class="teaching-notes"><summary>Algorithm Details</summary><div><p><strong>Base cases:</strong> Positions outside the maze, walls, and previously visited cells return False. Reaching the exit returns True.</p><p><strong>Recursive case:</strong> Mark the cell visited, then try up, down, right, and left. Each call runs the same flowchart from the top.</p><p><strong>Backtracking:</strong> If every direction fails, return False. If a direction succeeds, pass True to the caller, revealing the solution as the call stack unwinds.</p><p><strong>Discuss:</strong> Why check visited cells? What happens if we change the direction order? Does depth-first search always find the shortest path?</p></div></details>
   <section class="workspace" aria-label="Depth-first search demonstration">
-    <div class="workspace-bar"><span><span class="status-dot"></span> RECURSIVE MAZE SOLVER</span><span id="playback-status">Paused · 1 step/s</span></div>
-    <div class="visual-grid">
+    <button type="button" id="fullscreen" class="button secondary fullscreen-toggle" aria-label="Enter fullscreen" title="Enter fullscreen"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="enter-fullscreen" d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6"/><path class="exit-fullscreen" d="M3 9h6V3M21 9h-6V3M9 21v-6H3M15 21v-6h6"/></svg></button>
+    <div class="visual-grid with-call-stack">
       <div class="maze-column">
-        <div class="panel-heading"><h2>The maze</h2><span>up → down → right → left</span></div>
         ${mazeMarkup()}
         <div class="legend"><span><i class="swatch visited"></i>Visited</span><span><i class="swatch failed"></i>Dead end</span><span><i class="swatch solution"></i>Solution</span><span><i class="swatch focus"></i>Checking</span></div>
       </div>
       <div class="flow-column">
-        <div class="panel-heading"><h2>The recursive flow</h2><span>Dashed glow = current instruction</span></div>
         ${flowchart()}${flowLegend(['parameter','decision','process','predefined','return'])}
       </div>
       <aside class="stack-panel" aria-label="Call stack panel">
-        <div class="panel-heading"><h2>Call stack</h2><span id="depth"></span></div>
-        <div id="stack" class="stack" tabindex="0" aria-label="Current recursive calls, newest first"></div>
-        <p class="stack-hint">Newest first<br>solve(row, column)</p>
+        <div class="panel-heading"><h2>Call stack</h2></div>
+        <div id="stack" class="stack" tabindex="0" aria-label="Call stack, newest calls above older calls"></div>
       </aside>
     </div>
-    <div class="explanation"><span class="step-badge" id="step-badge"></span><p id="message" aria-live="polite"></p><span id="return-value"></span></div>
-    <div class="transport"><div class="timeline"><label for="timeline">Search progress</label><input id="timeline" type="range" min="0" max="${steps.length-1}" value="0"><output id="step-count" for="timeline"></output></div><div class="controls"><div class="control-group"><button type="button" id="reset" class="button secondary" title="Restart (R)">↺ <span>Reset</span></button><button type="button" id="previous" class="button secondary" aria-label="Previous step" title="Previous step (Left arrow)">←</button><button type="button" id="play" class="button primary" title="Play or pause (Space)">▶ Play</button><button type="button" id="next" class="button secondary" aria-label="Next step" title="Next step (Right arrow)">→</button></div><div class="control-group"><label class="speed-label" for="speed">Speed</label><select id="speed"><option value="0.25">Slow · 0.25 steps/s</option><option value="1" selected>Normal · 1 step/s</option><option value="10">Fast · 10 steps/s</option></select><button type="button" id="loop" class="button secondary" aria-pressed="false" title="Toggle loop (L)">⟳ Loop</button></div></div><p class="keyboard-hint"><kbd>Space</kbd> play/pause <kbd>←</kbd><kbd>→</kbd> step <kbd>F</kbd> fast <kbd>S</kbd> slow <kbd>N</kbd> normal <kbd>L</kbd> loop <kbd>R</kbd> reset <span>Esc exits fullscreen</span></p></div>
-  </section><details class="teaching-notes"><summary>Teaching notes <span>Base cases, recursive calls & backtracking</span></summary><div><p><strong>Base cases:</strong> Positions outside the maze, walls, and previously visited cells return False. Reaching the exit returns True.</p><p><strong>Recursive case:</strong> Mark the cell visited, then try up, down, right, and left. Each call runs the same flowchart from the top.</p><p><strong>Backtracking:</strong> If every direction fails, return False. If a direction succeeds, pass True to the caller, revealing the solution as the call stack unwinds.</p><p><strong>Discuss:</strong> Why check visited cells? What happens if we change the direction order? Does depth-first search always find the shortest path?</p></div></details>`;
+    <div class="explanation"><p id="message" aria-live="polite"></p></div>
+    <div class="transport"><div class="timeline"><label for="timeline">Search progress</label><input id="timeline" type="range" min="0" max="${steps.length-1}" value="0"><output id="step-count" for="timeline"></output></div><div class="controls"><div class="control-group"><button type="button" id="reset" class="button secondary" title="Restart (R)">↺ <span>Reset</span></button><button type="button" id="previous" class="button secondary" aria-label="Previous step" title="Previous step (Left arrow)">←</button><button type="button" id="play" class="button primary" title="Play or pause (Space)">▶ Play</button><button type="button" id="next" class="button secondary" aria-label="Next step" title="Next step (Right arrow)">→</button></div><div class="control-group"><label class="speed-label" for="speed">Speed</label><select id="speed"><option value="0.25">Slow · 0.25 steps/s</option><option value="1" selected>Normal · 1 step/s</option><option value="10">Fast · 10 steps/s</option></select><button type="button" id="loop" class="button secondary" aria-pressed="false" title="Toggle loop (L)">⟳ Loop</button></div></div><div class="shortcuts"><button type="button" class="shortcuts-trigger" aria-describedby="shortcut-help">Shortcuts</button><div id="shortcut-help" class="shortcuts-tooltip" role="tooltip"><span><kbd>Space</kbd> Play / pause</span><span><kbd>←</kbd> <kbd>→</kbd> Step</span><span><kbd>F</kbd> Fast · <kbd>S</kbd> Slow · <kbd>N</kbd> Normal</span><span><kbd>L</kbd> Loop · <kbd>R</kbd> Reset</span><span><kbd>Esc</kbd> Exit fullscreen</span></div></div></div>
+  </section>`;
   const $=selector=>root.querySelector(selector);
   const cells=[...root.querySelectorAll('[data-cell]')], flowNodes=[...root.querySelectorAll('[data-node]')];
   function render() {
@@ -79,12 +77,8 @@ export function mount(root) {
     $('#candidate').style.display=inBounds?'':'none';
     if(inBounds) { $('#candidate').setAttribute('x',candidate[1]*80+7); $('#candidate').setAttribute('y',candidate[0]*80+7); }
     for(const node of flowNodes) node.classList.toggle('active',node.dataset.node===state.node);
-    $('#depth').textContent=`Depth ${state.stack.length}`;
-    $('#stack').innerHTML=state.stack.length ? [...state.stack].reverse().map((p,i)=>`<span class="stack-frame ${i===0?'top':''}"><small>${state.stack.length-i}</small> solve(${p.join(', ')})</span>`).join('') : '<span class="stack-empty">No active calls</span>';
+    $('#stack').innerHTML=`<div class="stack-frames">${state.stack.length ? [...state.stack].reverse().map((p,i)=>`<span class="stack-frame ${i===0?'top':''}" aria-label="Depth ${state.stack.length-i}: solve(${p.join(', ')})"><small class="call-depth">${state.stack.length-i}</small> solve(${p.join(', ')})</span>`).join('') : '<span class="stack-empty">No active calls</span>'}</div>`;
     $('#message').textContent=state.message;
-    $('#step-badge').textContent=state.node.replaceAll('_',' ');
-    $('#return-value').textContent=state.returning === null ? '' : `RETURN ${state.returning ? 'TRUE' : 'FALSE'}`;
-    $('#return-value').className=state.returning ? 'returns-true' : 'returns-false';
     $('#step-count').textContent=`${player.index+1} / ${steps.length}`;
     $('#timeline').value=player.index;
     $('#play').textContent=player.playing?'Ⅱ Pause':'▶ Play';
@@ -93,7 +87,6 @@ export function mount(root) {
     $('#speed').value=player.speed;
     $('#previous').disabled=player.index===0;
     $('#next').disabled=player.index===steps.length-1;
-    $('#playback-status').textContent=`${player.playing?'Playing':'Paused'} · ${player.speed} step${player.speed===1?'':'s'}/s${player.loop?' · Loop on':''}`;
   }
   function act(action) {
     const now=performance.now();
@@ -108,12 +101,20 @@ export function mount(root) {
   $('#speed').addEventListener('change',event=>{player.setSpeed(Number(event.target.value),performance.now()); render();});
   $('#timeline').addEventListener('input',event=>{player.seek(event.target.value,performance.now()); render();});
   $('#fullscreen').addEventListener('click', async()=>{
-    try { if(document.fullscreenElement) await document.exitFullscreen(); else await root.requestFullscreen(); }
-    catch { $('#fullscreen').textContent='Fullscreen unavailable'; }
+    try { if(document.fullscreenElement) await document.exitFullscreen(); else await $('.workspace').requestFullscreen(); }
+    catch { $('#fullscreen').title='Fullscreen unavailable'; }
   });
-  function fullscreenChanged() { $('#fullscreen').textContent=document.fullscreenElement?'⛶ Exit fullscreen':'⛶ Present fullscreen'; }
+  function fullscreenChanged() {
+    const active=document.fullscreenElement===$('.workspace');
+    $('#fullscreen').classList.toggle('is-fullscreen',active);
+    $('#fullscreen').setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');
+    $('#fullscreen').title=active?'Exit fullscreen':'Enter fullscreen';
+  }
   document.addEventListener('fullscreenchange',fullscreenChanged);
+  $('.shortcuts').addEventListener('pointerenter',()=>$('.shortcuts').classList.remove('dismissed'));
+  $('.shortcuts-trigger').addEventListener('focus',()=>$('.shortcuts').classList.remove('dismissed'));
   function onKey(event) {
+    if(event.key==='Escape') $('.shortcuts').classList.add('dismissed');
     if(event.altKey||event.ctrlKey||event.metaKey||event.repeat||event.target.closest('input,select,textarea,[contenteditable="true"]')) return;
     if(event.target.closest('button,a') && (event.key===' ' || event.key==='Enter')) return;
     const action={' ':'play',l:'loop',r:'reset',ArrowLeft:'previous',ArrowRight:'next'}[event.key.length===1?event.key.toLowerCase():event.key];

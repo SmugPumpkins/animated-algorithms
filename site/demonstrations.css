@@ -1,109 +1,56 @@
-/* Shared presentation contract: visuals flex within the viewport; growing
-   data scrolls inside a panel and must never move the playback controls. */
+/* Minimal simulator chrome; growing data scrolls without moving controls. */
+.workspace { position: relative; }
+.fullscreen-toggle { position: absolute; right: 10px; top: 10px; z-index: 2; width: 36px; height: 36px; padding: 8px; }
+.fullscreen-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.exit-fullscreen, .is-fullscreen .enter-fullscreen { display: none; }
+.is-fullscreen .exit-fullscreen { display: block; }
+.visual-grid { padding-top: 54px; }
 .visual-grid > * { min-width: 0; }
-.stack-panel { margin: 0; }
-.stack-panel .panel-heading { flex-direction: column; align-items: flex-start; gap: 8px; }
-.stack { flex-direction: column; flex-wrap: nowrap; max-height: 240px; }
-.stack-frame { display: block; flex-shrink: 0; font-size: 11px; padding: 9px; }
-.stack-hint { line-height: 1.6; }
-
+.stack-panel { margin: 0; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.stack { display: block; flex: 1; min-height: 0; height: 200px; max-height: 200px; overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; scrollbar-width: thin; scrollbar-color: #795297 #121127; }
+.stack-frames { display: flex; flex-direction: column; gap: 6px; min-height: 100%; }
+.stack-frames::before { content: ''; margin-top: auto; }
+.stack-frame { display: flex; align-items: center; flex-shrink: 0; font-size: 11px; padding: 9px; white-space: nowrap; }
+.stack-frame .call-depth { color: #66eeff; background: #163743; border-radius: 3px; opacity: 1; min-width: 22px; text-align: center; padding: 3px; margin-right: 8px; font-size: 12px; font-weight: bold; }
+.shortcuts { position: relative; width: fit-content; margin-top: 12px; }
+.shortcuts-trigger { color: #bcb0d3; font: inherit; font-family: var(--font-ui); font-size: 13px; background: none; border: 0; padding: 4px 0; cursor: help; text-decoration: underline dotted; text-underline-offset: 4px; }
+.shortcuts-tooltip { position: absolute; bottom: 100%; left: 0; z-index: 5; width: 290px; max-width: calc(100vw - 64px); padding: 14px; background: #1a1530; border: 1px solid #795297; border-radius: 5px; box-shadow: 0 8px 24px #0008; color: #eee7ff; font-size: 13px; line-height: 1.8; visibility: hidden; }
+.shortcuts-tooltip span { display: block; }
+.shortcuts:hover .shortcuts-tooltip, .shortcuts:focus-within .shortcuts-tooltip { visibility: visible; }
+.shortcuts.dismissed .shortcuts-tooltip { visibility: hidden; }
+.teaching-notes { margin: 0 0 24px; }
 @media (min-width: 1060px) {
-  .visual-grid {
-    grid-template-columns: minmax(0, .95fr) minmax(0, 1.25fr) minmax(155px, .4fr);
-    height: clamp(490px, 65vh, 670px);
-    gap: 18px;
-    min-height: 0;
-  }
-  .maze-column, .flow-column {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    min-height: 0;
-  }
+  .visual-grid { grid-template-columns: minmax(0, .95fr) minmax(0, 1.25fr); height: clamp(490px, 65vh, 670px); gap: 18px; min-height: 0; }
+  .visual-grid.with-call-stack { grid-template-columns: minmax(0, .95fr) minmax(0, 1.25fr) minmax(170px, .4fr); }
+  .maze-column, .flow-column { display: grid; grid-template-rows: minmax(0, 1fr) auto; min-height: 0; }
   .flow-column { padding-left: 18px; }
-  .maze, .flowchart {
-    height: 100%;
-    width: 100%;
-    min-height: 0;
-    max-height: 100%;
-    align-self: center;
-  }
+  .maze, .flowchart { height: 100%; width: 100%; min-height: 0; max-height: 100%; align-self: center; }
   .flowchart { overflow: hidden; }
-  .panel-heading { min-height: 33px; margin-bottom: 10px; flex-wrap: wrap; }
+  .panel-heading { min-height: 24px; margin-bottom: 10px; }
   .panel-heading h2 { font-size: 16px; }
-  .panel-heading > span { font-size: 9px; }
   .legend { margin: 12px 0 0; gap: 8px 12px; font-size: 11px; }
   .flow-legend { font-size: 10px; gap: 7px 12px; }
-  .stack-panel {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    padding: 13px;
-    overflow: hidden;
-  }
-  .stack {
-    flex: 1;
-    min-height: 0;
-    max-height: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color: #795297 #121127;
-    padding-right: 5px;
-  }
-  .stack-hint { margin-top: 12px; flex-shrink: 0; }
+  .stack-panel { padding: 13px; }
+  .stack { height: auto; max-height: none; padding-right: 5px; }
   .explanation { height: 78px; min-height: 78px; }
   .explanation p { max-height: 100%; overflow: auto; }
   .transport { min-height: 141px; }
 }
-
-/* Desktop presentation uses every available pixel. SVG viewBoxes preserve
-   aspect ratios; the page does not stretch the diagrams to fill their cells. */
+.workspace:fullscreen { width: 100%; height: 100dvh; margin: 0; border: 0; border-radius: 0; overflow: auto; background: #090917; }
 @media (min-width: 1060px) and (min-height: 600px) {
-  #demonstration:fullscreen {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    gap: 8px;
-    width: 100%;
-    height: 100dvh;
-    padding: 12px;
-    overflow: hidden;
-  }
-  #demonstration:fullscreen .demo-heading {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    min-height: 34px;
-  }
-  #demonstration:fullscreen .demo-heading h1 { font-size: 28px; margin: 0; }
-  #demonstration:fullscreen .demo-heading p { display: none; }
-  #demonstration:fullscreen .workspace {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto auto;
-    width: 100%;
-    max-width: none;
-    min-height: 0;
-    height: 100%;
-    margin: 0;
-  }
-  #demonstration:fullscreen .visual-grid { height: auto; min-height: 0; padding: 12px; }
-  #demonstration:fullscreen .teaching-notes { display: none; }
-  #demonstration:fullscreen .workspace-bar { padding: 8px 16px; }
-  #demonstration:fullscreen .explanation { height: 76px; min-height: 76px; padding: 8px 16px; }
-  #demonstration:fullscreen .transport { min-height: 0; padding: 10px 16px; }
-  #demonstration:fullscreen .keyboard-hint { display: none; }
-  #demonstration:fullscreen .timeline { margin-bottom: 8px; }
-  #demonstration:fullscreen .panel-heading { min-height: 24px; margin-bottom: 8px; }
-  #demonstration:fullscreen .button,
-  #demonstration:fullscreen .controls select { min-height: 34px; padding: 7px 12px; }
+  .workspace:fullscreen { display: grid; grid-template-rows: minmax(0, 1fr) auto auto; overflow: hidden; }
+  .workspace:fullscreen .visual-grid { height: auto; min-height: 0; padding: 48px 16px 12px; }
+  .workspace:fullscreen .explanation { height: 76px; min-height: 76px; padding: 8px 16px; }
+  .workspace:fullscreen .transport { min-height: 0; padding: 10px 16px; }
+  .workspace:fullscreen .timeline { margin-bottom: 8px; }
+  .workspace:fullscreen .button, .workspace:fullscreen .controls select { min-height: 34px; padding: 7px 12px; }
 }
-
 @media (min-width: 761px) and (max-width: 1059px) {
   .visual-grid { grid-template-columns: minmax(0, .95fr) minmax(0, 1.1fr); }
   .stack-panel { grid-column: 1 / -1; }
-  .stack { height: 160px; max-height: 160px; }
+  .stack { flex: auto; height: 160px; max-height: 160px; }
 }
 @media (max-width: 760px) {
-  .stack { height: 200px; max-height: 200px; }
+  .workspace .visual-grid { padding-top: 54px; }
+  .stack { flex: auto; }
 }

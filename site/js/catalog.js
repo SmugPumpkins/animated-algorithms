@@ -158,7 +158,7 @@ export const modules = [
       id: 'depth-first-search', title: 'Depth-first search',
       description: 'Help a mouse find the exit. Follow recursive calls through a maze and see how backtracking builds a path.',
       tags: ['Maze solving', 'Flowchart', 'Call stack'],
-      load: () => import('./algorithms/dfs-demo.js'),
+      load: () => import('./algorithms/dfs-demo.js?v=20261027-demo-cleanup'),
     }],
   },
 ];

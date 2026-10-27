@@ -68,11 +68,13 @@ Maze states and other algorithm-specific visuals may have their own legends (vis
 
 ## Demonstration layout
 
-Desktop fullscreen demonstrations should fit the viewport without page scrolling whenever practical. Use the shared presentation rules in `site/demonstrations.css`: a compact heading above a workspace with fixed playback controls, and a flexible visual area between them. Preserve SVG aspect ratios while fitting diagrams into their available cells. Do not hard-code a canvas taller than its available screen space.
+Desktop fullscreen demonstrations should fit the viewport without page scrolling whenever practical. Use the shared presentation rules in `site/demonstrations.css`: a workspace with fixed playback controls and a flexible visual area above them. Fullscreen shows only the simulator. Preserve SVG aspect ratios while fitting diagrams into their available cells. Do not hard-code a canvas taller than its available screen space.
 
-For depth-first search, use three desktop columns: maze, flowchart, and call stack. The call stack is an independently scrollable vertical list with newest calls first. Keep its outer height stable, use `min-height: 0` on flexible containers, and reserve scrollbar space so adding calls does not resize the panel or move the navigation. Long status messages scroll inside their reserved region instead of increasing the workspace height.
+For depth-first search, use three desktop columns: maze, flowchart, and call stack. A call stack is optional for other demonstrations. When present, anchor calls at the bottom, with older calls below newer calls so the stack grows upward. Show a highlighted depth integer beside each call (the first call is depth 1), rather than a separate depth counter. The stack is independently scrollable. Keep its outer height stable, use `min-height: 0` on flexible containers, and reserve scrollbar space so adding calls does not resize the panel or move the navigation. Long status messages scroll inside their reserved region instead of increasing the workspace height.
 
 Future demonstrations should use the same pattern for growing data (queues, logs, variable tables, and stacks). Give any necessary scrolling to those panels rather than the entire fullscreen page. On narrow screens or very short windows, allow a vertical page layout rather than clipping content or making text unreadably small. Validate desktop fullscreen at 1920×1080 and 1366×768, including the largest data state, and check mobile readability.
+
+Keep simulator chrome minimal. Omit redundant workspace status bars, diagram heading rows, explanatory badges, and stack hints. Show only the current step explanation. Place a collapsible **Algorithm Details** section below the overview and above the simulator. Put an icon-only fullscreen toggle in the simulator corner and switch its icon and accessible label when fullscreen changes. Put keyboard help in a **Shortcuts** tooltip available on hover and keyboard focus, rather than an inline legend.
 
 ## Files
 
