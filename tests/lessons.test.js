@@ -941,6 +941,7 @@ test('while break exits immediately and continue still advances toward the stopp
 
 test('revised External Modules follows the requested geometry progression', () => {
   assert.equal(externalSlides.length,18);
+  assert.deepEqual(externalSlides.slice(4,12).map(slide=>slide.syntax),['import ...','import ...','import ... as ...','import ... as ...','from ... import ...','from ... import ...','from ... import *','from ... import *']);
   assert.deepEqual(externalSlides.filter(slide=>slide.splitFiles).map(slide=>slide.title),['main.py and geometry.py','Using g with Both Files','One Imported Function, Two Files','A Wildcard Import Across Two Files','Importing Also Runs Top-Level Code','Importing Without Running the Test']);
   for(const slide of externalSlides.filter(slide=>slide.files)) {
     const geometry = slide.files.find(file=>file.name==='geometry.py').code;

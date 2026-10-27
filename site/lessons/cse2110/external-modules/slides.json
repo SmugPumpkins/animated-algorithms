@@ -113,7 +113,8 @@
       "main.py",
       "geometry.diameter(radius)",
       "geometry"
-    ]
+    ],
+    "syntax": "import ..."
   },
   {
     "title": "main.py and geometry.py",
@@ -143,7 +144,8 @@
       "main.py",
       "geometry.py",
       "geometry"
-    ]
+    ],
+    "syntax": "import ..."
   },
   {
     "title": "Giving a Module an Alias",
@@ -175,7 +177,8 @@
       "import geometry as g",
       "g.area(radius)",
       "g"
-    ]
+    ],
+    "syntax": "import ... as ..."
   },
   {
     "title": "Using g with Both Files",
@@ -206,7 +209,8 @@
       "geometry",
       "main.py",
       "geometry.py"
-    ]
+    ],
+    "syntax": "import ... as ..."
   },
   {
     "title": "Importing One Function",
@@ -240,7 +244,8 @@
       "main.py",
       "geometry",
       "area"
-    ]
+    ],
+    "syntax": "from ... import ..."
   },
   {
     "title": "One Imported Function, Two Files",
@@ -270,7 +275,8 @@
       "area",
       "main.py",
       "geometry.py"
-    ]
+    ],
+    "syntax": "from ... import ..."
   },
   {
     "title": "Importing Public Names with *",
@@ -293,7 +299,7 @@
     ],
     "entryFile": "main.py",
     "splitFiles": false,
-    "layout": "code-emphasis",
+    "layout": "long-explanation",
     "initialOutput": "",
     "expectedOutput": "28.27\n",
     "compactModule": true,
@@ -304,7 +310,8 @@
       "area",
       "main.py",
       "geometry"
-    ]
+    ],
+    "syntax": "from ... import *"
   },
   {
     "title": "A Wildcard Import Across Two Files",
@@ -333,7 +340,8 @@
     "inlineCode": [
       "area",
       "main.py"
-    ]
+    ],
+    "syntax": "from ... import *"
   },
   {
     "title": "Testing geometry.py Directly",

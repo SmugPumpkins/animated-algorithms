@@ -113,3 +113,6 @@ When the teacher authorizes revising lesson wording, use short sentences with on
 
 
 Code stepping ends with a separate completion step that clears the executing-line highlight. Keep finished output and variables visible. Require Reset before restarting a finished example; Step must never silently return to the first line.
+
+
+When teaching import syntax, show its generic form before the concrete example. Use `import ...`, `import ... as ...`, `from ... import ...` or `from ... import *` as appropriate. Include this on companion side-by-side slides as well.
